@@ -8,7 +8,7 @@ CREATE PROCEDURE `proc_insert_observations`(
     IN field_concept INT, 
     IN field_value_coded INT,
     IN field_value_coded_name_id INT,
-    IN field_other VARCHAR(25),
+    IN field_other VARCHAR(100),
     IN visit_id INT
 )
 BEGIN
@@ -45,6 +45,10 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Allergic to sulphur" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @tb_status = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "TB status" AND voided = 0 AND retired = 0 LIMIT 1);
+                        
     CASE field_concept
     
         WHEN @pregnant THEN
@@ -140,6 +144,30 @@ BEGIN
                 field_value_coded, 
                 field_value_coded_name_id, 
                 NULL,
+                visit_id
+            );        
+    
+        WHEN @tb_status THEN
+        
+            CALL proc_insert_tb_status(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );             
+    
+        ELSE
+        
+            CALL proc_insert_other_field(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                field_other,
                 visit_id
             );       
             

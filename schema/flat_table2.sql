@@ -64,15 +64,15 @@ CREATE TABLE `flat_table2` (
   `side_effects_skin_rash` varchar(255) DEFAULT NULL,
   `side_effects_lipodystrophy` varchar(255) DEFAULT NULL,
   `side_effects_other` varchar(255) DEFAULT NULL,
-  `drug_induced_Abdominal_pains` varchar(255) DEFAULT NULL,
+  `drug_induced_abdominal_pain` varchar(255) DEFAULT NULL,
   `drug_induced_anorexia` varchar(255) DEFAULT NULL,
-  `drug_induced_diarrhoea` varchar(255) DEFAULT NULL,
+  `drug_induced_diarrhea` varchar(255) DEFAULT NULL,
   `drug_induced_jaundice` varchar(255) DEFAULT NULL,
   `drug_induced_leg_pain_numbness` varchar(255) DEFAULT NULL,
   `drug_induced_vomiting` varchar(255) DEFAULT NULL,
   `drug_induced_peripheral_neuropathy` varchar(255) DEFAULT NULL,
   `drug_induced_hepatitis` varchar(255) DEFAULT NULL,
-  `drug_induced_anaemia` varchar(255) DEFAULT NULL,
+  `drug_induced_anemia` varchar(255) DEFAULT NULL,
   `drug_induced_lactic_acidosis` varchar(255) DEFAULT NULL,
   `drug_induced_lipodystrophy` varchar(255) DEFAULT NULL,
   `drug_induced_skin_rash` varchar(255) DEFAULT NULL,
@@ -178,4 +178,4 @@ CREATE TABLE `flat_table2` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-01 14:17:20
+-- Dump completed on 2013-02-01 16:54:00

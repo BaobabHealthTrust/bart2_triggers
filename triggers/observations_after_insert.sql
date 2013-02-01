@@ -13,7 +13,7 @@ BEGIN
         new.concept_id, 
         new.value_coded,
         new.value_coded_name_id,
-        NULL,
+        new.value_text,
         @visit
     );
 
