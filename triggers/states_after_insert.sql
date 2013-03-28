@@ -20,12 +20,13 @@ BEGIN
     IF @visit = 0 THEN
             
         INSERT INTO flat_table2 (patient_id, visit_date, current_hiv_program_state, 
-            current_hiv_program_start_date) 
-        VALUES (@patient_id, new.start_date, @state, new.start_date);
+            current_hiv_program_start_date, current_hiv_program_end_date) 
+        VALUES (@patient_id, new.start_date, @state, new.start_date, new.end_date);
     
     ELSE 
     
-        UPDATE flat_table2 SET current_hiv_program_state = @state, current_hiv_program_start_date = new.start_date
+        UPDATE flat_table2 SET current_hiv_program_state = @state, current_hiv_program_start_date = new.start_date,
+            current_hiv_program_end_date = new.end_date
         WHERE flat_table2.id = @visit;
         
     END IF;   

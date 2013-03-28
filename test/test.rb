@@ -53,11 +53,11 @@ class Con < Test::Unit::TestCase
       assert encounter_id.to_i > 0, "Line 44: Encounter creation failed!"
             
       fields_set1 = [
-        # ["breastfeeding_yes", "No", "Text", "Breastfeeding", "Yes", "Yes"],
-        # ["breastfeeding_no", "No", "Text", "Breastfeeding", "Yes", "Yes"],
-        # ["symptom_present_cough", "No", "Text", "Symptom present", "Cough", "Cough"],
-        # ["transfer_within_responsibility_no", "No", "Text", "Transfer within responsibility", "No", "No"],
-        # ["transfer_within_responsibility_yes", "No", "Text", "Transfer within responsibility", "Yes", "Yes"],
+        ["breastfeeding_yes", "No", "Text", "Breastfeeding", "Yes", "Yes"],
+        ["breastfeeding_no", "No", "Text", "Breastfeeding", "No", "No"],
+        ["symptom_present_cough", "No", "Text", "Symptom present", "Cough", "Cough"],
+        ["transfer_within_responsibility_no", "No", "Text", "Transfer within responsibility", "No", "No"],
+        ["transfer_within_responsibility_yes", "No", "Text", "Transfer within responsibility", "Yes", "Yes"],
         # ["guardian_present_yes", "No", "Text", "Guardian Present", "Yes", "Yes"],
         # ["guardian_present_no", "No", "Text", "Guardian Present", "No", "No"],
         # ["patient_present", "No", "Text", "Patient present", "Yes", "Yes"],
@@ -164,10 +164,6 @@ class Con < Test::Unit::TestCase
           " LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id " +
           " WHERE name = '#{value_coded}' AND voided = 0 AND retired = 0 LIMIT 1"
 
-        # puts "\n\nSELECT concept_name_id, concept.concept_id FROM concept_name " +
-        #  " LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id " +
-        #  " WHERE name = '#{value_coded}' AND voided = 0 AND retired = 0 LIMIT 1\n\n"
-
         assert vs.num_rows > 0, "Line 122: Concept for value_coded #{value_coded} not found!"
 
         result = vs.fetch_row
@@ -175,11 +171,6 @@ class Con < Test::Unit::TestCase
         value_coded_name_id = result[0].to_i
 
         value_coded_id = result[1].to_i
-
-        # puts "INSERT INTO obs (person_id, concept_id, encounter_id, " +
-        #  "obs_datetime, value_coded, value_coded_name_id, creator, date_created, uuid) " +
-        #  "VALUES (#{person_id}, #{concept_id}, #{encounter_id}, '#{date}', #{value_coded_id}, " +
-        #  "#{value_coded_name_id}, #{user_id}, '#{date}', (SELECT UUID()))\n\n"
 
         os = con.query "INSERT INTO obs (person_id, concept_id, encounter_id, " +
           "obs_datetime, value_coded, value_coded_name_id, creator, date_created, uuid) " +

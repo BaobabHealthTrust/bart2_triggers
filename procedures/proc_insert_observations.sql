@@ -79,7 +79,71 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Continue existing regimen" AND voided = 0 AND retired = 0 LIMIT 1);
                          
+    SET @breastfeeding = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Breastfeeding" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
+    SET @transfer_within_responsibility = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Transfer within responsibility" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
+    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Guardian Present" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
+    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Patient present" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
     CASE field_concept
+    
+        WHEN @patient_present THEN
+        
+            CALL proc_insert_patient_present(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @guardian_present THEN
+        
+            CALL proc_insert_guardian_present(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @transfer_within_responsibility THEN
+        
+            CALL proc_insert_transfer_within_responsibility(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @breastfeeding THEN
+        
+            CALL proc_insert_breastfeeding(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
     
         WHEN @continue_existing_regimen THEN
         
@@ -176,18 +240,6 @@ BEGIN
                 NULL,
                 visit_id
             );
-    
-        WHEN @breast_feeding THEN
-        
-            CALL proc_insert_breast_feeding(
-                patient_id, 
-                value_date, 
-                field_concept, 
-                field_value_coded, 
-                field_value_coded_name_id, 
-                NULL,
-                visit_id
-            );       
     
         WHEN @currently_using_family_planning_method THEN
         

@@ -1,8 +1,8 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_insert_breast_feeding`$$
+DROP PROCEDURE IF EXISTS `proc_insert_breastfeeding`$$
 
-CREATE PROCEDURE `proc_insert_breast_feeding`(
+CREATE PROCEDURE `proc_insert_breastfeeding`(
     IN in_patient_id INT, 
     IN in_visit_date DATE, 
     IN in_field_concept INT, 

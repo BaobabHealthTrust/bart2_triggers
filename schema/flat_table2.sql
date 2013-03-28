@@ -115,7 +115,6 @@ CREATE TABLE `flat_table2` (
   `refer_to_sulphur` varchar(255) DEFAULT NULL,
   `regimen_category` varchar(255) DEFAULT NULL,
   `transfer_out_location` varchar(255) DEFAULT NULL,
-  `transfer_within_responsibility` varchar(255) DEFAULT NULL,
   `current_state` varchar(255) DEFAULT NULL,
   `initial_start_date` varchar(255) DEFAULT NULL,
   `condoms` varchar(255) DEFAULT NULL,
@@ -215,12 +214,6 @@ CREATE TABLE `flat_table2` (
   `arv_regimen_type_TDF_3TC_LPV_r` varchar(255) DEFAULT NULL,
   `arv_regimen_type_d4T_3TC_d4T_3TC_NVP` varchar(255) DEFAULT NULL,
   `arv_regimen_type_AZT_3TC_AZT_3TC_NVP` varchar(255) DEFAULT NULL,
-  `voided` varchar(255) DEFAULT NULL,
-  `void_reason` varchar(255) DEFAULT NULL,
-  `date_voided` varchar(255) DEFAULT NULL,
-  `voided_by` varchar(255) DEFAULT NULL,
-  `date_created` varchar(255) DEFAULT NULL,
-  `creator` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
