@@ -11,7 +11,8 @@ CREATE PROCEDURE `proc_insert_other_field`(
     IN in_field_value_text VARCHAR(255),
     IN in_field_value_numeric DOUBLE,
     IN in_field_value_datetime DATETIME,
-    IN in_visit_id INT
+    IN in_visit_id INT,
+    IN encounter_id INT
 )
 BEGIN
 

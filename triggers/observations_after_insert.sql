@@ -16,7 +16,8 @@ BEGIN
         new.value_text,
         new.value_numeric,
         new.value_datetime,
-        @visit
+        @visit,
+        new.encounter_id
     );
 
 END$$

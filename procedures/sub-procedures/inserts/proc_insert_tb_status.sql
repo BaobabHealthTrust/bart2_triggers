@@ -9,7 +9,8 @@ CREATE PROCEDURE `proc_insert_tb_status`(
     IN in_field_value_coded INT,
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
-    IN in_visit_id INT
+    IN in_visit_id INT,
+    IN encounter_id INT
 )
 BEGIN
 

@@ -1,15 +1,16 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_insert_breastfeeding`$$
+DROP PROCEDURE IF EXISTS `proc_insert_ipt_given`$$
 
-CREATE PROCEDURE `proc_insert_breastfeeding`(
+CREATE PROCEDURE `proc_insert_ipt_given`(
     IN in_patient_id INT, 
     IN in_visit_date DATE, 
     IN in_field_concept INT, 
     IN in_field_value_coded INT,
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
-    IN in_visit_id INT
+    IN in_visit_id INT,
+    IN encounter_id INT
 )
 BEGIN
 
@@ -28,11 +29,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, breastfeeding_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, ipt_given_yes) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET breastfeeding_yes = @value, breastfeeding_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET ipt_given_yes = @value, ipt_given_no = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -42,11 +43,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, breastfeeding_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, ipt_given_no) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET breastfeeding_no = @value, breastfeeding_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET ipt_given_no = @value, ipt_given_yes = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     

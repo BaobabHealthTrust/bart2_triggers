@@ -1,15 +1,16 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_insert_guardian_present`$$
+DROP PROCEDURE IF EXISTS `proc_insert_cpt_given`$$
 
-CREATE PROCEDURE `proc_insert_guardian_present`(
+CREATE PROCEDURE `proc_insert_cpt_given`(
     IN in_patient_id INT, 
     IN in_visit_date DATE, 
     IN in_field_concept INT, 
     IN in_field_value_coded INT,
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
-    IN in_visit_id INT
+    IN in_visit_id INT,
+    IN encounter_id INT
 )
 BEGIN
 
@@ -28,11 +29,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, guardian_present_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_yes) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET guardian_present_yes = @value, guardian_present_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET cpt_given_yes = @value, cpt_given_no = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -42,11 +43,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, guardian_present_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_no) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET guardian_present_no = @value, guardian_present_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET cpt_given_no = @value, cpt_given_yes = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     

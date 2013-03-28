@@ -1,15 +1,16 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_insert_pregnant`$$
+DROP PROCEDURE IF EXISTS `proc_insert_currently_using_family_planning_method`$$
 
-CREATE PROCEDURE `proc_insert_pregnant`(
+CREATE PROCEDURE `proc_insert_currently_using_family_planning_method`(
     IN in_patient_id INT, 
     IN in_visit_date DATE, 
     IN in_field_concept INT, 
     IN in_field_value_coded INT,
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
-    IN in_visit_id INT
+    IN in_visit_id INT,
+    IN encounter_id INT
 )
 BEGIN
 
@@ -24,11 +25,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, pregnant_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, currently_using_family_planning_method_yes) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET pregnant_yes = @value, pregnant_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET currently_using_family_planning_method_yes = @value, currently_using_family_planning_method_no = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -38,11 +39,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, pregnant_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, currently_using_family_planning_method_no) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET pregnant_no = @value, pregnant_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET currently_using_family_planning_method_no = @value, currently_using_family_planning_method_yes = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     

@@ -1,8 +1,8 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_insert_observations`$$
+DROP PROCEDURE IF EXISTS `proc_update_observations`$$
 
-CREATE PROCEDURE `proc_insert_observations`(
+CREATE PROCEDURE `proc_update_observations`(
     IN patient_id INT, 
     IN value_date DATE, 
     IN field_concept INT, 
@@ -12,7 +12,7 @@ CREATE PROCEDURE `proc_insert_observations`(
     IN field_value_numeric DOUBLE,
     IN field_value_datetime DATETIME,
     IN visit_id INT,
-    IN encounter_id INT
+    IN voided INT
 )
 BEGIN
 
@@ -100,7 +100,7 @@ BEGIN
     
         WHEN @patient_present THEN
         
-            CALL proc_insert_patient_present(
+            CALL proc_update_patient_present(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -108,12 +108,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @guardian_present THEN
         
-            CALL proc_insert_guardian_present(
+            CALL proc_update_guardian_present(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -121,12 +121,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @transfer_within_responsibility THEN
         
-            CALL proc_insert_transfer_within_responsibility(
+            CALL proc_update_transfer_within_responsibility(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -134,12 +134,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @breastfeeding THEN
         
-            CALL proc_insert_breastfeeding(
+            CALL proc_update_breastfeeding(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -147,12 +147,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @continue_existing_regimen THEN
         
-            CALL proc_insert_continue_existing_regimen(
+            CALL proc_update_continue_existing_regimen(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -160,12 +160,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @prescribe_arvs THEN
         
-            CALL proc_insert_prescribe_arvs(
+            CALL proc_update_prescribe_arvs(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -173,12 +173,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @ipt_given THEN
         
-            CALL proc_insert_ipt_given(
+            CALL proc_update_ipt_given(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -186,12 +186,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @cpt_given THEN
         
-            CALL proc_insert_cpt_given(
+            CALL proc_update_cpt_given(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -199,12 +199,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @arv_regimen_type THEN
         
-            CALL proc_insert_arv_regimen_type(
+            CALL proc_update_arv_regimen_type(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -212,12 +212,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @patient_present THEN
         
-            CALL proc_insert_patient_present(
+            CALL proc_update_patient_present(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -225,12 +225,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @guardian_present THEN
         
-            CALL proc_insert_guardian_present(
+            CALL proc_update_guardian_present(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -238,12 +238,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @pregnant THEN
         
-            CALL proc_insert_pregnant(
+            CALL proc_update_pregnant(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -251,12 +251,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );
     
         WHEN @currently_using_family_planning_method THEN
         
-            CALL proc_insert_currently_using_family_planning_method(
+            CALL proc_update_currently_using_family_planning_method(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -264,12 +264,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );       
     
         WHEN @method_of_family_planning THEN
         
-            CALL proc_insert_method_of_family_planning(
+            CALL proc_update_method_of_family_planning(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -277,12 +277,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );       
     
         WHEN @symptom_present THEN
         
-            CALL proc_insert_symptom_present(
+            CALL proc_update_symptom_present(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -290,12 +290,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );       
     
         WHEN @drug_induced THEN
         
-            CALL proc_insert_drug_induced(
+            CALL proc_update_drug_induced(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -303,12 +303,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );       
     
         WHEN @routine_tb_screening THEN
         
-            CALL proc_insert_routine_tb_screening(
+            CALL proc_update_routine_tb_screening(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -316,12 +316,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );       
     
         WHEN @allergic_to_sulphur THEN
         
-            CALL proc_insert_allergic_to_sulphur(
+            CALL proc_update_allergic_to_sulphur(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -329,12 +329,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );        
     
         WHEN @tb_status THEN
         
-            CALL proc_insert_tb_status(
+            CALL proc_update_tb_status(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -342,12 +342,12 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
-                encounter_id
+                voided
             );             
     
         ELSE
         
-            CALL proc_insert_other_field(
+            CALL proc_update_other_field(
                 patient_id, 
                 value_date, 
                 field_concept, 
@@ -357,7 +357,7 @@ BEGIN
                 field_value_numeric,
                 field_value_datetime,
                 visit_id,
-                encounter_id
+                voided
             );       
             
     END CASE;

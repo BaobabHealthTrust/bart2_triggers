@@ -1,15 +1,16 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_insert_cpt_given`$$
+DROP PROCEDURE IF EXISTS `proc_insert_allergic_to_sulphur`$$
 
-CREATE PROCEDURE `proc_insert_cpt_given`(
+CREATE PROCEDURE `proc_insert_allergic_to_sulphur`(
     IN in_patient_id INT, 
     IN in_visit_date DATE, 
     IN in_field_concept INT, 
     IN in_field_value_coded INT,
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
-    IN in_visit_id INT
+    IN in_visit_id INT,
+    IN in_encounter_id INT
 )
 BEGIN
 
@@ -28,11 +29,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, allergic_to_sulphur_yes, allergic_to_sulphur_yes_enc_id) VALUES (in_patient_id, in_visit_date, @value, in_encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET cpt_given_yes = @value, cpt_given_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET allergic_to_sulphur_yes = @value, allergic_to_sulphur_no = NULL, allergic_to_sulphur_yes_enc_id = in_encounter_id, allergic_to_sulphur_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -42,11 +43,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, allergic_to_sulphur_no, allergic_to_sulphur_no_enc_id) VALUES (in_patient_id, in_visit_date, @value, in_encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET cpt_given_no = @value, cpt_given_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET allergic_to_sulphur_no = @value, allergic_to_sulphur_yes = NULL, allergic_to_sulphur_yes_enc_id = NULL, allergic_to_sulphur_no_enc_id = in_encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     

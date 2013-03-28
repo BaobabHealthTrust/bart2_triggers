@@ -34,7 +34,14 @@ do
 	mysql --user=$USER --password=$PASS $DB < $f
 done
 
-FILES=procedures/sub-procedures/*.sql
+FILES=procedures/sub-procedures/inserts/*.sql
+for f in $FILES
+do
+	echo "Installing $f..."
+	mysql --user=$USER --password=$PASS $DB < $f
+done
+
+FILES=procedures/sub-procedures/updates/*.sql
 for f in $FILES
 do
 	echo "Installing $f..."
