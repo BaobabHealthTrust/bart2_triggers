@@ -8,7 +8,9 @@ CREATE PROCEDURE `proc_insert_observations`(
     IN field_concept INT, 
     IN field_value_coded INT,
     IN field_value_coded_name_id INT,
-    IN field_other VARCHAR(100),
+    IN field_text VARCHAR(255),
+    IN field_value_numeric DOUBLE,
+    IN field_value_datetime DATETIME,
     IN visit_id INT
 )
 BEGIN
@@ -49,7 +51,119 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "TB status" AND voided = 0 AND retired = 0 LIMIT 1);
                         
+    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Guardian Present" AND voided = 0 AND retired = 0 LIMIT 1);
+                        
+    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Patient Present" AND voided = 0 AND retired = 0 LIMIT 1);
+                        
+    SET @arv_regimen_type = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "What type of antiretroviral regimen" AND voided = 0 AND retired = 0 LIMIT 1);
+                       
+    SET @cpt_given = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "CPT given" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
+    SET @ipt_given = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Isoniazid" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
+    SET @prescribe_arvs = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Prescribe ARVs this visit" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
+    SET @continue_existing_regimen = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = "Continue existing regimen" AND voided = 0 AND retired = 0 LIMIT 1);
+                         
     CASE field_concept
+    
+        WHEN @continue_existing_regimen THEN
+        
+            CALL proc_insert_continue_existing_regimen(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @prescribe_arvs THEN
+        
+            CALL proc_insert_prescribe_arvs(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @ipt_given THEN
+        
+            CALL proc_insert_ipt_given(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @cpt_given THEN
+        
+            CALL proc_insert_cpt_given(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @arv_regimen_type THEN
+        
+            CALL proc_insert_arv_regimen_type(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @patient_present THEN
+        
+            CALL proc_insert_patient_present(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
+    
+        WHEN @guardian_present THEN
+        
+            CALL proc_insert_guardian_present(
+                patient_id, 
+                value_date, 
+                field_concept, 
+                field_value_coded, 
+                field_value_coded_name_id, 
+                NULL,
+                visit_id
+            );
     
         WHEN @pregnant THEN
         
@@ -166,8 +280,10 @@ BEGIN
                 value_date, 
                 field_concept, 
                 field_value_coded, 
-                field_value_coded_name_id, 
-                field_other,
+                field_value_coded_name_id,
+                field_text,
+                field_value_numeric,
+                field_value_datetime,
                 visit_id
             );       
             

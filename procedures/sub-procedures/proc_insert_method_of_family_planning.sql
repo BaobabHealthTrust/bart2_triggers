@@ -29,11 +29,11 @@ BEGIN
     
     SET @family_planning_method_withdrawal = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Withdrawal method" AND voided = 0 AND retired = 0 LIMIT 1);
     
-    SET @family_planning_method_absitenence = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Abstinence" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @family_planning_method_abstinence = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Abstinence" AND voided = 0 AND retired = 0 LIMIT 1);
     
     SET @family_planning_method_tubal_ligation = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Tubal ligation" AND voided = 0 AND retired = 0 LIMIT 1);
     
-    SET @family_planning_method_vasecotomy = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Vasectomy" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @family_planning_method_vasectomy = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Vasectomy" AND voided = 0 AND retired = 0 LIMIT 1);
     
     SET @family_planning_method_emergency__contraception = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Emergency contraception" AND voided = 0 AND retired = 0 LIMIT 1);
     
@@ -151,17 +151,17 @@ BEGIN
                 
             END IF;
         
-        WHEN @family_planning_method_absitenence THEN
+        WHEN @family_planning_method_abstinence THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, family_planning_method_absitenence) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, family_planning_method_abstinence) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET family_planning_method_absitenence = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET family_planning_method_abstinence = @value WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -179,17 +179,17 @@ BEGIN
                 
             END IF;
         
-        WHEN @family_planning_method_vasecotomy THEN
+        WHEN @family_planning_method_vasectomy THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, family_planning_method_vasecotomy) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, family_planning_method_vasectomy) VALUES (in_patient_id, in_visit_date, @value);
             
             ELSE 
             
-                UPDATE flat_table2 SET family_planning_method_vasecotomy = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET family_planning_method_vasectomy = @value WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         

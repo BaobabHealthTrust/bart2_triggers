@@ -14,6 +14,8 @@ BEGIN
         new.value_coded,
         new.value_coded_name_id,
         new.value_text,
+        new.value_numeric,
+        new.value_datetime,
         @visit
     );
 
