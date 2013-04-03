@@ -153,9 +153,9 @@ class Con < Test::Unit::TestCase
 		
 		encounter_id = encounter.fetch_row[0].to_i
 
-		yes = ($con.query "Select concept_id from concept_name where name = 'yes'").fetch_row[0].to_i
+		yes = ($con.query "Select concept_id from concept_name where name = 'yes' limit 1").fetch_row[0].to_i
 		
-		no = ($con.query "Select concept_id from concept_name where name = 'no'").fetch_row[0].to_i
+		no = ($con.query "Select concept_id from concept_name where name = 'no' limit 1").fetch_row[0].to_i
 	 
 	 	values = [yes,no]
 	 	

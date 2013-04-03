@@ -153,9 +153,9 @@ class Con < Test::Unit::TestCase
 		
 		encounter_id = encounter.fetch_row[0].to_i
 
-		yes = ($con.query "Select concept_id from concept_name where name = 'yes'").fetch_row[0].to_i
+		yes = ($con.query "Select concept_id from concept_name where name = 'yes' limit 1").fetch_row[0].to_i
 		
-		no = ($con.query "Select concept_id from concept_name where name = 'no'").fetch_row[0].to_i
+		no = ($con.query "Select concept_id from concept_name where name = 'no' limit 1").fetch_row[0].to_i
 	 
 	 	values = [yes,no]
 	 	
@@ -163,7 +163,7 @@ class Con < Test::Unit::TestCase
 
 		fields.each do |field|
 	
-			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded, creator, date_created, uuid) VALUES (#{person_id}, #{field}, #{encounter_id}, '#{date}','#{yes}', #{user_id}, '#{date}', (SELECT UUID()))"
+			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded, creator, date_created, uuid) VALUES (#{person_id}, #{field}, #{encounter_id}, '#{date}','#{no}', #{user_id}, '#{date}', (SELECT UUID()))"
 
 		end
 
@@ -173,7 +173,7 @@ class Con < Test::Unit::TestCase
 		
 		check_void = $con.query "Select * from flat_table1 where patient_id = #{person_id} limit 1"
 		
-		assert check_void == 0, "Failed to remove patient after voiding"	
+		assert check_void.num_rows < 1, "Failed to remove patient after voiding"	
 		
 
 	end

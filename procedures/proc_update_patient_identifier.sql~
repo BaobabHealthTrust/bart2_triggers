@@ -61,8 +61,6 @@ CREATE PROCEDURE`proc_update_patient_identifier`(
 				UPDATE flat_table1 SET archived_filing_number = NULL WHERE patient_id = pat_id;
 			WHEN @filing_number THEN
 				UPDATE flat_table1 SET filing_number = NULL WHERE patient_id = pat_id;
-			ELSE
-				SET @encounter = pat_id;
 
 		END CASE;
 	

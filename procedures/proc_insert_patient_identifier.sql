@@ -20,6 +20,8 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 		
 		SET @new_nat_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'New national id');
 		
+		SET @nat_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'National id');
+				
 		SET @prev_art_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Previous ARV number');
 		
 		SET @pre_art_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Pre ARV number ID');
@@ -44,6 +46,8 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 				UPDATE flat_table1 SET occupation = identifier WHERE patient_id = pat_id;
 			WHEN @new_nat_id THEN
 				UPDATE flat_table1 SET new_nat_id = identifier WHERE patient_id = pat_id;
+			WHEN @nat_id THEN
+				UPDATE flat_table1 SET nat_id = identifier WHERE patient_id = pat_id;	
 			WHEN @prev_art_number THEN
 				UPDATE flat_table1 SET prev_art = identifier WHERE patient_id = pat_id;	
 			WHEN @pre_art_number THEN
@@ -59,6 +63,8 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 			WHEN @filing_number THEN
 				UPDATE flat_table1 SET filing_number = identifier WHERE patient_id = pat_id;
 
+			ELSE
+				SET @encounter = pat_id;
 		END CASE;
 	
 	END$$
