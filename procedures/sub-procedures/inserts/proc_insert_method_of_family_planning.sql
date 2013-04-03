@@ -208,6 +208,10 @@ BEGIN
                 
             END IF;
             
+        ELSE
+        
+            SET @enc_id = encounter_id;                  
+    
     END CASE;
     
 END$$

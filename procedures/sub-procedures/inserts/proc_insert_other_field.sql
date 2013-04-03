@@ -447,6 +447,10 @@ BEGIN
                     
                         INSERT INTO flat_table2 (patient_id, visit_date, missed_hiv_drug_construct5, missed_hiv_drug_construct5_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                         
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                
                 END CASE;
             
             ELSE 
@@ -473,6 +477,10 @@ BEGIN
                     
                         UPDATE flat_table2 SET missed_hiv_drug_construct5 = in_field_value_text, missed_hiv_drug_construct5_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                         
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+    
                 END CASE;
                                             
             END IF;       
@@ -514,7 +522,11 @@ BEGIN
                     WHEN @what_was_the_patient_adherence_for_this_drug5 = "" THEN
                     
                         INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug5, what_was_the_patient_adherence_for_this_drug5_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
-                        
+                                    
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                
                 END CASE;
             
             ELSE 
@@ -540,7 +552,11 @@ BEGIN
                     WHEN @what_was_the_patient_adherence_for_this_drug5 = "" THEN
                     
                         UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug5 = in_field_value_text, what_was_the_patient_adherence_for_this_drug5_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                        
+                                    
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                
                 END CASE;
                                             
             END IF;       
@@ -582,7 +598,11 @@ BEGIN
                     WHEN @amount_of_drug5_remaining_at_home = "" THEN
                     
                         INSERT INTO flat_table2 (patient_id, visit_date, amount_of_drug5_remaining_at_home, amount_of_drug5_remaining_at_home_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
-                        
+                                    
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                
                 END CASE;
             
             ELSE 
@@ -608,7 +628,11 @@ BEGIN
                     WHEN @amount_of_drug5_remaining_at_home = "" THEN
                     
                         UPDATE flat_table2 SET amount_of_drug5_remaining_at_home = in_field_value_text, amount_of_drug5_remaining_at_home_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                        
+                                    
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                
                 END CASE;
                                             
             END IF;       
@@ -650,7 +674,11 @@ BEGIN
                     WHEN @amount_of_drug5_brought_to_clinic = "" THEN
                     
                         INSERT INTO flat_table2 (patient_id, visit_date, amount_of_drug5_brought_to_clinic, amount_of_drug5_brought_to_clinic_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
-                        
+                                   
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                 
                 END CASE;
             
             ELSE 
@@ -676,7 +704,11 @@ BEGIN
                     WHEN @amount_of_drug5_brought_to_clinic = "" THEN
                     
                         UPDATE flat_table2 SET amount_of_drug5_brought_to_clinic = in_field_value_text, amount_of_drug5_brought_to_clinic_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                        
+                                    
+                    ELSE
+                    
+                        SET @enc_id = encounter_id;                  
+                
                 END CASE;
                                             
             END IF;       
@@ -1291,6 +1323,10 @@ BEGIN
 
             UPDATE flat_table1 SET invasive_cancer_of_cervix = @answer WHERE flat_table1.patient_id= in_patient_id;
 
+        ELSE
+        
+            SET @enc_id = encounter_id;                  
+    
     END CASE;
     
 END$$

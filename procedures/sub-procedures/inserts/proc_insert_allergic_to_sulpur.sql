@@ -49,7 +49,11 @@ BEGIN
             
                 UPDATE flat_table2 SET allergic_to_sulphur_no = @value, allergic_to_sulphur_yes = NULL, allergic_to_sulphur_yes_enc_id = NULL, allergic_to_sulphur_no_enc_id = in_encounter_id WHERE flat_table2.id = in_visit_id;
                 
-            END IF;                   
+            END IF; 
+            
+        ELSE
+        
+            SET @enc_id = in_encounter_id;                  
     
     END CASE;
     
