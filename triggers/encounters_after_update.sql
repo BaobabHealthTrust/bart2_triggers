@@ -176,9 +176,65 @@ BEGIN
             SET @missed_hiv_drug_construct = (SELECT concept_name.concept_id FROM concept_name 
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                 WHERE name = "Missed HIV drug construct" AND voided = 0 AND retired = 0 LIMIT 1);
-                
+                 
+            SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                WHERE name = 'Reason for ART eligibility' AND voided = 0 AND retired = 0 LIMIT 1);
+				                    
+			SET @who_stage = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+			                    WHERE name = 'WHO stage' AND voided = 0 AND retired = 0 LIMIT 1);
+
+			SET @send_sms = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+			                    WHERE name = 'send sms' AND voided = 0 AND retired = 0 LIMIT 1);
+
+			SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+			                    WHERE name = 'Agrees to followup' AND voided = 0 AND retired = 0 LIMIT 1);
+
+			SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+			                    WHERE name = 'Confirmatory HIV test type' AND voided = 0 AND retired = 0 LIMIT 1);
+
+			SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+			                    WHERE name = 'Confirmatory HIV test location' AND voided = 0 AND retired = 0 LIMIT 1);
+									            
+			SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+			                    WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
+ 
             CASE var_concept_id
             
+                WHEN @reason_for_eligibility THEN
+							
+						UPDATE flat_table1 SET reason_for_eligibility = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+
+				WHEN @who_stage THEN
+				
+						UPDATE flat_table1 SET who_stage = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+			
+				WHEN @send_sms THEN
+				
+						UPDATE flat_table1 SET send_sms = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+	
+				WHEN @agrees_to_followup THEN
+			
+						UPDATE flat_table1 SET agrees_to_followup = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+
+				WHEN @type_of_confirmatory_hiv_test THEN
+					
+						UPDATE flat_table1 SET type_of_confirmatory_hiv_test = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+									
+				WHEN @confirmatory_hiv_test_location THEN		
+			
+					UPDATE flat_table1 SET confirmatory_hiv_test_location = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+			
+				WHEN @confirmatory_hiv_test_date THEN
+			
+					UPDATE flat_table1 SET confirmatory_hiv_test_location = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+
                 WHEN @missed_hiv_drug_construct THEN
                 
                     UPDATE flat_table2 SET missed_hiv_drug_construct1 = NULL, missed_hiv_drug_construct1_enc_id = NULL 
@@ -1041,7 +1097,7 @@ BEGIN
             
                 ELSE
                 
-                    SET @encounter_id = OLD.encounter_id;
+                    CALL proc_update_other_field(var_person_id, var_concept_id, OLD.encounter_id);
             
             END CASE;
     

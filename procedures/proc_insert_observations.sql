@@ -95,7 +95,35 @@ BEGIN
     SET @patient_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Patient present" AND voided = 0 AND retired = 0 LIMIT 1);
-                         
+                
+	SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'Reason for ART eligibility' AND voided = 0 AND retired = 0 LIMIT 1);
+			                    
+	SET @who_stage = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'WHO stage' AND voided = 0 AND retired = 0 LIMIT 1);
+
+	SET @send_sms = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'send sms' AND voided = 0 AND retired = 0 LIMIT 1);
+
+	SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'Agrees to followup' AND voided = 0 AND retired = 0 LIMIT 1);
+
+	SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'Confirmatory HIV test type' AND voided = 0 AND retired = 0 LIMIT 1);
+
+	SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'Confirmatory HIV test location' AND voided = 0 AND retired = 0 LIMIT 1);
+			                    
+	SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+	                    WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
+                          
     CASE field_concept
     
         WHEN @patient_present THEN
@@ -344,7 +372,45 @@ BEGIN
                 visit_id,
                 encounter_id
             );             
-    
+
+		WHEN @reason_for_eligibility THEN
+		
+			SET @reason = (SELECT name from concept_name where concept_id = field_value_coded);
+			
+			UPDATE flat_table1 SET reason_for_eligibility = @reason WHERE flat_table1.patient_id = patient_id ;
+		
+		WHEN @who_stage THEN
+		
+			SET @stage = (SELECT name from concept_name where concept_id = field_value_coded);
+			
+			UPDATE flat_table1 SET who_stage = @stage WHERE flat_table1.patient_id = patient_id ;
+		
+		WHEN @send_sms THEN
+		
+			SET @answer = (SELECT name from concept_name where concept_id = field_value_coded);
+			
+			UPDATE flat_table1 SET send_sms = @answer WHERE flat_table1.patient_id = patient_id ;
+
+		WHEN @agrees_to_followup THEN
+		
+			SET @answer = (SELECT name from concept_name where concept_id = field_value_coded);    		
+		
+			UPDATE flat_table1 SET agrees_to_followup = @answer WHERE flat_table1.patient_id = patient_id ;
+
+		WHEN @type_of_confirmatory_hiv_test THEN
+		
+			SET @answer = (SELECT name from concept_name where concept_id = field_value_coded);    		
+		
+			UPDATE flat_table1 SET type_of_confirmatory_hiv_test = @answer WHERE flat_table1.patient_id = patient_id ;
+		    		
+		WHEN @confirmatory_hiv_test_location THEN		
+		
+			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_text WHERE flat_table1.patient_id = patient_id ;
+		
+		WHEN @confirmatory_hiv_test_date THEN
+		
+			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
+		
         ELSE
         
             CALL proc_insert_other_field(
