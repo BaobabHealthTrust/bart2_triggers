@@ -588,7 +588,7 @@ BEGIN
 
         WHEN @disseminated_non_tuberculosis_mycobactierial_infection THEN
 
-            UPDATE flat_table1 SET disseminated_non_tuberculosis_mycobactierial_infection = NULL WHERE flat_table1.patient_id = patient_id ;
+            UPDATE flat_table1 SET disseminated_non_tuberculosis_mycobacterial_infection = NULL WHERE flat_table1.patient_id = patient_id ;
                             
         WHEN @cryptosporidiosis THEN
 

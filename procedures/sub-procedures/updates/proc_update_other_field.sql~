@@ -654,6 +654,9 @@ BEGIN
 
             UPDATE flat_table1 SET pnuemocystis_pnuemonia = NULL WHERE flat_table1.patient_id = patient_id ;
 
+				ELSE
+						SET @new = patient_id;
+
     END CASE;
     
 END$$

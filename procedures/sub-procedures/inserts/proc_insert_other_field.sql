@@ -874,7 +874,7 @@ BEGIN
         WHEN @ever_received_art THEN
            
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                WHERE  concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+                WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET ever_received_art = @answer WHERE flat_table1.patient_id= in_patient_id;
                              
@@ -885,7 +885,7 @@ BEGIN
         WHEN @art_in_2_months THEN
 
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                WHERE  concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+                WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET taken_art_in_last_two_months = @answer WHERE flat_table1.patient_id= in_patient_id;
 
@@ -1279,7 +1279,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET disseminated_non_tuberculosis_mycobactierial_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET disseminated_non_tuberculosis_mycobacterial_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @cryptosporidiosis THEN
 
