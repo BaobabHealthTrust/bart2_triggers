@@ -873,7 +873,8 @@ BEGIN
             
         WHEN @ever_received_art THEN
            
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET ever_received_art = @answer WHERE flat_table1.patient_id= in_patient_id;
                              
@@ -883,37 +884,43 @@ BEGIN
 
         WHEN @art_in_2_months THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET taken_art_in_last_two_months = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @art_in_2_weeks THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET taken_art_in_last_two_weeks = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @last_arv_reg THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET last_art_drugs_taken = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @ever_reg_4_art THEN    
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET ever_registered_at_art_clinic = @answer WHERE flat_table1.patient_id= in_patient_id;
 		         
         WHEN @has_transfer_letter THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET has_transfer_letter = @answer WHERE flat_table1.patient_id = patient_id  ;				                    
                             
         WHEN @art_init_loc THEN
           
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET location_of_art_initialization = @answer WHERE flat_table1.patient_id= in_patient_id;
                            
@@ -927,7 +934,8 @@ BEGIN
 
         WHEN @cd4_count_loc THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id= in_patient_id;
 
@@ -945,19 +953,22 @@ BEGIN
          
         WHEN @cd4_percent_less_than_25 THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cd4_percent_less_than_25 = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @cd4_count_less_than_250 THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cd4_count_less_than_250 = @answer WHERE flat_table1.patient_id= in_patient_id;
                                                         
         WHEN @cd4_count_less_than_350 THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cd4_count_less_than_250 = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
@@ -971,355 +982,414 @@ BEGIN
 
         WHEN @asymptomatic THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET asymptomatic = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @pers_gnrl_lymphadenopathy THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET persistent_generalized_lymphadenopathy = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @unspecified_stage_1_cond THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET unspecified_stage_1_cond = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @molluscumm_contagiosum THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET molluscumm_contagiosum = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @wart_virus_infection_extensive THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET wart_virus_infection_extensive = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @oral_ulcerations_recurrent THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET oral_ulcerations_recurrent = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @parotid_enlargement_pers_unexp THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
         UPDATE flat_table1 SET parotid_enlargement_persistent_unexplained = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @lineal_gingival_erythema THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET lineal_gingival_erythema = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @herpes_zoster THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET herpes_zoster = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @resp_tract_infections_rec THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET respiratory_tract_infections_recurrent = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @unspecified_stage2_condition THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET unspecified_stage2_condition = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @angular_chelitis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET angular_chelitis = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @papular_prurtic_eruptions THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET papular_prurtic_eruptions = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @hepatosplenomegaly_unexplained THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET hepatosplenomegaly_unexplained = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @oral_hairy_leukoplakia THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET oral_hairy_leukoplakia = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @severe_weight_loss THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET severe_weight_loss = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @fever_persistent_unexplained THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET fever_persistent_unexplained = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @pulmonary_tuberculosis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET pulmonary_tuberculosis = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @pulmonary_tuberculosis_last_2_years THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET pulmonary_tuberculosis_last_2_years = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @severe_bacterial_infection THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET severe_bacterial_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @bacterial_pnuemonia THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET bacterial_pnuemonia = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @symptomatic_lymphoid_interstitial_pnuemonitis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET symptomatic_lymphoid_interstitial_pnuemonitis = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @chronic_hiv_assoc_lung_disease THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET chronic_hiv_assoc_lung_disease = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @unspecified_stage3_condition THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET unspecified_stage3_condition = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @aneamia THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET aneamia = @answer WHERE flat_table1.patient_id= in_patient_id;
 		
         WHEN @neutropaenia THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET neutropaenia = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @thrombocytopaenia_chronic THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET thrombocytopaenia_chronic = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @diarhoea THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET diarhoea = @answer WHERE flat_table1.patient_id= in_patient_id;
 		         
         WHEN @oral_candidiasis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET oral_candidiasis = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @acute_necrotizing_ulcerative_gingivitis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET acute_necrotizing_ulcerative_gingivitis = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @lymph_node_tuberculosis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET lymph_node_tuberculosis = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @toxoplasmosis_of_brain THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET toxoplasmosis_of_the_brain  = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @cryptococcal_meningitis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cryptococcal_meningitis = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @progressive_multifocal_leukoencephalopathy THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET progressive_multifocal_leukoencephalopathy = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @disseminated_mycosis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET disseminated_mycosis = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @candidiasis_of_oesophagus THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET candidiasis_of_oesophagus = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @extrapulmonary_tuberculosis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET extrapulmonary_tuberculosis = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @cerebral_non_hodgkin_lymphoma THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cerebral_non_hodgkin_lymphoma = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @hiv_encephalopathy THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET hiv_encephalopathy = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @bacterial_infections_severe_recurrent  THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET bacterial_infections_severe_recurrent = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @unspecified_stage_4_condition THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET unspecified_stage_4_condition = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @pnuemocystis_pnuemonia THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET pnuemocystis_pnuemonia = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @disseminated_non_tuberculosis_mycobactierial_infection THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET disseminated_non_tuberculosis_mycobactierial_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @cryptosporidiosis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cryptosporidiosis = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @isosporiasis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET isosporiasis = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @symptomatic_hiv_asscoiated_nephropathy THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET symptomatic_hiv_asscoiated_nephropathy = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @chronic_herpes_simplex_infection THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET chronic_herpes_simplex_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @cytomegalovirus_infection THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cytomegalovirus_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
 				                        
         WHEN @toxoplasomis_of_the_brain_1month THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET toxoplasomis_of_the_brain_1month = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @recto_vaginal_fitsula THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET recto_vaginal_fitsula = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @pnuemocystis_pnuemonia THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET pnuemocystis_pnuemonia = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @mod_wght_loss_less_thanequal_to_10_perc THEN 
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET moderate_weight_loss_less_than_or_equal_to_10_percent_unexpl = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @seborrhoeic_dermatitis THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET seborrhoeic_dermatitis = @answer WHERE flat_table1.patient_id= in_patient_id;
 				                        
         WHEN @hepatitis_b_or_c_infection THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET hepatitis_b_or_c_infection = @answer WHERE flat_table1.patient_id= in_patient_id;
 				                        
         WHEN @kaposis_sarcoma THEN  
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET kaposis_sarcoma = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @non_typhoidal_salmonella_bacteraemia_recurrent THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET non_typhoidal_salmonella_bacteraemia_recurrent = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @leishmaniasis_atypical_disseminated  THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET leishmaniasis_atypical_disseminated = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @cerebral_or_b_cell_non_hodgkin_lymphoma  THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET cerebral_or_b_cell_non_hodgkin_lymphoma = @answer WHERE flat_table1.patient_id= in_patient_id;
 				                        
         WHEN @invasive_cancer_of_cervix THEN
 
-            SET @answer = (SELECT name from concept_name where concept_id = in_field_value_coded);
+            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                WHERE  concept_id = in_field_value_coded = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
             UPDATE flat_table1 SET invasive_cancer_of_cervix = @answer WHERE flat_table1.patient_id= in_patient_id;
 
