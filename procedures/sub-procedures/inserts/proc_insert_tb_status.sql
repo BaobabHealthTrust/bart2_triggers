@@ -32,11 +32,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_not_suspected) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_not_suspected, tb_status_tb_not_suspected_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET tb_status_tb_not_suspected = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET tb_status_tb_not_suspected = @value, tb_status_tb_not_suspected_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -46,11 +46,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_suspected) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_suspected, tb_status_tb_suspected_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET tb_status_tb_suspected = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET tb_status_tb_suspected = @value, tb_status_tb_suspected_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -60,11 +60,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_not_on_treatment) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_not_on_treatment, tb_status_confirmed_tb_not_on_treatment_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET tb_status_confirmed_tb_not_on_treatment = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET tb_status_confirmed_tb_not_on_treatment = @value, tb_status_confirmed_tb_not_on_treatment_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -74,11 +74,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_on_treatment) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_on_treatment, tb_status_confirmed_tb_on_treatment_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET tb_status_confirmed_tb_on_treatment = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET tb_status_confirmed_tb_on_treatment = @value, tb_status_confirmed_tb_on_treatment_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -88,11 +88,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_unknown) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_unknown, tb_status_unknown_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET tb_status_unknown = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET tb_status_unknown = @value, tb_status_unknown_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
             

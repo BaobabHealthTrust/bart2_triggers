@@ -29,11 +29,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, continue_existing_regimen_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, continue_existing_regimen_yes, continue_existing_regimen_yes_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET continue_existing_regimen_yes = @value, continue_existing_regimen_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET continue_existing_regimen_yes = @value, continue_existing_regimen_no = NULL, continue_existing_regimen_yes_enc_id = encounter_id, continue_existing_regimen_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -43,11 +43,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, continue_existing_regimen_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, continue_existing_regimen_no, continue_existing_regimen_no_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET continue_existing_regimen_no = @value, continue_existing_regimen_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET continue_existing_regimen_no = @value, continue_existing_regimen_yes = NULL, continue_existing_regimen_yes_enc_id = NULL, continue_existing_regimen_no_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     

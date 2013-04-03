@@ -52,11 +52,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_AZT_3TC_NVP) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_AZT_3TC_NVP, arv_regimen_type_AZT_3TC_AZT_3TC_NVP_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_AZT_3TC_NVP = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_AZT_3TC_NVP = @value, arv_regimen_type_AZT_3TC_AZT_3TC_NVP_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -66,11 +66,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_d4T_3TC_d4T_3TC_NVP) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_d4T_3TC_d4T_3TC_NVP, arv_regimen_type_d4T_3TC_d4T_3TC_NVP_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_d4T_3TC_d4T_3TC_NVP = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_d4T_3TC_d4T_3TC_NVP = @value, arv_regimen_type_d4T_3TC_d4T_3TC_NVP_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -80,11 +80,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_TDF_3TC_LPV_r) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_TDF_3TC_LPV_r, arv_regimen_type_TDF_3TC_LPV_r_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_TDF_3TC_LPV_r = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_TDF_3TC_LPV_r = @value, arv_regimen_type_TDF_3TC_LPV_r_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -94,11 +94,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_ABC_3TC_LPV_r) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_ABC_3TC_LPV_r, arv_regimen_type_ABC_3TC_LPV_r_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_ABC_3TC_LPV_r = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_ABC_3TC_LPV_r = @value, arv_regimen_type_ABC_3TC_LPV_r_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -108,11 +108,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_TDF_3TC_EFV) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_TDF_3TC_EFV, arv_regimen_type_TDF_3TC_EFV_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_TDF_3TC_EFV = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_TDF_3TC_EFV = @value, arv_regimen_type_TDF_3TC_EFV_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -122,11 +122,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_TDF_3TC_NVP) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_TDF_3TC_NVP, arv_regimen_type_TDF_3TC_NVP_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_TDF_3TC_NVP = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_TDF_3TC_NVP = @value, arv_regimen_type_TDF_3TC_NVP_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -136,11 +136,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_d4T_3TC_EFV) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_d4T_3TC_EFV, arv_regimen_type_d4T_3TC_EFV_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_d4T_3TC_EFV = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_d4T_3TC_EFV = @value, arv_regimen_type_d4T_3TC_EFV_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -150,11 +150,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_EFV) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_EFV, arv_regimen_type_AZT_3TC_EFV_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_EFV = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_EFV = @value, arv_regimen_type_AZT_3TC_EFV_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -164,11 +164,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_LPV_r) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_LPV_r, arv_regimen_type_AZT_3TC_LPV_r_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_LPV_r = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_LPV_r = @value, arv_regimen_type_AZT_3TC_LPV_r_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -178,11 +178,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_NVP) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_AZT_3TC_NVP, arv_regimen_type_AZT_3TC_NVP_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_NVP = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_AZT_3TC_NVP = @value, arv_regimen_type_AZT_3TC_NVP_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -192,11 +192,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_triomune_40) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_triomune_40, arv_regimen_type_triomune_40_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_triomune_40 = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_triomune_40 = @value, arv_regimen_type_triomune_40_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -206,11 +206,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_triomune_30) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_triomune_30, arv_regimen_type_triomune_30_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_triomune_30 = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_triomune_30 = @value, arv_regimen_type_triomune_30_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -220,11 +220,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_triomune) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_triomune, arv_regimen_type_triomune_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_triomune = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_triomune = @value, arv_regimen_type_triomune_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -234,11 +234,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_d4T_3TC_NVP) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_d4T_3TC_NVP, arv_regimen_type_d4T_3TC_NVP_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_d4T_3TC_NVP = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_d4T_3TC_NVP = @value, arv_regimen_type_d4T_3TC_NVP_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -248,11 +248,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_unknown) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, arv_regimen_type_unknown, arv_regimen_type_unknown_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET arv_regimen_type_unknown = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET arv_regimen_type_unknown = @value, arv_regimen_type_unknown_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     

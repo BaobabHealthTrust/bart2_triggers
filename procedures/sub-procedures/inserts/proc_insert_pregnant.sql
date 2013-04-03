@@ -25,11 +25,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, pregnant_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, pregnant_yes, pregnant_yes_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET pregnant_yes = @value, pregnant_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET pregnant_yes = @value, pregnant_no = NULL, pregnant_yes_enc_id = encounter_id, pregnant_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -39,11 +39,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, pregnant_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, pregnant_no, pregnant_no_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET pregnant_no = @value, pregnant_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET pregnant_no = @value, pregnant_yes = NULL, pregnant_no_enc_id = encounter_id, pregnant_yes_enc_id = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     

@@ -52,11 +52,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_lipodystrophy) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_lipodystrophy, drug_induced_lipodystrophy_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_lipodystrophy = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_lipodystrophy = @value, drug_induced_lipodystrophy_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -66,11 +66,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_anemia) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_anemia, drug_induced_anemia_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_anemia = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_anemia = @value, drug_induced_anemia_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -80,11 +80,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_jaundice) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_jaundice, drug_induced_jaundice_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_jaundice = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_jaundice = @value, drug_induced_jaundice_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -94,11 +94,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_lactic_acidosis) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_lactic_acidosis, drug_induced_lactic_acidosis_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_lactic_acidosis = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_lactic_acidosis = @value, drug_induced_lactic_acidosis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -108,11 +108,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_fever) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_fever, drug_induced_fever_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_fever = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_fever = @value, drug_induced_fever_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -122,11 +122,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_skin_rash) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_skin_rash, drug_induced_skin_rash_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_skin_rash = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_skin_rash = @value, drug_induced_skin_rash_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -136,11 +136,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_abdominal_pain) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_abdominal_pain, drug_induced_abdominal_pain_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_abdominal_pain = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_abdominal_pain = @value, drug_induced_abdominal_pain_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -150,11 +150,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_anorexia) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_anorexia, drug_induced_anorexia_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_anorexia = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_anorexia = @value, drug_induced_anorexia_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -164,11 +164,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_cough) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_cough, drug_induced_cough_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_cough = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_cough = @value, drug_induced_cough_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -178,11 +178,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_diarrhea) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_diarrhea, drug_induced_diarrhea_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_diarrhea = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_diarrhea = @value, drug_induced_diarrhea_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -192,11 +192,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_hepatitis) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_hepatitis, drug_induced_hepatitis_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_hepatitis = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_hepatitis = @value, drug_induced_hepatitis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -206,11 +206,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_leg_pain_numbness) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_leg_pain_numbness, drug_induced_leg_pain_numbness_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_leg_pain_numbness = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_leg_pain_numbness = @value, drug_induced_leg_pain_numbness_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -220,11 +220,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_peripheral_neuropathy) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_peripheral_neuropathy, drug_induced_peripheral_neuropathy_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_peripheral_neuropathy = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_peripheral_neuropathy = @value, drug_induced_peripheral_neuropathy_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -234,11 +234,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_vomiting) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_vomiting, drug_induced_vomiting_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_vomiting = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_vomiting = @value, drug_induced_vomiting_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -248,11 +248,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_other_symptom) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_other_symptom, drug_induced_other_symptom_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET drug_induced_other_symptom = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET drug_induced_other_symptom = @value, drug_induced_other_symptom_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
             

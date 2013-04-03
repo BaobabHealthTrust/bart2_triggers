@@ -30,11 +30,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_fever) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_fever, routine_tb_screening_fever_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET routine_tb_screening_fever = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET routine_tb_screening_fever = @value, routine_tb_screening_fever_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -44,11 +44,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_night_sweats) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_night_sweats, routine_tb_screening_night_sweats_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET routine_tb_screening_night_sweats = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET routine_tb_screening_night_sweats = @value, routine_tb_screening_night_sweats_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -58,11 +58,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_cough_of_any_duration) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_cough_of_any_duration, routine_tb_screening_cough_of_any_duration_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET routine_tb_screening_cough_of_any_duration = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET routine_tb_screening_cough_of_any_duration = @value, routine_tb_screening_cough_of_any_duration_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
     
@@ -72,11 +72,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_weight_loss_failure) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_weight_loss_failure, routine_tb_screening_weight_loss_failure_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET routine_tb_screening_weight_loss_failure = @value WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET routine_tb_screening_weight_loss_failure = @value, routine_tb_screening_weight_loss_failure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;
             

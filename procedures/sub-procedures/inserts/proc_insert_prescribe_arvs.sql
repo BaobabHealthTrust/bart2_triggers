@@ -29,11 +29,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, prescribe_arvs_yes) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, prescribe_arvs_yes, prescribe_arvs_yes_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET prescribe_arvs_yes = @value, prescribe_arvs_no = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET prescribe_arvs_yes = @value, prescribe_arvs_no = NULL, prescribe_arvs_yes_enc_id = encounter_id, prescribe_arvs_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;
         
@@ -43,11 +43,11 @@ BEGIN
             
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, prescribe_arvs_no) VALUES (in_patient_id, in_visit_date, @value);
+                INSERT INTO flat_table2 (patient_id, visit_date, prescribe_arvs_no, prescribe_arvs_no_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET prescribe_arvs_no = @value, prescribe_arvs_yes = NULL WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET prescribe_arvs_no = @value, prescribe_arvs_yes = NULL, prescribe_arvs_no_enc_id = encounter_id, prescribe_arvs_yes_enc_id = NULL WHERE flat_table2.id = in_visit_id;
                 
             END IF;                   
     
