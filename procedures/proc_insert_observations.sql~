@@ -375,31 +375,42 @@ BEGIN
 
 		WHEN @reason_for_eligibility THEN
 		
-			SET @reason = (SELECT name from concept_name where concept_id = field_value_coded);
+			SET @reason = (SELECT concept_name.name FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 			
 			UPDATE flat_table1 SET reason_for_eligibility = @reason WHERE flat_table1.patient_id = patient_id ;
 		
 		WHEN @who_stage THEN
 		
-			SET @stage = (SELECT name from concept_name where concept_id = field_value_coded);
+			SET @stage = (SELECT concept_name.name FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 			
 			UPDATE flat_table1 SET who_stage = @stage WHERE flat_table1.patient_id = patient_id ;
 		
 		WHEN @send_sms THEN
 		
-			SET @answer = (SELECT name from concept_name where concept_id = field_value_coded);
+			SET @answer = (SELECT concept_name.name FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 			
 			UPDATE flat_table1 SET send_sms = @answer WHERE flat_table1.patient_id = patient_id ;
 
 		WHEN @agrees_to_followup THEN
 		
-			SET @answer = (SELECT name from concept_name where concept_id = field_value_coded);    		
+			SET @answer = (SELECT concept_name.name FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 		
 			UPDATE flat_table1 SET agrees_to_followup = @answer WHERE flat_table1.patient_id = patient_id ;
 
 		WHEN @type_of_confirmatory_hiv_test THEN
 		
-			SET @answer = (SELECT name from concept_name where concept_id = field_value_coded);    		
+		
+			SET @answer = (SELECT concept_name.name FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 		
 			UPDATE flat_table1 SET type_of_confirmatory_hiv_test = @answer WHERE flat_table1.patient_id = patient_id ;
 		    		
@@ -411,7 +422,7 @@ BEGIN
 		
 			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
 		
-        ELSE
+    ELSE
         
             CALL proc_insert_other_field(
                 patient_id, 
