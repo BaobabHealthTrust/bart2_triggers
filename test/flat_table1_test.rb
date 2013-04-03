@@ -159,7 +159,7 @@ class Con < Test::Unit::TestCase
 	 
 	 	values = [yes,no]
 	 	
-		fields = [ 8011, 2552,7754, 6394, 7752,7937, 6393]
+		fields = [ 7754, 6394, 7752,7937, 6393]
 
 		fields.each do |field|
 	

@@ -16,111 +16,111 @@ CREATE PROCEDURE `proc_insert_observations`(
 )
 BEGIN
 
-    SET @pregnant = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @pregnant = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Patient pregnant" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @breast_feeding = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @breast_feeding = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Breast feeding" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @currently_using_family_planning_method = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @currently_using_family_planning_method = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Currently using family planning method" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @method_of_family_planning = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @method_of_family_planning = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Method of family planning" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @symptom_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @symptom_present = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Symptom present" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @drug_induced = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @drug_induced = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Drug induced" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @routine_tb_screening = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @routine_tb_screening = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Routine TB Screening" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @allergic_to_sulphur = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @allergic_to_sulphur = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Allergic to sulphur" AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @tb_status = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @tb_status = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "TB status" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Guardian Present" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Patient Present" AND voided = 0 AND retired = 0 LIMIT 1);
                         
-    SET @arv_regimen_type = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @arv_regimen_type = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "What type of antiretroviral regimen" AND voided = 0 AND retired = 0 LIMIT 1);
                        
-    SET @cpt_given = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @cpt_given = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "CPT given" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @ipt_given = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @ipt_given = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Isoniazid" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @prescribe_arvs = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @prescribe_arvs = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Prescribe ARVs this visit" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @continue_existing_regimen = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @continue_existing_regimen = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Continue existing regimen" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @breastfeeding = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @breastfeeding = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Breastfeeding" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @transfer_within_responsibility = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @transfer_within_responsibility = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Transfer within responsibility" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Guardian Present" AND voided = 0 AND retired = 0 LIMIT 1);
                          
-    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name concept_name 
+    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = "Patient present" AND voided = 0 AND retired = 0 LIMIT 1);
                 
-	SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Reason for ART eligibility' AND voided = 0 AND retired = 0 LIMIT 1);
 			                    
-	SET @who_stage = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @who_stage = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'WHO stage' AND voided = 0 AND retired = 0 LIMIT 1);
 
-	SET @send_sms = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @send_sms = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'send sms' AND voided = 0 AND retired = 0 LIMIT 1);
 
-	SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Agrees to followup' AND voided = 0 AND retired = 0 LIMIT 1);
 
-	SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Confirmatory HIV test type' AND voided = 0 AND retired = 0 LIMIT 1);
 
-	SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Confirmatory HIV test location' AND voided = 0 AND retired = 0 LIMIT 1);
 			                    
-	SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name concept_name 
+	SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
                           
@@ -375,7 +375,7 @@ BEGIN
 
 		WHEN @reason_for_eligibility THEN
 		
-			SET @reason = (SELECT concept_name.name FROM concept_name concept_name 
+			SET @reason = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
@@ -384,7 +384,7 @@ BEGIN
 		
 		WHEN @who_stage THEN
 		
-			SET @stage = (SELECT concept_name.name FROM concept_name concept_name 
+			SET @stage = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 			
@@ -392,7 +392,7 @@ BEGIN
 		
 		WHEN @send_sms THEN
 		
-			SET @answer = (SELECT concept_name.name FROM concept_name concept_name 
+			SET @answer = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 			
@@ -400,7 +400,7 @@ BEGIN
 
 		WHEN @agrees_to_followup THEN
 		
-			SET @answer = (SELECT concept_name.name FROM concept_name concept_name 
+			SET @answer = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 		
@@ -409,7 +409,7 @@ BEGIN
 		WHEN @type_of_confirmatory_hiv_test THEN
 		
 		
-			SET @answer = (SELECT concept_name.name FROM concept_name concept_name 
+			SET @answer = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 

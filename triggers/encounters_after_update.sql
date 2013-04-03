@@ -346,7 +346,7 @@ BEGIN
                                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                     WHERE name = "Missed HIV drug construct" AND voided = 0 AND retired = 0 LIMIT 1);
                      
-                SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name
                                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                     WHERE name = 'Reason for ART eligibility' AND voided = 0 AND retired = 0 LIMIT 1);
 				                        
@@ -354,23 +354,23 @@ BEGIN
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'WHO stage' AND voided = 0 AND retired = 0 LIMIT 1);
 
-			    SET @send_sms = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			    SET @send_sms = (SELECT concept_name.concept_id FROM concept_name
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'send sms' AND voided = 0 AND retired = 0 LIMIT 1);
 
-			    SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			    SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'Agrees to followup' AND voided = 0 AND retired = 0 LIMIT 1);
 
-			    SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			    SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'Confirmatory HIV test type' AND voided = 0 AND retired = 0 LIMIT 1);
 
-			    SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			    SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'Confirmatory HIV test location' AND voided = 0 AND retired = 0 LIMIT 1);
 									                
-			    SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name concept_name 
+			    SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
      

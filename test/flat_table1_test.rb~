@@ -159,11 +159,11 @@ class Con < Test::Unit::TestCase
 	 
 	 	values = [yes,no]
 	 	
-		fields = [ 8011, 2552,7754, 6394, 7752,7937, 6393]
+		fields = [ 8011,7754, 6394, 7752,7937, 6393]
 
 		fields.each do |field|
 	
-			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded, creator, date_created, uuid) VALUES (#{person_id}, #{field}, #{encounter_id}, '#{date}','#{no}', #{user_id}, '#{date}', (SELECT UUID()))"
+			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded, creator, date_created, uuid) VALUES (#{person_id}, #{field}, #{encounter_id}, '#{date}','#{yes}', #{user_id}, '#{date}', (SELECT UUID()))"
 
 		end
 

@@ -922,7 +922,7 @@ BEGIN
     			ELSE
     					UPDATE flat_table1 SET location_of_art_initialization = @answer WHERE flat_table1.patient_id = patient_id ;
 
-					END IF
+					END IF;
 				 
         WHEN @drug_start_date THEN
 
@@ -941,7 +941,7 @@ BEGIN
     			ELSE
     				UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id = patient_id ;
 
-					END IF
+					END IF;
 
         WHEN @cd4_count_date THEN
 
