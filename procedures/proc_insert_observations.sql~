@@ -411,7 +411,7 @@ BEGIN
 		
 			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
 		
-    ELSE
+        ELSE
         
             CALL proc_insert_other_field(
                 patient_id, 

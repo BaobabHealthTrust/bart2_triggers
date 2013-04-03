@@ -173,7 +173,7 @@ class Con < Test::Unit::TestCase
 		
 		check_void = $con.query "Select * from flat_table1 where patient_id = #{person_id} limit 1"
 		
-		assert check_void.num_rows < 1, "Failed to remove patient after voiding"	
+		assert check_void == 0, "Failed to remove patient after voiding"	
 		
 
 	end
