@@ -1300,7 +1300,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET symptomatic_hiv_asscoiated_nephropathy = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET symptomatic_hiv_associated_nephropathy = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @chronic_herpes_simplex_infection THEN
 

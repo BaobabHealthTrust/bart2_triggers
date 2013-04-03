@@ -600,7 +600,7 @@ BEGIN
                             
         WHEN @symptomatic_hiv_asscoiated_nephropathy THEN
 
-            UPDATE flat_table1 SET symptomatic_hiv_asscoiated_nephropathy = NULL WHERE flat_table1.patient_id = patient_id ;
+            UPDATE flat_table1 SET symptomatic_hiv_associated_nephropathy = NULL WHERE flat_table1.patient_id = patient_id ;
 
         WHEN @chronic_herpes_simplex_infection THEN
 
