@@ -134,11 +134,7 @@ BEGIN
 
     SET @cd4_count_date =  (SELECT concept_name.concept_id FROM concept_name concept_name 
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-        WHERE name = 'Cd4 count datetime' AND voided = 0 AND retired = 0 LIMIT 1);                        
-                    
-    SET @cd4_count_available =  (SELECT concept_name.concept_id FROM concept_name concept_name 
-        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-        WHERE name = 'Cd4 count location' AND voided = 0 AND retired = 0 LIMIT 1);                            
+        WHERE name = 'Cd4 count datetime' AND voided = 0 AND retired = 0 LIMIT 1);                                     
                                               
     SET @cd4_count =  (SELECT concept_name.concept_id FROM concept_name concept_name 
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -918,12 +914,16 @@ BEGIN
             UPDATE flat_table1 SET has_transfer_letter = @answer WHERE flat_table1.patient_id = patient_id  ;				                    
                             
         WHEN @art_init_loc THEN
-          
-            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+				  
+				  SET @answer = (SELECT COALESCE((SELECT name FROM location WHERE location_id = in_field_value_text), 0));
+				 
+				 	IF @answer = 0 THEN 
+	    			UPDATE flat_table1 SET location_of_art_initialization = "Unknown" WHERE flat_table1.patient_id = patient_id ;
+    			ELSE
+    					UPDATE flat_table1 SET location_of_art_initialization = @answer WHERE flat_table1.patient_id = patient_id ;
 
-            UPDATE flat_table1 SET location_of_art_initialization = @answer WHERE flat_table1.patient_id= in_patient_id;
-                           
+					END IF
+				 
         WHEN @drug_start_date THEN
 
             UPDATE flat_table1 SET drug_start_date = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;
@@ -932,12 +932,16 @@ BEGIN
 
             UPDATE flat_table1 SET date_started_art = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;
 
-        WHEN @cd4_count_loc THEN
+				WHEN @cd4_count_loc THEN
+					
+				 SET @answer = (SELECT COALESCE((SELECT name FROM location WHERE location_id = in_field_value_text), 0));
+				 
+				 	IF @answer = 0 THEN 
+	    			UPDATE flat_table1 SET cd4_count_location = "Unkno" WHERE flat_table1.patient_id = patient_id ;
+    			ELSE
+    				UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id = patient_id ;
 
-            SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
-
-            UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id= in_patient_id;
+					END IF
 
         WHEN @cd4_count_date THEN
 
