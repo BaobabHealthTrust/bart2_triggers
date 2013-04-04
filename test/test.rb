@@ -5,9 +5,40 @@ require 'mysql'
 
 class Con < Test::Unit::TestCase
 
+  def colorize(text, color_code)
+    "\e[#{color_code}m#{text}\e[0m"
+  end
+
+  def red(text); colorize(text, 31); end
+  def green(text); colorize(text, 32); end
+  def yellow(text); colorize(text, 33); end
+  def blue(text); colorize(text, 34); end
+  def magenta(text); colorize(text, 35); end
+  def cyan(text); colorize(text, 36); end
+
   def test
     begin
-      con = Mysql.new 'localhost', 'root', 'admin', 'bart2_flat_tables'
+
+      print green("\tEnter MySQL username: ")
+
+      $username = gets.chomp
+      
+      puts ""
+      print green("\tEnter MySQL password: ")
+
+      `stty -echo`
+      $password = gets.chomp
+      `stty echo`
+
+      puts ""
+      puts ""
+      print green("\tEnter Target Database Name: ")
+
+      $database = gets.chomp
+
+      puts ""
+      
+      con = Mysql.new 'localhost', "#{$username}", "#{$password}", "#{$database}"
       
       date = Time.now.strftime("%Y-%m-%d %H:%M:%S")
 

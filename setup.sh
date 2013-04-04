@@ -11,6 +11,7 @@ PASS=$3
 
 if [ -z "$DB" ] || [ -z "$USER" ] || [ -z "$PASS" ] ; then
     usage
+    exit
 fi
 
 FILES=schema/*.sql
