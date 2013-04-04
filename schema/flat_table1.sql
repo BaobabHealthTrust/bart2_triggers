@@ -58,7 +58,6 @@ CREATE TABLE `flat_table1` (
   `ever_registered_at_art_clinic` varchar(255) DEFAULT NULL,
   `has_transfer_letter` varchar(255) DEFAULT NULL,
   `location_of_art_initialization` varchar(255) DEFAULT NULL,
-  `drug_start_date` date DEFAULT NULL,
   `art_start_date_estimation` varchar(255) DEFAULT NULL,
   `date_started_art` date DEFAULT NULL,
   `cd4_count_location` varchar(255) DEFAULT NULL,
