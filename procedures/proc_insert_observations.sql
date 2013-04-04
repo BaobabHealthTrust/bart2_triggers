@@ -11,6 +11,7 @@ CREATE PROCEDURE `proc_insert_observations`(
     IN field_text VARCHAR(255),
     IN field_value_numeric DOUBLE,
     IN field_value_datetime DATETIME,
+    IN field_value_modifier VARCHAR(255),
     IN visit_id INT,
     IN encounter_id INT
 )
@@ -119,7 +120,12 @@ BEGIN
 	SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Confirmatory HIV test location' AND voided = 0 AND retired = 0 LIMIT 1);
-			                    
+
+	SET @cd4_count =  (SELECT concept_name.concept_id FROM concept_name concept_name 
+		      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+		      WHERE name = 'Cd4 count' AND voided = 0 AND retired = 0 LIMIT 1);                            
+					                  
+
 	SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 	                    WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
@@ -423,6 +429,11 @@ BEGIN
 		WHEN @confirmatory_hiv_test_date THEN
 		
 			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
+		
+		WHEN @cd4_count THEN
+
+      UPDATE flat_table1 SET cd4_count = field_value_numeric WHERE flat_table1.patient_id = patient_id ;
+      UPDATE flat_table1 SET cd4_count_modifier = field_value_modifier WHERE flat_table1.patient_id = patient_id ;
 		
     ELSE
         

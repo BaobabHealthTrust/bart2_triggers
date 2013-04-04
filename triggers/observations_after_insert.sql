@@ -16,6 +16,7 @@ BEGIN
         new.value_text,
         new.value_numeric,
         new.value_datetime,
+        new.value_modifier,
         @visit,
         new.encounter_id
     );
