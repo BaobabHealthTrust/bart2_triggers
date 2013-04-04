@@ -119,7 +119,7 @@ BEGIN
 
 	SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name
 	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'Confirmatory HIV test location' AND voided = 0 AND retired = 0 LIMIT 1);
+	                    WHERE name = 'confirmatory hiv test location' AND voided = 0 AND retired = 0 LIMIT 1);
 
 	SET @cd4_count =  (SELECT concept_name.concept_id FROM concept_name concept_name 
 		      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -424,11 +424,17 @@ BEGIN
 		    		
 		WHEN @confirmatory_hiv_test_location THEN		
 		
-			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_text WHERE flat_table1.patient_id = patient_id ;
+		 SET @answer = (SELECT name FROM location WHERE location_id = field_text);
+				 
+		 	IF @answer = NULL THEN 
+   			UPDATE flat_table1 SET confirmatory_hiv_test_location = "Unknown" WHERE flat_table1.patient_id = patient_id ;
+ 			ELSE
+ 				UPDATE flat_table1 SET confirmatory_hiv_test_location = @answer WHERE flat_table1.patient_id = patient_id ;
+			END IF;
 		
 		WHEN @confirmatory_hiv_test_date THEN
 		
-			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
+			UPDATE flat_table1 SET confirmatory_hiv_test_date = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
 		
 		WHEN @cd4_count THEN
 
