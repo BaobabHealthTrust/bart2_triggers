@@ -402,7 +402,7 @@ BEGIN
 			
 				    WHEN @confirmatory_hiv_test_date THEN
 			
-					    UPDATE flat_table1 SET confirmatory_hiv_test_location = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
+					    UPDATE flat_table1 SET confirmatory_hiv_test_date = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
 
                     WHEN @missed_hiv_drug_construct THEN
                     

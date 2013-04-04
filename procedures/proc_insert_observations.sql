@@ -424,11 +424,17 @@ BEGIN
 		    		
 		WHEN @confirmatory_hiv_test_location THEN		
 		
-			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_text WHERE flat_table1.patient_id = patient_id ;
+		 SET @answer = (SELECT name FROM location WHERE location_id = field_text);
+				 
+		 	IF @answer = NULL THEN 
+   			UPDATE flat_table1 SET cd4_count_location = "Unknown" WHERE flat_table1.patient_id = patient_id ;
+ 			ELSE
+ 				UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id = patient_id ;
+			END IF;
 		
 		WHEN @confirmatory_hiv_test_date THEN
 		
-			UPDATE flat_table1 SET confirmatory_hiv_test_location = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
+			UPDATE flat_table1 SET confirmatory_hiv_test_date = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
 		
 		WHEN @cd4_count THEN
 

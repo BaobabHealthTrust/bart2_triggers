@@ -907,9 +907,9 @@ BEGIN
                             
         WHEN @art_init_loc THEN
 				  
-				  SET @answer = (SELECT COALESCE((SELECT name FROM location WHERE location_id = in_field_value_text), 0));
+				  SET @answer = (SELECT name FROM location WHERE location_id = in_field_value_text);
 				 
-				 	IF @answer = 0 THEN 
+				 	IF @answer = NULL THEN 
 	    			UPDATE flat_table1 SET location_of_art_initialization = "Unknown" WHERE flat_table1.patient_id = patient_id ;
     			ELSE
     					UPDATE flat_table1 SET location_of_art_initialization = @answer WHERE flat_table1.patient_id = patient_id ;
@@ -926,10 +926,10 @@ BEGIN
 
 				WHEN @cd4_count_loc THEN
 					
-				 SET @answer = (SELECT COALESCE((SELECT name FROM location WHERE location_id = in_field_value_text), 0));
+				 SET @answer = (SELECT name FROM location WHERE location_id = in_field_value_text);
 				 
-				 	IF @answer = 0 THEN 
-	    			UPDATE flat_table1 SET cd4_count_location = "Unkno" WHERE flat_table1.patient_id = patient_id ;
+				 	IF @answer = NULL THEN 
+	    			UPDATE flat_table1 SET cd4_count_location = "Unknown" WHERE flat_table1.patient_id = patient_id ;
     			ELSE
     				UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id = patient_id ;
 
