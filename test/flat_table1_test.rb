@@ -5,7 +5,7 @@ require 'mysql'
 
 class Con < Test::Unit::TestCase
 
-	$con = Mysql.new 'localhost', 'root', 't1m0', 'bart2'
+	$con = Mysql.new 'localhost', 'root', 't1m0', 'likuni_data'
 
 	def test_connection
 	
@@ -159,21 +159,21 @@ class Con < Test::Unit::TestCase
 	 
 	 	values = [yes,no]
 	 	
-		fields = [ 8011, 2552,7754, 6394, 7752,7937, 6393]
+		fields =  [5006, 5497, 9099, 2543, 7031, 6830, 9098, 7032, 7881, 1359, 6625, 5034, 7551, 3461, 1499, 7937, 6393, 8205, 836, 1362, 2588, 2858, 507, 7753, 2891, 8344, 7547, 7557, 5334, 5337, 5328, 5046, 42, 1549, 2578, 8011, 7040, 7562]
 
 		fields.each do |field|
 	
-			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded, creator, date_created, uuid) VALUES (#{person_id}, #{field}, #{encounter_id}, '#{date}','#{yes}', #{user_id}, '#{date}', (SELECT UUID()))"
+			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded,value_numeric, creator, date_created, uuid) VALUES (#{person_id}, #{field}, #{encounter_id}, '#{date}','#{yes}', 410 ,#{user_id}, '#{date}', (SELECT UUID()))"
 
 		end
 
 		puts "obs created"
 		
-		void = $con.query "UPDATE patient set voided = 1 where patient_id = #{person_id}"
+		#void = $con.query "UPDATE patient set voided = 1 where patient_id = #{person_id}"
 		
-		check_void = $con.query "Select * from flat_table1 where patient_id = #{person_id} limit 1"
+		#check_void = $con.query "Select * from flat_table1 where patient_id = #{person_id} limit 1"
 		
-		assert check_void.num_rows < 1, "Failed to remove patient after voiding"	
+		#assert check_void.num_rows < 1, "Failed to remove patient after voiding"	
 		
 
 	end
