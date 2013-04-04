@@ -116,10 +116,6 @@ BEGIN
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
         WHERE name = 'Location of ART INITIATION' AND voided = 0 AND retired = 0 LIMIT 1);
                    
-    SET @drug_start_date = (SELECT concept_name.concept_id FROM  concept_name
-        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-        WHERE name = 'Drug start date' AND voided = 0 AND retired = 0 LIMIT 1);                         
-
     SET @art_start_date_est = (SELECT concept_name.concept_id FROM  concept_name
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
         WHERE name = 'Has transfer letter' AND voided = 0 AND retired = 0 LIMIT 1); 
@@ -916,10 +912,6 @@ BEGIN
 
 					END IF;
 				 
-        WHEN @drug_start_date THEN
-
-            UPDATE flat_table1 SET drug_start_date = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;
-                     
         WHEN @date_started_art THEN
 
             UPDATE flat_table1 SET date_started_art = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;
