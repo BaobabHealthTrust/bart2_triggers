@@ -204,7 +204,7 @@ people.each_hash do |person|
       p = dest_con.query("INSERT INTO obs SELECT * FROM `#{db}`.`obs` " + 
           "WHERE `#{db}`.`obs`.`person_id` = #{person["person_id"]}")    
     rescue Mysql::Error => e
-      puts "?? Error #{e.errno}: #{e.error}"
+      puts "?? Error importing observations #{e.errno}: #{e.error}"
     end
     
     # Orders - simple mapping assumed at this stage
@@ -215,7 +215,7 @@ people.each_hash do |person|
           "WHERE `#{db}`.`orders`.`encounter_id` IN (SELECT encounter_id FROM " + 
           "`#{db}`.`encounter` WHERE `#{db}`.`encounter`.`patient_id` = #{person["person_id"]})")    
     rescue Mysql::Error => e
-      puts "?? Error #{e.errno}: #{e.error}"
+      puts "?? Error importing orders #{e.errno}: #{e.error}"
     end
      
     print "# importing drug_orders with patient id #{person["person_id"]}\n"
@@ -226,7 +226,7 @@ people.each_hash do |person|
           "WHERE encounter_id IN (SELECT encounter_id FROM " + 
           "`#{db}`.`encounter` WHERE `#{db}`.`encounter`.`patient_id` = #{person["person_id"]}))")    
     rescue Mysql::Error => e
-      puts "?? Error #{e.errno}: #{e.error}"
+      puts "?? Error importing drug_orders #{e.errno}: #{e.error}"
     end
     
   }

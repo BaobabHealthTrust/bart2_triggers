@@ -6,7 +6,7 @@ FOR EACH ROW
 BEGIN
 
     SET @patient_id = (SELECT patient_id FROM patient_program 
-        LEFT OUTER JOIN patient_state ON patient_program.patient_program_id = patient_state.patient_program_id WHERE patient_program.patient_program_id = new.patient_program_id);
+        LEFT OUTER JOIN patient_state ON patient_program.patient_program_id = patient_state.patient_program_id WHERE patient_program.patient_program_id = new.patient_program_id LIMIT 1);
 
     SET @state = (SELECT name FROM concept_name 
         LEFT OUTER JOIN program_workflow_state ON program_workflow_state.concept_id = concept_name.concept_id
