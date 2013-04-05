@@ -72,7 +72,7 @@ tables = tables - exception_tables
 
 if(start_pos.to_i <= 1)
 
-  system("mysql -u #{user} -p#{pass} -e 'DROP DATABASE #{dest_db};'")
+  system("mysql -u #{user} -p#{pass} -e 'DROP DATABASE IF EXISTS #{dest_db};'")
   system("mysql -u #{user} -p#{pass} -e 'CREATE DATABASE #{dest_db};'")
 
   command = "mysqldump --user=#{user} --password=#{pass} #{db} "
@@ -99,6 +99,8 @@ if(start_pos.to_i <= 1)
 
 end
 
+start_time = Time.now
+
 dest_con = Mysql.connect(dest_host, user, pass, dest_db)
 
 people = con.query("SELECT person_id FROM person LIMIT #{start_pos}, #{end_pos}")
@@ -108,7 +110,12 @@ people = con.query("SELECT person_id FROM person LIMIT #{start_pos}, #{end_pos}"
 # p = dest_con.query("SET AUTOCOMMIT = 0")
 p = dest_con.query("SET FOREIGN_KEY_CHECKS = 0")
 
+pos = 0
+
 people.each_hash do |person|
+
+  pos = pos.to_i + 1
+
   t = Thread.new {
     # Person table and associated fields
     print "# importing person with id #{person["person_id"]}\n"
@@ -237,10 +244,14 @@ people.each_hash do |person|
     rescue Mysql::Error => e
       puts "?? Error importing drug_orders #{e.errno}: #{e.error}"
     end
+
+    puts "Patient #{pos} of #{end_pos} imported. Started: #{((Time.now - start_time) / 3600).round} minutes ago"
     
   }
   t.join
 end
+
+puts "Total time taken: #{(Time.now - start_time) / 3600} minutes"
 
 p = dest_con.query("SET FOREIGN_KEY_CHECKS = 1")
 # p = dest_con.query("SET FOREIGN_KEY_CHECKS = 1")
