@@ -83,7 +83,7 @@ CREATE TABLE `flat_table1` (
   `respiratory_tract_infections_recurrent` varchar(255) DEFAULT NULL,
   `unspecified_stage2_condition` varchar(255) DEFAULT NULL,
   `angular_chelitis` varchar(255) DEFAULT NULL,
-  `papular_prutic_eruptions` varchar(255) DEFAULT NULL,
+  `papular_pruritic_eruptions` varchar(255) DEFAULT NULL,
   `hepatosplenomegaly_unexplained` varchar(255) DEFAULT NULL,
   `oral_hairy_leukoplakia` varchar(255) DEFAULT NULL,
   `severe_weight_loss` varchar(255) DEFAULT NULL,
