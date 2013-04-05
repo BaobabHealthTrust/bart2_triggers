@@ -5,7 +5,7 @@ require 'mysql'
 
 class Con < Test::Unit::TestCase
 
-	$con = Mysql.new 'localhost', 'root', 't1m0', 'likuni_data'
+	$con = Mysql.new 'localhost', 'root', 't1m0', 'bart2_db'
 
 	def test_connection
 	
