@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require 'test/unit'
+require 'rubygems'
 require 'mysql'
 require "yaml"
 
@@ -45,9 +45,15 @@ dest_db = gets.chomp
 
 puts ""
 
-print green("\tEnter Start ID: ")
+print green("\tEnter Start Position: ")
 
-start_id = gets.chomp
+start_pos = gets.chomp
+
+puts ""
+
+print green("\tEnter End Position: ")
+
+end_pos = gets.chomp
 
 puts ""
 con = Mysql.connect(host, user, pass, db)
@@ -64,40 +70,43 @@ exception_tables = ["person", "person_address", "person_attribute", "person_name
 
 tables = tables - exception_tables
 
-system("mysql -u #{user} -p#{pass} -e 'DROP DATABASE #{dest_db};'")
-system("mysql -u #{user} -p#{pass} -e 'CREATE DATABASE #{dest_db};'")
+if(start_pos.to_i <= 1)
 
-system("exit")
+  system("mysql -u #{user} -p#{pass} -e 'DROP DATABASE #{dest_db};'")
+  system("mysql -u #{user} -p#{pass} -e 'CREATE DATABASE #{dest_db};'")
 
-command = "mysqldump --user=#{user} --password=#{pass} #{db} "
+  command = "mysqldump --user=#{user} --password=#{pass} #{db} "
 
-tables.each{|table|
-  command += " " + table
-}
+  tables.each{|table|
+    command += " " + table
+  }
 
-command += " > schema/defaults.sql\n"
+  command += " > tools/schema/defaults.sql\n"
 
-print "# dumping schema/defaults.sql file\n"
-`#{command}`
+  print "# dumping tools/schema/defaults.sql file\n"
+  `#{command}`
 
-print "# dumping schema/schema.sql file\n"
-`mysqldump --user=#{user} --password=#{pass} #{db} --no-data > schema/schema.sql`
+  print "# dumping tools/schema/schema.sql file\n"
+  `mysqldump --user=#{user} --password=#{pass} #{db} --no-data > tools/schema/schema.sql`
 
-print "# loading schema/schema.sql file\n"
-`mysql --host=#{dest_host} --user=#{user} --password=#{pass} #{dest_db} < schema/schema.sql`
+  print "# loading tools/schema/schema.sql file\n"
+  `mysql --host=#{dest_host} --user=#{user} --password=#{pass} #{dest_db} < tools/schema/schema.sql`
 
-print "# loading schema/defaults.sql file\n"
-`mysql --host=#{dest_host} --user=#{user} --password=#{pass} #{dest_db} < schema/defaults.sql`
+  print "# loading tools/schema/defaults.sql file\n"
+  `mysql --host=#{dest_host} --user=#{user} --password=#{pass} #{dest_db} < tools/schema/defaults.sql`
 
-`./setup.sh #{dest_db} #{user} #{pass}`
+  `./setup.sh #{dest_db} #{user} #{pass}`
+
+end
 
 dest_con = Mysql.connect(dest_host, user, pass, dest_db)
 
-people = con.query("SELECT person_id FROM person WHERE person_id >= #{start_id} ORDER BY person_id")
+people = con.query("SELECT person_id FROM person LIMIT #{start_pos}, #{end_pos}")
 
 # p = dest_con.query("SET FOREIGN_KEY_CHECKS = 0")
 # p = dest_con.query("SET UNIQUE_CHECKS = 0")
 # p = dest_con.query("SET AUTOCOMMIT = 0")
+p = dest_con.query("SET FOREIGN_KEY_CHECKS = 0")
 
 people.each_hash do |person|
   t = Thread.new {
@@ -200,7 +209,7 @@ people.each_hash do |person|
     print "# importing observations with patient id #{person["person_id"]}\n"
       
     begin
-      p = dest_con.query("SET @@FOREIGN_KEY_CHECKS=0")  
+      # p = dest_con.query("SET @@FOREIGN_KEY_CHECKS=0")
       p = dest_con.query("INSERT INTO obs SELECT * FROM `#{db}`.`obs` " + 
           "WHERE `#{db}`.`obs`.`person_id` = #{person["person_id"]}")    
     rescue Mysql::Error => e
@@ -233,6 +242,7 @@ people.each_hash do |person|
   t.join
 end
 
+p = dest_con.query("SET FOREIGN_KEY_CHECKS = 1")
 # p = dest_con.query("SET FOREIGN_KEY_CHECKS = 1")
 # p = dest_con.query("SET UNIQUE_CHECKS = 1")
 # p = dest_con.query("SET AUTOCOMMIT = 1")
