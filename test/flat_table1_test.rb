@@ -178,4 +178,44 @@ class Con < Test::Unit::TestCase
 
 	end
 	
+	
+	def test_stages_test
+	
+		stages = [7052, 7051, 7050, 7049,7048,7047,7046,7045,7044,7043,7042,7041]
+		
+		stages.each do |stage|
+		
+		
+			user_id = 1
+		
+			date = Time.now.strftime("%Y-%m-%d")
+		
+			person = $con.query "INSERT INTO person (gender,birthdate,creator, uuid) VALUES ('M', #{date},1, (SELECT UUID()))" ;
+	
+			is = $con.query "SELECT LAST_INSERT_ID()"
+				
+			person_id = is.fetch_row[0].to_i
+
+			name = $con.query "INSERT INTO person_name ( person_id, given_name, family_name, uuid, creator) VALUES ( #{person_id},'Test','Case', (SELECT UUID()), #{user_id})";
+
+			patient = $con.query "INSERT INTO patient (patient_id, creator, date_created, voided) VALUES (#{person_id}, #{user_id}, '#{date}', 0)"
+
+			check_patient = $con.query "Select * from patient where patient_id = #{person_id}"
+		
+			rs = $con.query "INSERT INTO encounter (encounter_type, patient_id,provider_id, encounter_datetime, creator, date_created, uuid) VALUES ( 52, #{person_id}, #{user_id}, '#{date}', #{user_id}, '#{date}', (SELECT UUID()))"
+
+			encounter = $con.query "SELECT LAST_INSERT_ID()"
+		
+			encounter_id = encounter.fetch_row[0].to_i
+			
+			os = $con.query "INSERT INTO obs (person_id, concept_id, encounter_id,obs_datetime, value_coded, creator, date_created, uuid) VALUES (#{person_id} ,7562, #{encounter_id}, '#{date}','#{stage}',#{user_id}, '#{date}', (SELECT UUID()))"
+		
+			check = $con.query "SELECT * from obs where encounter_id = #{encounter_id}"
+			
+			assert check.num_rows > 0, "Failed to write observations"
+						
+		end
+		
+	
+	end
 end
