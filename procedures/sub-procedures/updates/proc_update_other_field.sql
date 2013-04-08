@@ -279,7 +279,7 @@ BEGIN
 
     SET @chronic_herpes_simplex_infection = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Chronic herpes simplex' AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = 'Chronic herpes' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @cytomegalovirus_infection = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 

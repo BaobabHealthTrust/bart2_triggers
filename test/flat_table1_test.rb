@@ -222,7 +222,7 @@ class Con < Test::Unit::TestCase
 	
 		user_id = 1
 		
-		date = Time.now.strftime("%Y-%m-%d")
+		date = Time.now.strftime("%Y-%m-%d") 
 		
 		person = $con.query "INSERT INTO person (gender,birthdate,creator, uuid) VALUES ('M', #{date},1, (SELECT UUID()))" ;
 	
@@ -266,6 +266,12 @@ class Con < Test::Unit::TestCase
         "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '#{date}', " +
         " #{user_id} , '#{date}', 0, (SELECT UUID()))";
 
+      
+      ps1 = $con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
+        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '2013-01-02', " +
+        " #{user_id} , '#{date}', 0, (SELECT UUID()))";
+
+      
       fs = $con.query "SELECT current_hiv_program_state, current_hiv_program_start_date " +
         " FROM flat_table2 WHERE patient_id = #{person_id} AND visit_date = DATE('#{date}')"
 
