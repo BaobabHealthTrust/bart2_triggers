@@ -215,7 +215,77 @@ class Con < Test::Unit::TestCase
 			assert check.num_rows > 0, "Failed to write observations"
 						
 		end
+			
+	end
+	
+	def test_state_test 
+	
+		user_id = 1
 		
+		date = Time.now.strftime("%Y-%m-%d")
+		
+		person = $con.query "INSERT INTO person (gender,birthdate,creator, uuid) VALUES ('M', #{date},1, (SELECT UUID()))" ;
+	
+		is = $con.query "SELECT LAST_INSERT_ID()"
+		  
+		assert is.num_rows > 0, "Line 20: Create person failed!"
+
+		person_id = is.fetch_row[0].to_i
+	
+		name = $con.query "INSERT INTO person_name ( person_id, given_name, family_name, uuid, creator) VALUES ( #{person_id},'Test','Case', (SELECT UUID()), #{user_id})";
+		
+		names = $con.query "Select * from flat_table1 where given_name = 'test' and patient_id = #{person_id}"
+		
+		assert names.num_rows > 0 , "Failed to write person name"
+		
+		patient = $con.query "INSERT INTO patient (patient_id, creator, date_created, voided) VALUES (#{person_id}, #{user_id}, '#{date}', 0)"
+
+		check_patient = $con.query "Select patient_id from patient where patient_id = #{person_id}"
+		
+		assert check_patient.num_rows > 0, "Failed to create patient"
+
+	
+		 	ps = $con.query "INSERT INTO patient_program ( patient_id, program_id, date_enrolled, creator, date_created, voided, uuid ) VALUES ( #{check_patient}, 1,'#{date}',#{user_id},'#{date}', 0, (SELECT UUID())) "
+      
+      ps = $con.query "SELECT LAST_INSERT_ID()"
+
+      assert ps.num_rows > 0, "Line 425: patient_program creation failed!"
+
+      patient_program_id = ps.fetch_row[0].to_i
+
+      state = "On ARVs"
+
+      cs = $con.query "SELECT concept_id FROM concept_name WHERE name = '#{state}'"
+
+      assert cs.num_rows > 0, "Line 435: Failed to pull concept"
+      
+      concept_id = cs.fetch_row[0].to_i
+
+      ws = $con.query "SELECT program_workflow_state_id FROM program_workflow_state " + 
+        "WHERE concept_id = #{concept_id} AND program_workflow_id = 1"
+
+      assert ws.num_rows > 0, "Line 441: Failed to pull program_workflow_state_id"
+
+      program_workflow_state_id = ws.fetch_row[0].to_i
+
+      ps = $con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
+        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '#{date}', " +
+        " #{user_id} , '#{date}', 0, (SELECT UUID()))";
+
+      fs = $con.query "SELECT current_hiv_program_state, current_hiv_program_start_date " +
+        " FROM flat_table2 WHERE patient_id = #{person_id} AND visit_date = DATE('#{date}')"
+
+      assert fs.num_rows > 0, "Line 454: Failed to update flat-table with current_hiv_program_state = '#{state}'!"
+
+      row = fs.fetch_row
+
+      assert row[0] == state, "Line 454: Failed to update flat-table with current_hiv_program_state '#{state}'"
+
+      assert row[1] == Time.now.strftime("%Y-%m-%d"), "Line 454: Failed to update flat-table with " +
+        "current_hiv_program_start_date '#{Time.now.strftime("%Y-%m-%d")}'"
+     
 	
 	end
+	
+	
 end

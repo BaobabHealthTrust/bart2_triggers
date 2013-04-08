@@ -51,6 +51,7 @@ CREATE TABLE `flat_table1` (
   `filing_number` varchar(255) DEFAULT NULL,
   `archived_filing_number` varchar(255) DEFAULT NULL,
   `ever_received_art` varchar(255) DEFAULT NULL,
+  `earliest_start_date` date default NULL,
   `date_art_last_taken` date DEFAULT NULL,
   `taken_art_in_last_two_months` varchar(255) DEFAULT NULL,
   `taken_art_in_last_two_weeks` varchar(255) DEFAULT NULL,

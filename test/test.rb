@@ -454,7 +454,7 @@ class Con < Test::Unit::TestCase
 
       patient_program_id = ps.fetch_row[0].to_i
 
-      state = "On antiretrovirals"
+      state = "On ARVs"
 
       cs = con.query "SELECT concept_id FROM concept_name WHERE name = '#{state}'"
 
