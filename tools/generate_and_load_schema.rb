@@ -105,9 +105,8 @@ dest_con = Mysql.connect(dest_host, user, pass, dest_db)
 
 people = con.query("SELECT person_id FROM person LIMIT #{start_pos}, #{end_pos}")
 
-# p = dest_con.query("SET FOREIGN_KEY_CHECKS = 0")
-# p = dest_con.query("SET UNIQUE_CHECKS = 0")
-# p = dest_con.query("SET AUTOCOMMIT = 0")
+p = dest_con.query("SET UNIQUE_CHECKS = 0")
+p = dest_con.query("SET AUTOCOMMIT = 0")
 p = dest_con.query("SET FOREIGN_KEY_CHECKS = 0")
 
 pos = 0
@@ -245,15 +244,14 @@ people.each_hash do |person|
       puts "?? Error importing drug_orders #{e.errno}: #{e.error}"
     end
 
-    puts "Patient #{pos} of #{end_pos} imported. Started: #{((Time.now - start_time) / 3600).round} minutes ago"
+    puts "Patient #{pos} of #{end_pos} imported. Started: #{((Time.now - start_time) / (60))} minutes ago"
     
   }
   t.join
 end
 
-puts "Total time taken: #{(Time.now - start_time) / 3600} minutes"
+puts "Total time taken: #{(Time.now - start_time) / 3600} hours"
 
 p = dest_con.query("SET FOREIGN_KEY_CHECKS = 1")
-# p = dest_con.query("SET FOREIGN_KEY_CHECKS = 1")
-# p = dest_con.query("SET UNIQUE_CHECKS = 1")
-# p = dest_con.query("SET AUTOCOMMIT = 1")
+p = dest_con.query("SET UNIQUE_CHECKS = 1")
+p = dest_con.query("SET AUTOCOMMIT = 1")
