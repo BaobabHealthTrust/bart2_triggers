@@ -246,7 +246,7 @@ class Con < Test::Unit::TestCase
 		
 		assert check_patient.num_rows > 0, "Failed to create patient"
 
-			insert = $con.query "INSERT INTO patient_program (patient_id,program_id,date_enrolled,creator) VALUES (3,1,#{date},1)"
+			insert = $con.query "INSERT INTO patient_program (patient_id,program_id,date_enrolled,creator) VALUES (2,1,#{date},1)"
       
       ps = $con.query "SELECT LAST_INSERT_ID()"
 
@@ -269,11 +269,11 @@ class Con < Test::Unit::TestCase
       fs = $con.query "SELECT current_hiv_program_state, current_hiv_program_start_date " +
         " FROM flat_table2 WHERE patient_id = #{person_id} AND visit_date = DATE('#{date}')"
 
-      assert fs.num_rows > 0, "Line 454: Failed to update flat-table with current_hiv_program_state = '#{state}'!"
+      assert fs.num_rows > 0, "Line 454: Failed to update flat-table with current_hiv_program_state !"
 
       row = fs.fetch_row
 
-      assert row[0] == state, "Line 454: Failed to update flat-table with current_hiv_program_state '#{state}'"
+
 
       assert row[1] == Time.now.strftime("%Y-%m-%d"), "Line 454: Failed to update flat-table with " +
         "current_hiv_program_start_date '#{Time.now.strftime("%Y-%m-%d")}'"

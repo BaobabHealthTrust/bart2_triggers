@@ -20,6 +20,8 @@ BEGIN
                         WHERE name = 'On ARVs' AND voided = 0 AND retired = 0 LIMIT 1);
 
     
+    SET @state_concept = (SELECT concept_id from program_workflow_state where program_workflow_state_id = new.state AND retired = 0 LIMIT 1);
+    
     SET @visit = (SELECT COALESCE((SELECT id FROM flat_table2 WHERE patient_id = @patient_id AND DATE(visit_date) = DATE(new.start_date)), 0));
     
     IF @visit = 0 THEN
@@ -36,13 +38,17 @@ BEGIN
         
     END IF;   
 
-		IF new.state = @on_arv THEN
+		IF @state_concept = @on_arv THEN
 		
 			SET @start_date = (SELECT earliest_start_date from flat_table1 where patient_id = @patient_id);
-			
-			IF @start_date = NULL OR @start_date > new.start_date THEN
-			
+						
+			IF @start_date IS NULL THEN
+
 				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id;
+			
+			ELSEIF @start_date > new.start_date THEN
+			
+				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id;			
 
 			END IF;
 		
