@@ -242,10 +242,11 @@ class Con < Test::Unit::TestCase
 
 		check_patient = $con.query "Select patient_id from patient where patient_id = #{person_id}"
 		
+		program = 1
+		
 		assert check_patient.num_rows > 0, "Failed to create patient"
 
-	
-		 	ps = $con.query "INSERT INTO patient_program ( patient_id, program_id, date_enrolled, creator, date_created, voided, uuid ) VALUES ( #{check_patient}, 1,'#{date}',#{user_id},'#{date}', 0, (SELECT UUID())) "
+			insert = $con.query "INSERT INTO patient_program (patient_id,program_id,date_enrolled,creator) VALUES (3,1,#{date},1)"
       
       ps = $con.query "SELECT LAST_INSERT_ID()"
 
@@ -253,16 +254,9 @@ class Con < Test::Unit::TestCase
 
       patient_program_id = ps.fetch_row[0].to_i
 
-      state = "On ARVs"
-
-      cs = $con.query "SELECT concept_id FROM concept_name WHERE name = '#{state}'"
-
-      assert cs.num_rows > 0, "Line 435: Failed to pull concept"
-      
-      concept_id = cs.fetch_row[0].to_i
 
       ws = $con.query "SELECT program_workflow_state_id FROM program_workflow_state " + 
-        "WHERE concept_id = #{concept_id} AND program_workflow_id = 1"
+        "WHERE concept_id = 1577 AND program_workflow_id = 1"
 
       assert ws.num_rows > 0, "Line 441: Failed to pull program_workflow_state_id"
 

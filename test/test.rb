@@ -454,13 +454,15 @@ class Con < Test::Unit::TestCase
 
       patient_program_id = ps.fetch_row[0].to_i
 
-      state = "On ARVs"
+      state = "On antiretrovirals"
 
-      cs = con.query "SELECT concept_id FROM concept_name WHERE name = '#{state}'"
+      cs = con.query "SELECT concept_name.concept_id FROM concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'On ARVs' AND voided = 0 AND retired = 0 LIMIT 1"
 
       assert cs.num_rows > 0, "Line 435: Failed to pull concept"
       
-      concept_id = cs.fetch_row[0].to_i
+      concept_id = cs.to_i
 
       ws = con.query "SELECT program_workflow_state_id FROM program_workflow_state " + 
         "WHERE concept_id = #{concept_id} AND program_workflow_id = 1"
