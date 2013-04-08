@@ -151,11 +151,11 @@ BEGIN
                     
     SET @cd4_count_less_than_250 = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'CD4 percent less than 250' AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = 'CD4 count less than 250' AND voided = 0 AND retired = 0 LIMIT 1);
                                                 
     SET @cd4_count_less_than_350 = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'CD4 percent less than 350' AND voided = 0 AND retired = 0 LIMIT 1);                            
+                    WHERE name = 'CD4 count less than or equal to 350' AND voided = 0 AND retired = 0 LIMIT 1);                            
                     
     SET @pnuemocystis_pnuemonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -221,7 +221,7 @@ BEGIN
 
 		SET @papular_prurtic_eruptions = (SELECT concept_name.concept_id FROM  concept_name
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-        WHERE name = 'Papular prutic eruptions / Fungal nail infections' AND voided = 0 AND retired = 0 LIMIT 1);
+        WHERE name = 'Papular pruritic eruptions / Fungal nail infections' AND voided = 0 AND retired = 0 LIMIT 1);
 
 
     SET @hepatosplenomegaly_unexplained = (SELECT concept_name.concept_id FROM concept_name concept_name 
@@ -355,7 +355,7 @@ BEGIN
 
     SET @chronic_herpes_simplex_infection = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Chronic herpes' AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = 'Chronic herpes simplex' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @cytomegalovirus_infection = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -962,7 +962,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET cd4_count_less_than_250 = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET cd4_count_less_than_350 = @answer WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @lymphocyte_count_date THEN
 
@@ -1061,7 +1061,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET papular_prurtic_eruptions = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET papular_pruritic_eruptions = @answer WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @hepatosplenomegaly_unexplained THEN
 

@@ -31,6 +31,18 @@ BEGIN
         
     END IF;   
 
+		IF @state = 'On ARVs' THEN
+		
+			@start_date = SELECT earliest_start_date from flat_table1 where patient_id = @patient_id;
+			
+			IF @start_date = NULL OR @start_date > new.start_date THEN
+			
+				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id
+
+			END IF
+		
+		END IF;
+
 END$$
 
 DELIMITER ;

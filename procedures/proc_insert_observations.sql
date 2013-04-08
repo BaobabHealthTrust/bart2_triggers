@@ -381,18 +381,17 @@ BEGIN
 
 		WHEN @reason_for_eligibility THEN
 		
-			SET @reason = (SELECT concept_name.name FROM concept_name
+			SET @answer = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
-
+                        WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
 			
-			UPDATE flat_table1 SET reason_for_eligibility = @reason WHERE flat_table1.patient_id = patient_id ;
+			UPDATE flat_table1 SET reason_for_eligibility = @answer WHERE flat_table1.patient_id = patient_id ;
 		
 		WHEN @who_stage THEN
 		
 			SET @stage = (SELECT concept_name.name FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+                        WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
 			
 			UPDATE flat_table1 SET who_stage = @stage WHERE flat_table1.patient_id = patient_id ;
 		
