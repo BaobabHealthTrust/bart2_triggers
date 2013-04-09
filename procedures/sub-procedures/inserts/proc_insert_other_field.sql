@@ -128,6 +128,10 @@ BEGIN
     SET @cd4_count_loc =  (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Cd4 count location' AND voided = 0 AND retired = 0 LIMIT 1);                          
+                                        
+    SET @cd4_percent_loc =  (SELECT concept_name.concept_id FROM concept_name concept_name 
+                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                    WHERE name = 'CD4 percent location' AND voided = 0 AND retired = 0 LIMIT 1);                                          
 
     SET @cd4_count_date =  (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -355,7 +359,7 @@ BEGIN
 
     SET @chronic_herpes_simplex_infection = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Chronic herpes' AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = 'Chronic herpes simplex infection (orolabial, gential / anorectal >1 month or visceral at any site)' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @cytomegalovirus_infection = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -363,7 +367,7 @@ BEGIN
 		                        
     SET @toxoplasomis_of_the_brain_1month = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Toxoplasmosis of the brain' AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = 'Toxoplasmosis, brain > 1 month' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @recto_vaginal_fitsula = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -933,11 +937,14 @@ BEGIN
     				UPDATE flat_table1 SET cd4_count_location = @answer WHERE flat_table1.patient_id = patient_id ;
 
 					END IF;
-
+				
+				WHEN @cd4_percent_loc THEN
+								 
+    			UPDATE flat_table1 SET cd4_count_location = in_field_value_text WHERE flat_table1.patient_id = patient_id ;
+				
         WHEN @cd4_count_date THEN
 
-            UPDATE flat_table1 SET cd4_count_date = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;
-                           				                                              
+            UPDATE flat_table1 SET cd4_count_datetime = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;                           				                                              
 	         
         WHEN @cd4_count_percent THEN
 

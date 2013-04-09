@@ -62,7 +62,6 @@ CREATE TABLE `flat_table1` (
   `art_start_date_estimation` varchar(255) DEFAULT NULL,
   `date_started_art` date DEFAULT NULL,
   `cd4_count_location` varchar(255) DEFAULT NULL,
-  `cd4_count_date` date DEFAULT NULL,
   `cd4_count` int(11) DEFAULT NULL,
   `cd4_count_modifier` varchar(255) DEFAULT NULL,
   `cd4_count_percent` float DEFAULT NULL,
