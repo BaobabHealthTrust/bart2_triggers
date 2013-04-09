@@ -6,7 +6,7 @@ CREATE TABLE `flat_cohort_table`(
   `id` INT NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) DEFAULT NULL ,
   `gender` VARCHAR(45) DEFAULT NULL ,
-  `age_in_months` INT DEFAULT NULL ,
+  `birthdate` DATE NULL ,
   `earliest_start_date` DATE DEFAULT NULL ,
   `hiv_program_state` VARCHAR(45) DEFAULT NULL ,
   `hiv_program_start_date` DATE DEFAULT NULL ,
