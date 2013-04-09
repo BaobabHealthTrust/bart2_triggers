@@ -1,8 +1,8 @@
 
 
-DROP TABLE IF EXISTS `cohort_flat_table`;
+DROP TABLE IF EXISTS `flat_cohort_table`;
 
-CREATE TABLE `cohort_flat_table`(
+CREATE TABLE `flat_cohort_table`(
   `id` INT NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) DEFAULT NULL ,
   `gender` VARCHAR(45) DEFAULT NULL ,
