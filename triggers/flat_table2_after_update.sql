@@ -14,28 +14,27 @@ BEGIN
     DECLARE var_earliest_start_date date;
     DECLARE var_hiv_program_state varchar(45);
     DECLARE var_hiv_program_start_date date;
-    DECLARE var_current_tb_status varchar(255);
     DECLARE var_reason_for_starting varchar(255);
     DECLARE var_ever_registered_at_art varchar(255);
     DECLARE var_date_art_last_taken date;
     DECLARE var_taken_art_in_last_two_months varchar(255);
     DECLARE var_patient_pregnant varchar(255);
     DECLARE var_death_date date;
-    DECLARE var_drug_induced_abdominal_pain int(11);
-    DECLARE var_drug_induced_anorexia int(11);
-    DECLARE var_drug_induced_diarrhea int(11);
-    DECLARE var_drug_induced_jaundice int(11);
-    DECLARE var_drug_induced_leg_pain_numbness int(11);
-    DECLARE var_drug_induced_vomiting int(11);
-    DECLARE var_drug_induced_peripheral_neuropathy int(11);
-    DECLARE var_drug_induced_hepatitis int(11);
-    DECLARE var_drug_induced_anemia int(11);
-    DECLARE var_drug_induced_lactic_acidosis int(11);
-    DECLARE var_drug_induced_lipodystrophy int(11);
-    DECLARE var_drug_induced_skin_rash int(11);
-    DECLARE var_drug_induced_other_symptom int(11);
-    DECLARE var_drug_induced_fever int(11);
-    DECLARE var_drug_induced_cough int(11);
+    DECLARE var_drug_induced_abdominal_pain varchar(255);
+    DECLARE var_drug_induced_anorexia varchar(255);
+    DECLARE var_drug_induced_diarrhea varchar(255);
+    DECLARE var_drug_induced_jaundice varchar(255);
+    DECLARE var_drug_induced_leg_pain_numbness varchar(255);
+    DECLARE var_drug_induced_vomiting varchar(255);
+    DECLARE var_drug_induced_peripheral_neuropathy varchar(255);
+    DECLARE var_drug_induced_hepatitis varchar(255);
+    DECLARE var_drug_induced_anemia varchar(255);
+    DECLARE var_drug_induced_lactic_acidosis varchar(255);
+    DECLARE var_drug_induced_lipodystrophy varchar(255);
+    DECLARE var_drug_induced_skin_rash varchar(255);
+    DECLARE var_drug_induced_other_symptom varchar(255);
+    DECLARE var_drug_induced_fever varchar(255);
+    DECLARE var_drug_induced_cough varchar(255);
     DECLARE var_tb_not_suspected varchar(255);
     DECLARE var_tb_suspected varchar(255);
     DECLARE var_confirmed_tb_not_on_treatment varchar(255);
@@ -123,7 +122,7 @@ BEGIN
 
     # Declare and initialise cursor for looping through the table
     DECLARE cur CURSOR FOR SELECT id, patient_id, gender, birthdate, earliest_start_date, 
-        hiv_program_state, hiv_program_start_date, current_tb_status, reason_for_starting, 
+        hiv_program_state, hiv_program_start_date, reason_for_starting, 
         ever_registered_at_art, date_art_last_taken, taken_art_in_last_two_months, 
         patient_pregnant, death_date, drug_induced_abdominal_pain, drug_induced_anorexia, 
         drug_induced_diarrhea, drug_induced_jaundice, drug_induced_leg_pain_numbness, 
@@ -171,7 +170,7 @@ BEGIN
     
     # Get the fields into the variables declared earlier
     FETCH cur INTO var_id, var_patient_id, var_gender, var_birthdate, var_earliest_start_date, 
-        var_hiv_program_state, var_hiv_program_start_date, var_current_tb_status, 
+        var_hiv_program_state, var_hiv_program_start_date, 
         var_reason_for_starting, var_ever_registered_at_art, var_date_art_last_taken, 
         var_taken_art_in_last_two_months, var_patient_pregnant, var_death_date, 
         var_drug_induced_abdominal_pain, var_drug_induced_anorexia, var_drug_induced_diarrhea, 
@@ -224,9 +223,317 @@ BEGIN
             
             END IF;
         
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_abdominal_pain_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_abdominal_pain = NEW.drug_induced_abdominal_pain,
+                    drug_induced_abdominal_pain_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_anorexia_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_anorexia = NEW.drug_induced_anorexia,
+                    drug_induced_anorexia_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_diarrhea_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_diarrhea = NEW.drug_induced_diarrhea,
+                    drug_induced_diarrhea_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_jaundice_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_jaundice = NEW.drug_induced_jaundice,
+                    drug_induced_jaundice_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_leg_pain_numbness_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_leg_pain_numbness = NEW.drug_induced_leg_pain_numbness,
+                    drug_induced_leg_pain_numbness_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_vomiting_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_vomiting = NEW.drug_induced_vomiting,
+                    drug_induced_vomiting_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_peripheral_neuropathy_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_peripheral_neuropathy = NEW.drug_induced_peripheral_neuropathy,
+                    drug_induced_peripheral_neuropathy_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_hepatitis_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_hepatitis = NEW.drug_induced_hepatitis,
+                    drug_induced_hepatitis_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_anemia_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_anemia = NEW.drug_induced_anemia,
+                    drug_induced_anemia_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_lactic_acidosis_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_lactic_acidosis = NEW.drug_induced_lactic_acidosis,
+                    drug_induced_lactic_acidosis_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_lipodystrophy_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_lipodystrophy = NEW.drug_induced_lipodystrophy,
+                    drug_induced_lipodystrophy_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_skin_rash_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_skin_rash = NEW.drug_induced_skin_rash,
+                    drug_induced_skin_rash_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_other_symptom_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_other_symptom = NEW.drug_induced_other_symptom,
+                    drug_induced_other_symptom_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_fever_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_fever = NEW.drug_induced_fever,
+                    drug_induced_fever_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_induced_cough_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_induced_cough = NEW.drug_induced_cough,
+                    drug_induced_cough_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_tb_not_suspected_v_date) THEN
+            
+                UPDATE flat_cohort_table SET tb_not_suspected = NEW.tb_status_tb_not_suspected,
+                    tb_not_suspected_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_tb_suspected_v_date) THEN
+            
+                UPDATE flat_cohort_table SET tb_suspected = NEW.tb_status_tb_suspected,
+                    tb_suspected_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_confirmed_tb_not_on_treatment_v_date) THEN
+            
+                UPDATE flat_cohort_table SET confirmed_tb_not_on_treatment = NEW.tb_status_confirmed_tb_not_on_treatment,
+                    confirmed_tb_not_on_treatment_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_confirmed_tb_on_treatment_v_date) THEN
+            
+                UPDATE flat_cohort_table SET confirmed_tb_on_treatment = NEW.tb_status_confirmed_tb_on_treatment,
+                    confirmed_tb_on_treatment_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_unknown_tb_status_v_date) THEN
+            
+                UPDATE flat_cohort_table SET unknown_tb_status = NEW.tb_status_unknown,
+                    unknown_tb_status_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_what_was_the_patient_adherence_for_this_drug1_v_date) THEN
+            
+                UPDATE flat_cohort_table SET what_was_the_patient_adherence_for_this_drug1 = 
+                    NEW.what_was_the_patient_adherence_for_this_drug1,
+                    what_was_the_patient_adherence_for_this_drug1_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_what_was_the_patient_adherence_for_this_drug2_v_date) THEN
+            
+                UPDATE flat_cohort_table SET what_was_the_patient_adherence_for_this_drug2 = 
+                    NEW.what_was_the_patient_adherence_for_this_drug2,
+                    what_was_the_patient_adherence_for_this_drug2_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_what_was_the_patient_adherence_for_this_drug3_v_date) THEN
+            
+                UPDATE flat_cohort_table SET what_was_the_patient_adherence_for_this_drug3 = 
+                    NEW.what_was_the_patient_adherence_for_this_drug3,
+                    what_was_the_patient_adherence_for_this_drug3_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_what_was_the_patient_adherence_for_this_drug4_v_date) THEN
+            
+                UPDATE flat_cohort_table SET what_was_the_patient_adherence_for_this_drug4 = 
+                    NEW.what_was_the_patient_adherence_for_this_drug4,
+                    what_was_the_patient_adherence_for_this_drug4_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_what_was_the_patient_adherence_for_this_drug5_v_date) THEN
+            
+                UPDATE flat_cohort_table SET what_was_the_patient_adherence_for_this_drug5 = 
+                    NEW.what_was_the_patient_adherence_for_this_drug5,
+                    what_was_the_patient_adherence_for_this_drug5_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_regimen_category_v_date) THEN
+            
+                UPDATE flat_cohort_table SET regimen_category = 
+                    NEW.regimen_category,
+                    regimen_category_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_name1_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_name1 = 
+                    NEW.drug_name1,
+                    drug_name1_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_name2_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_name2 = 
+                    NEW.drug_name2,
+                    drug_name2_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_name3_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_name3 = 
+                    NEW.drug_name3,
+                    drug_name3_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_name4_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_name4 = 
+                    NEW.drug_name4,
+                    drug_name4_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_name5_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_name5 = 
+                    NEW.drug_name5,
+                    drug_name5_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_inventory_id1_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_inventory_id1 = 
+                    NEW.drug_inventory_id1,
+                    drug_inventory_id1_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_inventory_id2_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_inventory_id2 = 
+                    NEW.drug_inventory_id2,
+                    drug_inventory_id2_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_inventory_id3_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_inventory_id3 = 
+                    NEW.drug_inventory_id3,
+                    drug_inventory_id3_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_inventory_id4_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_inventory_id4 = 
+                    NEW.drug_inventory_id4,
+                    drug_inventory_id4_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_inventory_id5_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_inventory_id5 = 
+                    NEW.drug_inventory_id5,
+                    drug_inventory_id5_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_auto_expire_date1_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_auto_expire_date1 = 
+                    NEW.drug_auto_expire_date1,
+                    drug_auto_expire_date1_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_auto_expire_date2_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_auto_expire_date2 = 
+                    NEW.drug_auto_expire_date2,
+                    drug_auto_expire_date2_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_auto_expire_date3_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_auto_expire_date3 = 
+                    NEW.drug_auto_expire_date3,
+                    drug_auto_expire_date3_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_auto_expire_date4_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_auto_expire_date4 = 
+                    NEW.drug_auto_expire_date4,
+                    drug_auto_expire_date4_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+            IF DATE(NEW.visit_date) >= DATE(var_drug_auto_expire_date5_v_date) THEN
+            
+                UPDATE flat_cohort_table SET drug_auto_expire_date5 = 
+                    NEW.drug_auto_expire_date5,
+                    drug_auto_expire_date5_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
         ELSE
             
-            INSERT INTO flat_cohort_table (patient_id) VALUES (NEW.patient_id);
+            INSERT INTO flat_cohort_table (patient_id, hiv_program_state, hiv_program_start_date, drug_induced_abdominal_pain, drug_induced_anorexia, drug_induced_diarrhea, drug_induced_jaundice, drug_induced_leg_pain_numbness, drug_induced_vomiting, drug_induced_peripheral_neuropathy, drug_induced_hepatitis, drug_induced_anemia, drug_induced_lactic_acidosis, drug_induced_lipodystrophy, drug_induced_skin_rash, drug_induced_other_symptom, drug_induced_fever, drug_induced_cough, tb_not_suspected, tb_suspected, confirmed_tb_not_on_treatment, confirmed_tb_on_treatment, unknown_tb_status, what_was_the_patient_adherence_for_this_drug1, what_was_the_patient_adherence_for_this_drug2, what_was_the_patient_adherence_for_this_drug3, what_was_the_patient_adherence_for_this_drug4, what_was_the_patient_adherence_for_this_drug5, regimen_category, drug_name1, drug_name2, drug_name3, drug_name4, drug_name5, drug_inventory_id1, drug_inventory_id2, drug_inventory_id3, drug_inventory_id4, drug_inventory_id5, drug_auto_expire_date1, drug_auto_expire_date2, drug_auto_expire_date3, drug_auto_expire_date4, drug_auto_expire_date5, hiv_program_state_v_date, hiv_program_start_date_v_date, drug_induced_abdominal_pain_v_date, drug_induced_anorexia_v_date, drug_induced_diarrhea_v_date, drug_induced_jaundice_v_date, drug_induced_leg_pain_numbness_v_date, drug_induced_vomiting_v_date, drug_induced_peripheral_neuropathy_v_date, drug_induced_hepatitis_v_date, drug_induced_anemia_v_date, drug_induced_lactic_acidosis_v_date, drug_induced_lipodystrophy_v_date, drug_induced_skin_rash_v_date, drug_induced_other_symptom_v_date, drug_induced_fever_v_date, drug_induced_cough_v_date, tb_not_suspected_v_date, tb_suspected_v_date, confirmed_tb_not_on_treatment_v_date, confirmed_tb_on_treatment_v_date, unknown_tb_status_v_date, what_was_the_patient_adherence_for_this_drug1_v_date, what_was_the_patient_adherence_for_this_drug2_v_date, what_was_the_patient_adherence_for_this_drug3_v_date, what_was_the_patient_adherence_for_this_drug4_v_date, what_was_the_patient_adherence_for_this_drug5_v_date, regimen_category_v_date, drug_name1_v_date, drug_name2_v_date, drug_name3_v_date, drug_name4_v_date, drug_name5_v_date, drug_inventory_id1_v_date, drug_inventory_id2_v_date, drug_inventory_id3_v_date, drug_inventory_id4_v_date, drug_inventory_id5_v_date, drug_auto_expire_date1_v_date, drug_auto_expire_date2_v_date, drug_auto_expire_date3_v_date, drug_auto_expire_date4_v_date, drug_auto_expire_date5_v_date) VALUES (NEW.patient_id, NEW.current_hiv_program_state, NEW.current_hiv_program_start_date, NEW.drug_induced_abdominal_pain, NEW.drug_induced_anorexia, NEW.drug_induced_diarrhea, NEW.drug_induced_jaundice, NEW.drug_induced_leg_pain_numbness, NEW.drug_induced_vomiting, NEW.drug_induced_peripheral_neuropathy, NEW.drug_induced_hepatitis, NEW.drug_induced_anemia, NEW.drug_induced_lactic_acidosis, NEW.drug_induced_lipodystrophy, NEW.drug_induced_skin_rash, NEW.drug_induced_other_symptom, NEW.drug_induced_fever, NEW.drug_induced_cough, NEW.tb_status_tb_not_suspected, NEW.tb_status_tb_suspected, NEW.tb_status_confirmed_tb_not_on_treatment, NEW.tb_status_confirmed_tb_on_treatment, NEW.tb_status_unknown, NEW.what_was_the_patient_adherence_for_this_drug1, NEW.what_was_the_patient_adherence_for_this_drug2, NEW.what_was_the_patient_adherence_for_this_drug3, NEW.what_was_the_patient_adherence_for_this_drug4, NEW.what_was_the_patient_adherence_for_this_drug5, NEW.regimen_category, NEW.drug_name1, NEW.drug_name2, NEW.drug_name3, NEW.drug_name4, NEW.drug_name5, NEW.drug_inventory_id1, NEW.drug_inventory_id2, NEW.drug_inventory_id3, NEW.drug_inventory_id4, NEW.drug_inventory_id5, NEW.drug_auto_expire_date1, NEW.drug_auto_expire_date2, NEW.drug_auto_expire_date3, NEW.drug_auto_expire_date4, NEW.drug_auto_expire_date5, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date);
         
         END IF;
         

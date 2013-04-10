@@ -135,6 +135,8 @@ class Con < Test::Unit::TestCase
         ["drug_induced_lactic_acidosis", "No", "text", "Drug induced", "Lactic acidosis", "Lactic acidosis"],
         ["drug_induced_lipodystrophy", "No", "text", "Drug induced", "Lipodystrophy", "Lipodystrophy"],
         ["drug_induced_skin_rash", "No", "text", "Drug induced", "Skin rash", "Skin rash"],
+        ["drug_induced_fever", "No", "text", "Drug induced", "Fever", "Fever"],
+        # ["drug_induced_cough", "No", "text", "Drug induced", "Cough", "Cough"],
         ["drug_induced_other_symptom", "No", "text", "Drug induced", "Other symptom", "Other symptom"],
         ["routine_tb_screening_fever", "NO", "Text", "Routine TB Screening", "Fever", "Fever"],
         ["routine_tb_screening_night_sweats", "NO", "Text", "Routine TB Screening", "Night sweats", "Night sweats"],
