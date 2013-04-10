@@ -93,8 +93,8 @@ class Con < Test::Unit::TestCase
         ["guardian_present_no", "No", "Text", "Guardian Present", "No", "No"],
         ["patient_present_yes", "No", "Text", "Patient present", "Yes", "Yes"],
         ["patient_present_no", "No", "Text", "Patient present", "No", "No"],
-        ["pregnant_yes", "No", "Text", "Patient Pregnant", "Yes", "Yes"],
-        ["pregnant_no", "No", "Text", "Patient Pregnant", "No", "No"],
+        ["pregnant_yes", "No", "Text", "Is patient pregnant?", "Yes", "Yes"],
+        ["pregnant_no", "No", "Text", "Is patient pregnant?", "No", "No"],
         ["currently_using_family_planning_method_yes", "No", "Text", "Currently using family planning method", "Yes", "Yes"],
         ["currently_using_family_planning_method_no", "No", "Text", "Currently using family planning method", "No", "No"],
         ["family_planning_method_oral_contraceptive_pills", "No", "Text", "Method of family planning", "oral contraceptive pills", "Oral contraceptive pills"],
@@ -462,7 +462,7 @@ class Con < Test::Unit::TestCase
 
       assert cs.num_rows > 0, "Line 435: Failed to pull concept"
       
-      concept_id = cs.to_i
+      concept_id = cs.fetch_row[0].to_i
 
       ws = con.query "SELECT program_workflow_state_id FROM program_workflow_state " + 
         "WHERE concept_id = #{concept_id} AND program_workflow_id = 1"

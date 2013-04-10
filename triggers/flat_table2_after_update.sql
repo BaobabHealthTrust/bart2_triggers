@@ -5,6 +5,8 @@ ON `flat_table2`
 FOR EACH ROW
 BEGIN
     
+    DECLARE done INT DEFAULT 0;
+    
     DECLARE var_id int(11);
     DECLARE var_patient_id int(11);
     DECLARE var_gender varchar(45);
@@ -162,6 +164,8 @@ BEGIN
         FROM flat_cohort_table WHERE patient_id = NEW.patient_id 
         AND QUARTER(NEW.visit_date) = QUARTER(earliest_start_date) AND YEAR(NEW.visit_date) AND YEAR(earliest_start_date) LIMIT 1;  
         
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    
     # Open cursor
     OPEN cur;
     
@@ -209,10 +213,12 @@ BEGIN
         var_drug_auto_expire_date1_v_date, var_drug_auto_expire_date2_v_date, 
         var_drug_auto_expire_date3_v_date, var_drug_auto_expire_date4_v_date, var_drug_auto_expire_date5_v_date;
     
-    IF COALESCE(var_id, 0) > 0 THEN
-    
-        SET @patient_id = NEW.patient_id;
-    
+    IF NOT done THEN
+        IF COALESCE(var_id, 0) > 0 THEN
+        
+            SET @patient_id = NEW.patient_id;
+        
+        END IF;
     END IF;
     
 END$$
