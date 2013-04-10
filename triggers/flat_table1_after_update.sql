@@ -10,7 +10,7 @@ DELIMITER $$
     
     IF @eligible IS NOT NULL THEN
     	
-    	SET @record_exists = (SELECT gender FROM flat_cohort_table WHERE patient_id = new.patient_id);
+    	SET @record_exists = (SELECT id FROM flat_cohort_table WHERE patient_id = new.patient_id);
     		
     		IF @record_exists IS NULL THEN
 						
@@ -18,11 +18,10 @@ DELIMITER $$
 
 				ELSE
 		
+					UPDATE flat_cohort_table SET earliest_start_date = new.earliest_start_date,gender =	new.gender, birthdate = new.dob WHERE patient_id = in_patient_id;
+		
 					CALL proc_update_cohort_flat_table(
-						new.patient_id, 
-						new.gender, 
-						new.dob, 
-						new.earliest_start_date, 
+						new.patient_id,  
 						new.reason_for_eligibility, 
 						new.ever_registered_at_art_clinic, 
 						new.date_art_last_taken, 
