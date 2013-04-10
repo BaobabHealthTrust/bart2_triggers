@@ -161,8 +161,8 @@ BEGIN
         drug_inventory_id3_v_date, drug_inventory_id4_v_date, drug_inventory_id5_v_date, 
         drug_auto_expire_date1_v_date, drug_auto_expire_date2_v_date, drug_auto_expire_date3_v_date, 
         drug_auto_expire_date4_v_date, drug_auto_expire_date5_v_date 
-        FROM flat_cohort_table WHERE patient_id = NEW.patient_id 
-        AND QUARTER(NEW.visit_date) = QUARTER(earliest_start_date) AND YEAR(NEW.visit_date) AND YEAR(earliest_start_date) LIMIT 1;  
+        FROM flat_cohort_table WHERE patient_id = NEW.patient_id; 
+        # AND QUARTER(NEW.visit_date) = QUARTER(earliest_start_date) AND YEAR(NEW.visit_date) AND YEAR(earliest_start_date) LIMIT 1;  
         
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
     
@@ -216,9 +216,24 @@ BEGIN
     IF NOT done THEN
         IF COALESCE(var_id, 0) > 0 THEN
         
-            SET @patient_id = NEW.patient_id;
+            IF DATE(NEW.visit_date) >= DATE(var_hiv_program_state_v_date) THEN
+            
+                UPDATE flat_cohort_table SET hiv_program_state = NEW.current_hiv_program_state,
+                    hiv_program_start_date = NEW.current_hiv_program_start_date, 
+                    hiv_program_state_v_date = NEW.visit_date WHERE patient_id = NEW.patient_id;
+            
+            END IF;
+        
+        ELSE
+            
+            INSERT INTO flat_cohort_table (patient_id) VALUES (NEW.patient_id);
         
         END IF;
+        
+    ELSE
+    
+        INSERT INTO flat_cohort_table (patient_id, hiv_program_state, hiv_program_start_date, drug_induced_abdominal_pain, drug_induced_anorexia, drug_induced_diarrhea, drug_induced_jaundice, drug_induced_leg_pain_numbness, drug_induced_vomiting, drug_induced_peripheral_neuropathy, drug_induced_hepatitis, drug_induced_anemia, drug_induced_lactic_acidosis, drug_induced_lipodystrophy, drug_induced_skin_rash, drug_induced_other_symptom, drug_induced_fever, drug_induced_cough, tb_not_suspected, tb_suspected, confirmed_tb_not_on_treatment, confirmed_tb_on_treatment, unknown_tb_status, what_was_the_patient_adherence_for_this_drug1, what_was_the_patient_adherence_for_this_drug2, what_was_the_patient_adherence_for_this_drug3, what_was_the_patient_adherence_for_this_drug4, what_was_the_patient_adherence_for_this_drug5, regimen_category, drug_name1, drug_name2, drug_name3, drug_name4, drug_name5, drug_inventory_id1, drug_inventory_id2, drug_inventory_id3, drug_inventory_id4, drug_inventory_id5, drug_auto_expire_date1, drug_auto_expire_date2, drug_auto_expire_date3, drug_auto_expire_date4, drug_auto_expire_date5, hiv_program_state_v_date, hiv_program_start_date_v_date, drug_induced_abdominal_pain_v_date, drug_induced_anorexia_v_date, drug_induced_diarrhea_v_date, drug_induced_jaundice_v_date, drug_induced_leg_pain_numbness_v_date, drug_induced_vomiting_v_date, drug_induced_peripheral_neuropathy_v_date, drug_induced_hepatitis_v_date, drug_induced_anemia_v_date, drug_induced_lactic_acidosis_v_date, drug_induced_lipodystrophy_v_date, drug_induced_skin_rash_v_date, drug_induced_other_symptom_v_date, drug_induced_fever_v_date, drug_induced_cough_v_date, tb_not_suspected_v_date, tb_suspected_v_date, confirmed_tb_not_on_treatment_v_date, confirmed_tb_on_treatment_v_date, unknown_tb_status_v_date, what_was_the_patient_adherence_for_this_drug1_v_date, what_was_the_patient_adherence_for_this_drug2_v_date, what_was_the_patient_adherence_for_this_drug3_v_date, what_was_the_patient_adherence_for_this_drug4_v_date, what_was_the_patient_adherence_for_this_drug5_v_date, regimen_category_v_date, drug_name1_v_date, drug_name2_v_date, drug_name3_v_date, drug_name4_v_date, drug_name5_v_date, drug_inventory_id1_v_date, drug_inventory_id2_v_date, drug_inventory_id3_v_date, drug_inventory_id4_v_date, drug_inventory_id5_v_date, drug_auto_expire_date1_v_date, drug_auto_expire_date2_v_date, drug_auto_expire_date3_v_date, drug_auto_expire_date4_v_date, drug_auto_expire_date5_v_date) VALUES (NEW.patient_id, NEW.current_hiv_program_state, NEW.current_hiv_program_start_date, NEW.drug_induced_abdominal_pain, NEW.drug_induced_anorexia, NEW.drug_induced_diarrhea, NEW.drug_induced_jaundice, NEW.drug_induced_leg_pain_numbness, NEW.drug_induced_vomiting, NEW.drug_induced_peripheral_neuropathy, NEW.drug_induced_hepatitis, NEW.drug_induced_anemia, NEW.drug_induced_lactic_acidosis, NEW.drug_induced_lipodystrophy, NEW.drug_induced_skin_rash, NEW.drug_induced_other_symptom, NEW.drug_induced_fever, NEW.drug_induced_cough, NEW.tb_status_tb_not_suspected, NEW.tb_status_tb_suspected, NEW.tb_status_confirmed_tb_not_on_treatment, NEW.tb_status_confirmed_tb_on_treatment, NEW.tb_status_unknown, NEW.what_was_the_patient_adherence_for_this_drug1, NEW.what_was_the_patient_adherence_for_this_drug2, NEW.what_was_the_patient_adherence_for_this_drug3, NEW.what_was_the_patient_adherence_for_this_drug4, NEW.what_was_the_patient_adherence_for_this_drug5, NEW.regimen_category, NEW.drug_name1, NEW.drug_name2, NEW.drug_name3, NEW.drug_name4, NEW.drug_name5, NEW.drug_inventory_id1, NEW.drug_inventory_id2, NEW.drug_inventory_id3, NEW.drug_inventory_id4, NEW.drug_inventory_id5, NEW.drug_auto_expire_date1, NEW.drug_auto_expire_date2, NEW.drug_auto_expire_date3, NEW.drug_auto_expire_date4, NEW.drug_auto_expire_date5, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date, NEW.visit_date);
+    
     END IF;
     
 END$$
