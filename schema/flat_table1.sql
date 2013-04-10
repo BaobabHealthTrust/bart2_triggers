@@ -138,6 +138,14 @@ CREATE TABLE `flat_table1` (
   `confirmatory_hiv_test_date` varchar(255) DEFAULT NULL,
   `date_created` date DEFAULT NULL,
   `creator` varchar(255) DEFAULT NULL,
+  `extrapulmonary_tuberculosis_v_date` DATE DEFAULT NULL,
+  `pulmonary_tuberculosis_v_date` DATE DEFAULT NULL,
+  `pulmonary_tuberculosis_last_2_years_v_date` DATE DEFAULT NULL,
+  `kaposis_sarcoma_v_date` DATE DEFAULT NULL,
+  `reason_for_starting_v_date` DATE DEFAULT NULL,
+  `ever_registered_at_art_v_date` DATE DEFAULT NULL,
+  `date_art_last_taken_v_date` DATE DEFAULT NULL,
+  `taken_art_in_last_two_months_v_date` DATE DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

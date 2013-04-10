@@ -385,7 +385,7 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
 			
-			UPDATE flat_table1 SET reason_for_eligibility = @answer WHERE flat_table1.patient_id = patient_id ;
+			UPDATE flat_table1 SET reason_for_eligibility = @answer, reason_for_starting_v_date = value_date WHERE flat_table1.patient_id = patient_id ;
 		
 		WHEN @who_stage THEN
 		

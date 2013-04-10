@@ -875,14 +875,14 @@ BEGIN
                              
         WHEN @date_last_taken_arv THEN
 
-            UPDATE flat_table1 SET date_art_last_taken = in_field_value_datetime WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET date_art_last_taken = in_field_value_datetime, date_art_last_taken_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @art_in_2_months THEN
 
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET taken_art_in_last_two_months = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET taken_art_in_last_two_months = @answer, taken_art_in_last_two_months_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @art_in_2_weeks THEN
 
@@ -903,7 +903,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET ever_registered_at_art_clinic = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET ever_registered_at_art_clinic = @answer, ever_registered_at_art_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
 		         
         WHEN @has_transfer_letter THEN
 
@@ -1103,14 +1103,14 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET pulmonary_tuberculosis = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET pulmonary_tuberculosis = @answer, pulmonary_tuberculosis_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
                             
         WHEN @pulmonary_tuberculosis_last_2_years THEN
 
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET pulmonary_tuberculosis_last_2_years = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET pulmonary_tuberculosis_last_2_years = @answer, pulmonary_tuberculosis_last_2_years_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @severe_bacterial_infection THEN
 
@@ -1236,7 +1236,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET extrapulmonary_tuberculosis = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET extrapulmonary_tuberculosis = @answer, extrapulmonary_tuberculosis_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @cerebral_non_hodgkin_lymphoma THEN
 
@@ -1362,7 +1362,7 @@ BEGIN
             SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                 WHERE  concept.concept_id = in_field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-            UPDATE flat_table1 SET kaposis_sarcoma = @answer WHERE flat_table1.patient_id= in_patient_id;
+            UPDATE flat_table1 SET kaposis_sarcoma = @answer, kaposis_sarcoma_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
 
         WHEN @non_typhoidal_salmonella_bacteraemia_recurrent THEN
 
