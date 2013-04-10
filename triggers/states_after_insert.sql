@@ -46,7 +46,7 @@ BEGIN
 
 				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id;
 			
-			ELSEIF DATE(@start_date) > DATE(new.start_date) THEN
+			ELSEIF @start_date > new.start_date THEN
 			
 				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id;			
 
