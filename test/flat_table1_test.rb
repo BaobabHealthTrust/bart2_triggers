@@ -233,11 +233,7 @@ class Con < Test::Unit::TestCase
 		person_id = is.fetch_row[0].to_i
 	
 		name = $con.query "INSERT INTO person_name ( person_id, given_name, family_name, uuid, creator) VALUES ( #{person_id},'Test','Case', (SELECT UUID()), #{user_id})";
-		
-		names = $con.query "Select * from flat_table1 where given_name = 'test' and patient_id = #{person_id}"
-		
-		assert names.num_rows > 0 , "Failed to write person name"
-		
+				
 		patient = $con.query "INSERT INTO patient (patient_id, creator, date_created, voided) VALUES (#{person_id}, #{user_id}, '#{date}', 0)"
 
 		check_patient = $con.query "Select patient_id from patient where patient_id = #{person_id}"

@@ -18,7 +18,7 @@ DELIMITER $$
 
 				ELSE
 		
-					UPDATE flat_cohort_table SET earliest_start_date = new.earliest_start_date,gender =	new.gender, birthdate = new.dob WHERE patient_id = in_patient_id;
+					UPDATE flat_cohort_table SET earliest_start_date = new.earliest_start_date,gender =	new.gender, birthdate = new.dob WHERE patient_id = new.patient_id;
 		
 					CALL proc_update_cohort_flat_table(
 						new.patient_id,  

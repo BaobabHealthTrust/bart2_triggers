@@ -4,9 +4,6 @@ DROP PROCEDURE IF EXISTS `proc_update_cohort_flat_table`$$
 	
 CREATE PROCEDURE `proc_update_cohort_flat_table`(
 				IN in_patient_id INT, 
-				IN in_gender VARCHAR(45), 
-				IN in_dob DATE, 
-				IN in_earliest_start_date DATE, 
 				IN in_reason_for_eligibility VARCHAR(255), 
 				IN in_ever_registered_at_art_clinic VARCHAR(255), 
 				IN in_date_art_last_taken DATE, 
