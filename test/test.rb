@@ -65,7 +65,50 @@ class Con < Test::Unit::TestCase
       assert ps.num_rows > 0, "Line 29: Patient create failed!"
             
       patient_id = ps.fetch_row[0]
-      
+
+      ps = con.query "INSERT INTO patient_program (patient_id, program_id, date_enrolled, " +
+        "creator, date_created, voided, uuid) VALUES (#{patient_id}, 1, '#{date}', #{user_id}, " +
+        "'#{date}', 0, (SELECT UUID()))"
+
+      ps = con.query "SELECT LAST_INSERT_ID()"
+
+      assert ps.num_rows > 0, "Line 425: patient_program creation failed!"
+
+      patient_program_id = ps.fetch_row[0].to_i
+
+      state = "On antiretrovirals"
+
+      cs = con.query "SELECT concept_name.concept_id FROM concept_name
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = 'On ARVs' AND voided = 0 AND retired = 0 LIMIT 1"
+
+      assert cs.num_rows > 0, "Line 435: Failed to pull concept"
+
+      concept_id = cs.fetch_row[0].to_i
+
+      ws = con.query "SELECT program_workflow_state_id FROM program_workflow_state " +
+        "WHERE concept_id = #{concept_id} AND program_workflow_id = 1"
+
+      assert ws.num_rows > 0, "Line 441: Failed to pull program_workflow_state_id"
+
+      program_workflow_state_id = ws.fetch_row[0].to_i
+
+      ps = con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
+        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '#{date}', " +
+        " #{user_id} , '#{date}', 0, (SELECT UUID()))";
+
+      fs = con.query "SELECT current_hiv_program_state, current_hiv_program_start_date " +
+        " FROM flat_table2 WHERE patient_id = #{person_id} AND visit_date = DATE('#{date}')"
+
+      assert fs.num_rows > 0, "Line 454: Failed to update flat-table with current_hiv_program_state = '#{state}'!"
+
+      row = fs.fetch_row
+
+      assert row[0] == state, "Line 454: Failed to update flat-table with current_hiv_program_state '#{state}'"
+
+      assert row[1] == Time.now.strftime("%Y-%m-%d"), "Line 454: Failed to update flat-table with " +
+        "current_hiv_program_start_date '#{Time.now.strftime("%Y-%m-%d")}'"
+        
       es = con.query "SELECT encounter_type_id FROM encounter_type WHERE name = 'HIV CLINIC CONSULTATION'"
 
       assert es.num_rows > 0, "Line 38: Encounter type not found!"
@@ -446,49 +489,6 @@ class Con < Test::Unit::TestCase
         
       end
 
-      ps = con.query "INSERT INTO patient_program (patient_id, program_id, date_enrolled, " +
-        "creator, date_created, voided, uuid) VALUES (#{patient_id}, 1, '#{date}', #{user_id}, " +
-        "'#{date}', 0, (SELECT UUID()))"
-      
-      ps = con.query "SELECT LAST_INSERT_ID()"
-
-      assert ps.num_rows > 0, "Line 425: patient_program creation failed!"
-
-      patient_program_id = ps.fetch_row[0].to_i
-
-      state = "On antiretrovirals"
-
-      cs = con.query "SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = 'On ARVs' AND voided = 0 AND retired = 0 LIMIT 1"
-
-      assert cs.num_rows > 0, "Line 435: Failed to pull concept"
-      
-      concept_id = cs.fetch_row[0].to_i
-
-      ws = con.query "SELECT program_workflow_state_id FROM program_workflow_state " + 
-        "WHERE concept_id = #{concept_id} AND program_workflow_id = 1"
-
-      assert ws.num_rows > 0, "Line 441: Failed to pull program_workflow_state_id"
-
-      program_workflow_state_id = ws.fetch_row[0].to_i
-
-      ps = con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
-        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '#{date}', " +
-        " #{user_id} , '#{date}', 0, (SELECT UUID()))";
-
-      fs = con.query "SELECT current_hiv_program_state, current_hiv_program_start_date " +
-        " FROM flat_table2 WHERE patient_id = #{person_id} AND visit_date = DATE('#{date}')"
-
-      assert fs.num_rows > 0, "Line 454: Failed to update flat-table with current_hiv_program_state = '#{state}'!"
-
-      row = fs.fetch_row
-
-      assert row[0] == state, "Line 454: Failed to update flat-table with current_hiv_program_state '#{state}'"
-
-      assert row[1] == Time.now.strftime("%Y-%m-%d"), "Line 454: Failed to update flat-table with " +
-        "current_hiv_program_start_date '#{Time.now.strftime("%Y-%m-%d")}'"
-        
     rescue Mysql::Error => e
       puts e.errno
       puts e.error
