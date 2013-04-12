@@ -101,6 +101,13 @@ BEGIN
 		              hiv_program_state_v_date = NEW.visit_date WHERE id = @id;
 		      
 		      END IF;
+
+		      IF NEW.current_hiv_program_state = "died" OR NEW.current_hiv_program_state = "Patient died" THEN
+		      
+		          UPDATE flat_cohort_table SET death_date = NEW.current_hiv_program_start_date, 
+		              death_date_v_date = NEW.visit_date WHERE id = @id;
+		      
+		      END IF;
 		  
 		  	END IF;
 

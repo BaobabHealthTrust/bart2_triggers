@@ -119,6 +119,13 @@ class Con < Test::Unit::TestCase
 
       program_workflow_state_id = ws.fetch_row[0].to_i
 
+
+      ws = $con.query "SELECT program_workflow_state_id FROM program_workflow_state " + 
+        "WHERE concept_id = 1742 AND program_workflow_id = 1"
+
+      program_workflow_state_id2 = ws.fetch_row[0].to_i
+
+
       ps = $con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
         "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '#{date}', " +
         " #{user_id} , '#{date}', 0, (SELECT UUID()))";
@@ -130,7 +137,7 @@ class Con < Test::Unit::TestCase
 
 
    ps1 = $con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
-        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '2014-04-01', " +
+        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id2}, '2014-04-01', " +
         " #{user_id} , '#{date}', 0, (SELECT UUID()))";
 
       

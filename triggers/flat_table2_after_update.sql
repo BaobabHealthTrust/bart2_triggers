@@ -4,6 +4,7 @@ CREATE TRIGGER `flat_table2_after_update` AFTER UPDATE
 ON `flat_table2`
 FOR EACH ROW
 BEGIN
+
     
     # Get data into fields
     SELECT id, patient_id, gender, birthdate, earliest_start_date, 
@@ -99,6 +100,13 @@ BEGIN
 		          UPDATE flat_cohort_table SET hiv_program_state = NEW.current_hiv_program_state,
 		              hiv_program_start_date = NEW.current_hiv_program_start_date, 
 		              hiv_program_state_v_date = NEW.visit_date WHERE id = @id;
+		      
+		      END IF;
+		      
+		      IF NEW.current_hiv_program_state = "died" OR NEW.current_hiv_program_state = "Patient died" THEN
+		      
+		          UPDATE flat_cohort_table SET death_date = NEW.current_hiv_program_start_date, 
+		              death_date_v_date = NEW.visit_date WHERE id = @id;
 		      
 		      END IF;
 		  
