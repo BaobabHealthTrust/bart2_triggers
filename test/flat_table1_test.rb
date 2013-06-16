@@ -125,7 +125,7 @@ class Con < Test::Unit::TestCase
 
       
       ps1 = $con.query "INSERT INTO patient_state (patient_program_id, state, start_date, " +
-        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '2013-01-02', " +
+        "creator, date_created, voided, uuid) VALUES (#{patient_program_id}, #{program_workflow_state_id}, '#{date}', " +
         " #{user_id} , '#{date}', 0, (SELECT UUID()))";
 
 

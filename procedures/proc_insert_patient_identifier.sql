@@ -14,7 +14,7 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 		
 		SET @arv_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'ARV Number');
 						
-		SET @arv_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Arv national id');
+		SET @arv_nat_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Arv national id');
 		
 		SET @new_nat_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'New national id');
 		
@@ -33,6 +33,8 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 			WHEN @tb_number THEN
 				UPDATE flat_table1 SET tb_number = identifier WHERE patient_id = pat_id;
 			WHEN @arv_number THEN
+				UPDATE flat_table1 SET arv_number = identifier WHERE patient_id = pat_id;
+			WHEN @arv_nat_number THEN
 				UPDATE flat_table1 SET arv_number = identifier WHERE patient_id = pat_id;
 			WHEN @new_nat_id THEN
 				UPDATE flat_table1 SET new_nat_id = identifier WHERE patient_id = pat_id;

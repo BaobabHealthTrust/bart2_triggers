@@ -92,15 +92,18 @@ BEGIN
 
     IF COALESCE(@id, "") != "" THEN
     
-        IF DATE(@hiv_program_state_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@hiv_program_state_v_date) THEN
-        
-            UPDATE flat_cohort_table SET hiv_program_state = NEW.current_hiv_program_state,
-                hiv_program_start_date = NEW.current_hiv_program_start_date, 
-                hiv_program_state_v_date = NEW.visit_date WHERE id = @id;
-        
-        END IF;
-    
-    
+		  	IF (NEW.current_hiv_program_state IS NOT NULL) THEN
+
+		      IF DATE(@hiv_program_state_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@hiv_program_state_v_date)  THEN
+		      
+		          UPDATE flat_cohort_table SET hiv_program_state = NEW.current_hiv_program_state,
+		              hiv_program_start_date = NEW.current_hiv_program_start_date, 
+		              hiv_program_state_v_date = NEW.visit_date WHERE id = @id;
+		      
+		      END IF;
+		  
+		  	END IF;
+
         IF DATE(@pregnant_yes_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@pregnant_yes_v_date) THEN
         
             UPDATE flat_cohort_table SET pregnant_yes = NEW.pregnant_yes,
