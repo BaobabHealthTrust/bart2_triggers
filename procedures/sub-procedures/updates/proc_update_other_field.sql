@@ -3,7 +3,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS `proc_update_other_field`$$
 
 CREATE PROCEDURE `proc_update_other_field`(
-    IN in_patient_id INT, 
+    IN patient_id INT, 
     IN in_concept_id INT,
     IN in_value_coded INT, 
     IN encounter_id INT
