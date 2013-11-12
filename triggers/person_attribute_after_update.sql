@@ -5,15 +5,15 @@ DELIMITER $$
 	CREATE TRIGGER `person_attribute_update` AFTER UPDATE ON person_attribute
 	
 	FOR EACH ROW BEGIN
-		
+
 		SET @cellphone = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Cell phone number');
 
 		SET @home_number = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Home phone number');
-	
+
 		SET @office_number = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Office phone number');
 
-		SET @occupation = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Occupation');		
-		
+		SET @occupation = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Occupation');
+
 		IF new.voided = 1 THEN
 
 			CASE new.person_attribute_type_id

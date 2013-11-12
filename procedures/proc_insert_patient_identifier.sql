@@ -9,26 +9,28 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 	)
 	
 	BEGIN
+
+	    SET @type = (SELECT name FROM patient_identifier_type where patient_identifier_type_id = identifier_type);
 		
-		SET @tb_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'District TB Number');
+		SET @tb_number = 'District TB Number';
 		
-		SET @arv_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'ARV Number');
+		SET @arv_number = 'ARV Number';
 						
-		SET @arv_nat_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Arv national id');
+		SET @arv_nat_number = 'Arv national id';
 		
-		SET @new_nat_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'New national id');
+		SET @new_nat_id = 'New national id';
 		
-		SET @nat_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'National id');
+		SET @nat_id =  'National id';
 				
-		SET @prev_art_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Previous ARV number');
+		SET @prev_art_number =  'Previous ARV number';
 		
-		SET @pre_art_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Pre ARV number ID');
+		SET @pre_art_number =  'Pre ARV number ID';
 				
-		SET @arch_filing_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Archived filing number');
+		SET @arch_filing_number = 'Archived filing number';
 		
-		SET @filing_number = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'Filing number');
+		SET @filing_number = 'Filing number';
 				
-		CASE identifier_type
+		CASE @type
 
 			WHEN @tb_number THEN
 				UPDATE flat_table1 SET tb_number = identifier WHERE patient_id = pat_id;
@@ -48,7 +50,6 @@ CREATE PROCEDURE`proc_insert_patient_identifier`(
 				UPDATE flat_table1 SET archived_filing_number = identifier WHERE patient_id = pat_id;
 			WHEN @filing_number THEN
 				UPDATE flat_table1 SET filing_number = identifier WHERE patient_id = pat_id;
-
 			ELSE
 				SET @encounter = pat_id;
 		END CASE;

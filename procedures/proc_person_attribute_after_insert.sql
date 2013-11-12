@@ -5,16 +5,18 @@ DELIMITER $$
 	CREATE PROCEDURE `proc_person_attribute_after_insert` (in_person_id INT, in_attribute VARCHAR(255),	in_attribute_type INT )
 
 	BEGIN		
-			
-		SET @cellphone = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Cell phone number');
 
-		SET @home_number = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Home phone number');
+		SET @type = (SELECT name FROM person_attribute_type where person_attribute_type_id = in_attribute_type);
+
+		SET @cellphone = 'Cell phone number';
+
+		SET @home_number = 'Home phone number';
 	
-		SET @office_number = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Office phone number');
+		SET @office_number = 'Office phone number';
 
-		SET @occupation = (SELECT person_attribute_type_id FROM person_attribute_type where name = 'Occupation');		
+		SET @occupation = 'Occupation';
 		
-		CASE in_attribute_type
+		CASE @type
 		
 			WHEN @occupation THEN
 			

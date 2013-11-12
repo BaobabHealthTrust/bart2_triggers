@@ -17,124 +17,74 @@ CREATE PROCEDURE `proc_insert_observations`(
 )
 BEGIN
 
-    SET @pregnant = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Is patient pregnant?" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @variable = (SELECT name FROM concept_name WHERE concept_id = field_concept AND voided = 0 LIMIT 1 );
+
+    SET @pregnant ='Is patient pregnant?';
     
-    SET @pregnant2 = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "patient pregnant" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @pregnant2 ='patient pregnant';
                         
-    SET @breast_feeding = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Breast feeding" AND voided = 0 AND retired = 0 LIMIT 1);
-                        
-    SET @currently_using_family_planning_method = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Currently using family planning method" AND voided = 0 AND retired = 0 LIMIT 1);
-                        
-    SET @method_of_family_planning = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Method of family planning" AND voided = 0 AND retired = 0 LIMIT 1);
-                        
-    SET @symptom_present = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Symptom present" AND voided = 0 AND retired = 0 LIMIT 1);
-                        
-    SET @drug_induced = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Drug induced" AND voided = 0 AND retired = 0 LIMIT 1);
-                        
-    SET @routine_tb_screening = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Routine TB Screening" AND voided = 0 AND retired = 0 LIMIT 1);
-                        
-    SET @allergic_to_sulphur = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Allergic to sulphur" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @breast_feeding ='Breast feeding?';
 
-    SET @tb_status = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "TB status" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @breast_feeding2 = 'Is patient breast feeding?';
                         
-    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Guardian Present" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @currently_using_family_planning_method ='Currently using family planning method';
+
+    SET @currently_using_fam_planning_method = 'Patient using family planning';
                         
-    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Patient Present" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @method_of_family_planning ='Method of family planning';
                         
-    SET @arv_regimen_type = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "What type of antiretroviral regimen" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @symptom_present ='Symptom present';
+                        
+    SET @drug_induced ='Drug induced';
+                        
+    SET @routine_tb_screening ='Routine TB Screening';
+                        
+    SET @allergic_to_sulphur ='Allergic to sulphur';
+
+    SET @tb_status ='TB status';
+                        
+    SET @guardian_present ='Guardian Present';
+
+    SET @guardian_present2 ='Who is present as guardian?';
+                        
+    SET @patient_present ='Patient Present';
+
+    SET @patient_present2 ='Patient present for consultation';
+                        
+    SET @arv_regimen_type ='What type of antiretroviral regimen';
                        
-    SET @cpt_given = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "CPT given" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @cpt_given ='CPT given';
                          
-    SET @ipt_given = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Isoniazid" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @ipt_given ='Isoniazid';
                          
-    SET @prescribe_arvs = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Prescribe ARVs this visit" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @prescribe_arvs ='Prescribe ARVs this visit';
                          
-    SET @continue_existing_regimen = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Continue existing regimen" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @continue_existing_regimen ='Continue existing regimen';
                          
-    SET @breastfeeding = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Breastfeeding" AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @breastfeeding ='Breastfeeding';
                          
-    SET @transfer_within_responsibility = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Transfer within responsibility" AND voided = 0 AND retired = 0 LIMIT 1);
-                         
-    SET @guardian_present = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Guardian Present" AND voided = 0 AND retired = 0 LIMIT 1);
-                         
-    SET @patient_present = (SELECT concept_name.concept_id FROM concept_name 
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = "Patient present" AND voided = 0 AND retired = 0 LIMIT 1);
-                
-	SET @reason_for_eligibility = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'Reason for ART eligibility' AND voided = 0 AND retired = 0 LIMIT 1);
+    SET @transfer_within_responsibility ='Transfer within responsibility';
+
+	SET @reason_for_eligibility = 'Reason for ART eligibility';
 			                    
-	SET @who_stage = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'WHO stage' AND voided = 0 AND retired = 0 LIMIT 1);
+	SET @who_stage = 'WHO stage';
 
-	SET @send_sms = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'send sms' AND voided = 0 AND retired = 0 LIMIT 1);
+	SET @send_sms = 'send sms';
 
-	SET @agrees_to_followup = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'Agrees to followup' AND voided = 0 AND retired = 0 LIMIT 1);
+	SET @agrees_to_followup = 'Agrees to followup';
 
-	SET @type_of_confirmatory_hiv_test = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'Confirmatory HIV test type' AND voided = 0 AND retired = 0 LIMIT 1);
+	SET @agrees_to_followup2 = 'Follow up agreement';
 
-	SET @confirmatory_hiv_test_location = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'confirmatory hiv test location' AND voided = 0 AND retired = 0 LIMIT 1);
+	SET @type_of_confirmatory_hiv_test = 'Confirmatory HIV test type';
 
-	SET @cd4_count =  (SELECT concept_name.concept_id FROM concept_name concept_name 
-		      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-		      WHERE name = 'Cd4 count' AND voided = 0 AND retired = 0 LIMIT 1);                            
+	SET @confirmatory_hiv_test_location = 'confirmatory hiv test location';
+
+	SET @cd4_count = 'Cd4 count';                            
 					                  
 
-	SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name
-	                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-	                    WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
+	SET @confirmatory_hiv_test_date = 'Confirmatory HIV test date';
                           
-    CASE field_concept
+    CASE @variable
     
         WHEN @patient_present THEN
         
@@ -163,7 +113,21 @@ BEGIN
                 visit_id,
                 encounter_id
             );
-    
+
+        WHEN @guardian_present2 THEN
+
+            CALL proc_insert_guardian_present(
+                patient_id,
+                value_date,
+                field_concept,
+                field_text,
+                field_value_coded,
+                field_value_coded_name_id,
+                NULL,
+                visit_id,
+                encounter_id
+            );
+
         WHEN @transfer_within_responsibility THEN
         
             CALL proc_insert_transfer_within_responsibility(
@@ -177,7 +141,7 @@ BEGIN
                 encounter_id
             );
     
-        WHEN @breastfeeding THEN
+        WHEN @breast_feeding THEN
         
             CALL proc_insert_breastfeeding(
                 patient_id, 
@@ -189,7 +153,20 @@ BEGIN
                 visit_id,
                 encounter_id
             );
-    
+
+        WHEN @breast_feeding2 THEN
+
+            CALL proc_insert_breastfeeding(
+                patient_id,
+                value_date,
+                field_concept,
+                field_value_coded,
+                field_value_coded_name_id,
+                NULL,
+                visit_id,
+                encounter_id
+            );
+
         WHEN @continue_existing_regimen THEN
         
             CALL proc_insert_continue_existing_regimen(
@@ -255,32 +232,20 @@ BEGIN
                 encounter_id
             );
     
-        WHEN @patient_present THEN
-        
+        WHEN @patient_present2 THEN
+
             CALL proc_insert_patient_present(
-                patient_id, 
-                value_date, 
-                field_concept, 
-                field_value_coded, 
-                field_value_coded_name_id, 
+                patient_id,
+                value_date,
+                field_concept,
+                field_text,
+                field_value_coded,
+                field_value_coded_name_id,
                 NULL,
                 visit_id,
                 encounter_id
             );
-    
-        WHEN @guardian_present THEN
-        
-            CALL proc_insert_guardian_present(
-                patient_id, 
-                value_date, 
-                field_concept, 
-                field_value_coded, 
-                field_value_coded_name_id, 
-                NULL,
-                visit_id,
-                encounter_id
-            );
-    
+
         WHEN @pregnant THEN
         
             CALL proc_insert_pregnant(
@@ -318,8 +283,21 @@ BEGIN
                 NULL,
                 visit_id,
                 encounter_id
-            );       
-    
+            );
+
+        WHEN @currently_using_fam_planning_method THEN
+
+                CALL proc_insert_currently_using_family_planning_method(
+                patient_id,
+                value_date,
+                field_concept,
+                field_value_coded,
+                field_value_coded_name_id,
+                NULL,
+                visit_id,
+                encounter_id
+            );
+
         WHEN @method_of_family_planning THEN
         
             CALL proc_insert_method_of_family_planning(
@@ -428,6 +406,14 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 		
+			UPDATE flat_table1 SET agrees_to_followup = @answer WHERE flat_table1.patient_id = patient_id ;
+
+		WHEN @agrees_to_followup2 THEN
+
+			SET @answer = (SELECT concept_name.name FROM concept_name
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+
 			UPDATE flat_table1 SET agrees_to_followup = @answer WHERE flat_table1.patient_id = patient_id ;
 
 		WHEN @type_of_confirmatory_hiv_test THEN
