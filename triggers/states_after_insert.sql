@@ -36,7 +36,7 @@ BEGIN
             current_hiv_program_end_date = new.end_date
         WHERE flat_table2.id = @visit;
 
-    END IF;   
+    END IF;
 
 		IF @state_concept = @on_arv THEN
 		

@@ -504,25 +504,38 @@ BEGIN
                 CASE 
                 
                     WHEN @what_was_the_patient_adherence_for_this_drug1 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug1, what_was_the_patient_adherence_for_this_drug1_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                      ELSE
                         INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug1, what_was_the_patient_adherence_for_this_drug1_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                      END IF;
                        
                     WHEN @what_was_the_patient_adherence_for_this_drug2 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug2, what_was_the_patient_adherence_for_this_drug2_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                      ELSE
                         INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug2, what_was_the_patient_adherence_for_this_drug2_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                      END IF;
                         
                     WHEN @what_was_the_patient_adherence_for_this_drug3 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug3, what_was_the_patient_adherence_for_this_drug3_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                      ELSE
                         INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug3, what_was_the_patient_adherence_for_this_drug3_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                      END IF;
                       
                     WHEN @what_was_the_patient_adherence_for_this_drug4 = "" THEN
-                    
-                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug4, what_was_the_patient_adherence_for_this_drug4_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
-                       
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug4, what_was_the_patient_adherence_for_this_drug4_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                      ELSE
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug4, what_was_the_patient_adherence_for_this_drug4_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);              
+                      END IF;
                     WHEN @what_was_the_patient_adherence_for_this_drug5 = "" THEN
-                    
-                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug5, what_was_the_patient_adherence_for_this_drug5_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
-                                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug5, what_was_the_patient_adherence_for_this_drug5_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                      ELSE
+                        INSERT INTO flat_table2 (patient_id, visit_date, what_was_the_patient_adherence_for_this_drug5, what_was_the_patient_adherence_for_this_drug5_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);              
+                      END IF;                      
                     ELSE
                     
                         SET @enc_id = encounter_id;                  
@@ -534,25 +547,39 @@ BEGIN
                 CASE 
                 
                     WHEN @what_was_the_patient_adherence_for_this_drug1 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN
+                        UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug1 = in_field_value_text, what_was_the_patient_adherence_for_this_drug1_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                      ELSE
                         UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug1 = in_field_value_numeric, what_was_the_patient_adherence_for_this_drug1_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                       
+                      END IF;
+ 
                     WHEN @what_was_the_patient_adherence_for_this_drug2 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN                    
+                        UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug2 = in_field_value_text, what_was_the_patient_adherence_for_this_drug2_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                      ELSE
                         UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug2 = in_field_value_numeric, what_was_the_patient_adherence_for_this_drug2_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                        
+                      END IF;
+
                     WHEN @what_was_the_patient_adherence_for_this_drug3 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN                                        
+                        UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug3 = in_field_value_text, what_was_the_patient_adherence_for_this_drug3_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                      ELSE
                         UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug3 = in_field_value_numeric, what_was_the_patient_adherence_for_this_drug3_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                      
+                      END IF;
+
                     WHEN @what_was_the_patient_adherence_for_this_drug4 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN                                        
+                        UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug4 = in_field_value_text, what_was_the_patient_adherence_for_this_drug4_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                      ELSE
                         UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug4 = in_field_value_numeric, what_was_the_patient_adherence_for_this_drug4_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                       
+                      END IF;
+
                     WHEN @what_was_the_patient_adherence_for_this_drug5 = "" THEN
-                    
+                      IF COALESCE(in_field_value_numeric, 0) = 0 THEN                                        
+                        UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug5 = in_field_value_text, what_was_the_patient_adherence_for_this_drug5_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                      ELSE
                         UPDATE flat_table2 SET what_was_the_patient_adherence_for_this_drug5 = in_field_value_numeric, what_was_the_patient_adherence_for_this_drug5_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                                    
+                      END IF;       
                     ELSE
                     
                         SET @enc_id = encounter_id;                  
@@ -752,14 +779,14 @@ BEGIN
             END IF;       
     
         WHEN @regimen_category THEN
-        
+            SET @reg_category = COALESCE((SELECT last_text_for_obs(in_patient_id, 52, @regimen_category, in_visit_date) AS regimen_category), in_field_value_text);
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, regimen_category, regimen_category_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                INSERT INTO flat_table2 (patient_id, visit_date, regimen_category, regimen_category_enc_id) VALUES (in_patient_id, in_visit_date, @reg_category, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET regimen_category = in_field_value_text, regimen_category_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET regimen_category = @reg_category, regimen_category_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF;       
     
