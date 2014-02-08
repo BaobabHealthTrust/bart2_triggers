@@ -779,7 +779,9 @@ BEGIN
             END IF;       
     
         WHEN @regimen_category THEN
-            SET @reg_category = COALESCE((SELECT last_text_for_obs(in_patient_id, 52, @regimen_category, in_visit_date) AS regimen_category), in_field_value_text);
+            
+            SET @reg_category = COALESCE((SELECT obs.value_text FROM obs obs INNER JOIN encounter e ON e.encounter_id = obs.encounter_id and e.encounter_type = 54 WHERE obs.person_id = in_patient_id AND obs.encounter_id = encounter_id AND DATE(obs.obs_datetime) = DATE(in_visit_date) LIMIT 1),in_field_value_text);
+            
             IF in_visit_id = 0 THEN
             
                 INSERT INTO flat_table2 (patient_id, visit_date, regimen_category, regimen_category_enc_id) VALUES (in_patient_id, in_visit_date, @reg_category, encounter_id);

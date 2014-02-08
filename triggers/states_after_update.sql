@@ -18,7 +18,6 @@ BEGIN
     SET @on_arv = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = 'On ARVs' AND voided = 0 AND retired = 0 LIMIT 1);
-
     
     SET @state_concept = (SELECT concept_id from program_workflow_state where program_workflow_state_id = new.state AND retired = 0 LIMIT 1);
     
