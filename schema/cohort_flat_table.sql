@@ -6,6 +6,7 @@ CREATE TABLE `flat_cohort_table`(
   `gender` VARCHAR(45) DEFAULT NULL ,
   `birthdate` DATE NULL ,
   `earliest_start_date` DATE DEFAULT NULL ,
+  `age_at_initiation` int(11) default NULL,  
   `hiv_program_state` VARCHAR(45) DEFAULT NULL ,
   `hiv_program_start_date` DATE DEFAULT NULL ,
   `reason_for_starting` VARCHAR(255) DEFAULT NULL ,
@@ -67,8 +68,6 @@ CREATE TABLE `flat_cohort_table`(
   `ever_registered_at_art_v_date` DATE DEFAULT NULL,
   `date_art_last_taken_v_date` DATE DEFAULT NULL,
   `taken_art_in_last_two_months_v_date` DATE DEFAULT NULL,
-  `pregnant_yes_v_date` DATE DEFAULT NULL,
-  `pregnant_no_v_date` DATE DEFAULT NULL,
   `death_date_v_date` DATE DEFAULT NULL,
   `drug_induced_abdominal_pain_v_date` DATE DEFAULT NULL,
   `drug_induced_anorexia_v_date` DATE DEFAULT NULL,
@@ -115,6 +114,8 @@ CREATE TABLE `flat_cohort_table`(
   `drug_auto_expire_date3_v_date` DATE DEFAULT NULL,
   `drug_auto_expire_date4_v_date` DATE DEFAULT NULL,
   `drug_auto_expire_date5_v_date` DATE DEFAULT NULL,
-  PRIMARY KEY (`id`) 
-  
+  `pregnant_yes_v_date` varchar(255) DEFAULT NULL,
+  `pregnant_no_v_date` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+
 );
