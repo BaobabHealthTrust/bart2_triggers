@@ -61,6 +61,7 @@ CREATE TABLE `flat_cohort_table`(
   `drug_auto_expire_date3` date DEFAULT NULL,
   `drug_auto_expire_date4` date DEFAULT NULL,
   `drug_auto_expire_date5` date DEFAULT NULL,
+  `current_location` VARCHAR(255) DEFAULT NULL,
   `hiv_program_state_v_date` DATE DEFAULT NULL,
   `hiv_program_start_date_v_date` DATE DEFAULT NULL,
   `current_tb_status_v_date` DATE DEFAULT NULL,
