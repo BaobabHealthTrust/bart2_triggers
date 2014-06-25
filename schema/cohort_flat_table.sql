@@ -15,6 +15,10 @@ CREATE TABLE `flat_cohort_table`(
   `taken_art_in_last_two_months` varchar(255) DEFAULT NULL,
   `pregnant_yes` varchar(255) DEFAULT NULL,
   `pregnant_no` varchar(255) DEFAULT NULL,
+  `pregnant_unknown` varchar(255) DEFAULT NULL,
+  `breastfeeding_yes` varchar(255) DEFAULT NULL,
+  `breastfeeding_no` varchar(255) DEFAULT NULL,
+  `breastfeeding_unknown` varchar(255) DEFAULT NULL,  
   `death_date` DATE  DEFAULT NULL ,
   `drug_induced_abdominal_pain`  varchar(255) DEFAULT NULL,
   `drug_induced_anorexia`  varchar(255) DEFAULT NULL,
@@ -115,8 +119,12 @@ CREATE TABLE `flat_cohort_table`(
   `drug_auto_expire_date3_v_date` DATE DEFAULT NULL,
   `drug_auto_expire_date4_v_date` DATE DEFAULT NULL,
   `drug_auto_expire_date5_v_date` DATE DEFAULT NULL,
-  `pregnant_yes_v_date` varchar(255) DEFAULT NULL,
-  `pregnant_no_v_date` varchar(255) DEFAULT NULL,
+  `pregnant_yes_v_date` DATE DEFAULT NULL,
+  `pregnant_no_v_date` DATE DEFAULT NULL,
+  `pregnant_unknown_v_date` DATE DEFAULT NULL,
+  `breastfeeding_yes_v_date` DATE DEFAULT NULL,
+  `breastfeeding_no_v_date` DATE DEFAULT NULL,
+  `breastfeeding_unknown_v_date` DATE DEFAULT NULL,  
   PRIMARY KEY (`id`)
 
 );
