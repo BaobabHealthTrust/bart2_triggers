@@ -40,14 +40,15 @@ BEGIN
 		IF @state_concept = @on_arv THEN
 		
 			SET @start_date = (SELECT earliest_start_date from flat_table1 where patient_id = @patient_id);
+			SET @age_at_initiation = (SELECT age_at_initiation FROM earliest_start_date WHERE patient_id = @patient_id);
 						
 			IF @start_date IS NULL THEN
 
-				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id;
+				UPDATE flat_table1 SET earliest_start_date = new.start_date, age_at_initiation = @age_at_initiation WHERE patient_id = @patient_id;
 			
 			ELSEIF @start_date > new.start_date THEN
 			
-				UPDATE flat_table1 SET earliest_start_date = new.start_date WHERE patient_id = @patient_id;			
+				UPDATE flat_table1 SET earliest_start_date = new.start_date, age_at_initiation = @age_at_initiation WHERE patient_id = @patient_id;			
 
 			END IF;
 		
