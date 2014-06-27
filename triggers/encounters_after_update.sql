@@ -474,7 +474,7 @@ BEGIN
                 
                     WHEN @condoms THEN
                     
-                        UPDATE flat_table2 SET condoms = NULL, condoms_enc_id = NULL WHERE flat_table2.condoms_enc_id = OLD.encounter_id;
+                        UPDATE flat_table2 SET condoms_given = NULL, condoms_given_enc_id = NULL WHERE flat_table2.condoms_given_enc_id = OLD.encounter_id;
                 
                     WHEN @appointment_date THEN
                     

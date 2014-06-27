@@ -9,7 +9,7 @@ BEGIN
     SELECT id, patient_id, gender, birthdate, earliest_start_date, 
         hiv_program_state, hiv_program_start_date, reason_for_starting, 
         ever_registered_at_art, date_art_last_taken, taken_art_in_last_two_months, 
-        pregnant_yes,pregnant_no, death_date, drug_induced_abdominal_pain, drug_induced_anorexia, 
+        pregnant_yes, pregnant_no, pregnant_unknown, death_date, drug_induced_abdominal_pain, drug_induced_anorexia, 
         drug_induced_diarrhea, drug_induced_jaundice, drug_induced_leg_pain_numbness, 
         drug_induced_vomiting, drug_induced_peripheral_neuropathy, drug_induced_hepatitis, 
         drug_induced_anemia, drug_induced_lactic_acidosis, drug_induced_lipodystrophy, 
@@ -25,8 +25,7 @@ BEGIN
         drug_auto_expire_date2, drug_auto_expire_date3, drug_auto_expire_date4, 
         drug_auto_expire_date5, hiv_program_state_v_date, hiv_program_start_date_v_date, 
         current_tb_status_v_date, reason_for_starting_v_date, ever_registered_at_art_v_date, 
-        date_art_last_taken_v_date, taken_art_in_last_two_months_v_date, pregnant_yes_v_date,pregnant_no_v_date, 
-        death_date_v_date, drug_induced_abdominal_pain_v_date, drug_induced_anorexia_v_date, 
+        date_art_last_taken_v_date, taken_art_in_last_two_months_v_date, pregnant_yes_v_date,pregnant_no_v_date, pregnant_unknown_v_date, death_date_v_date, drug_induced_abdominal_pain_v_date, drug_induced_anorexia_v_date, 
         drug_induced_diarrhea_v_date, drug_induced_jaundice_v_date, drug_induced_leg_pain_numbness_v_date, 
         drug_induced_vomiting_v_date, drug_induced_peripheral_neuropathy_v_date, 
         drug_induced_hepatitis_v_date, drug_induced_anemia_v_date, drug_induced_lactic_acidosis_v_date, 
@@ -50,7 +49,7 @@ BEGIN
         INTO @id, @patient_id, @gender, @birthdate, @earliest_start_date, 
         @hiv_program_state, @hiv_program_start_date, 
         @reason_for_starting, @ever_registered_at_art, @date_art_last_taken, 
-        @taken_art_in_last_two_months,@pregnant_yes ,@pregnant_no, @death_date, 
+        @taken_art_in_last_two_months,@pregnant_yes ,@pregnant_no, @pregnant_unknown, @death_date, 
         @drug_induced_abdominal_pain, @drug_induced_anorexia, @drug_induced_diarrhea, 
         @drug_induced_jaundice, @drug_induced_leg_pain_numbness, @drug_induced_vomiting, 
         @drug_induced_peripheral_neuropathy, @drug_induced_hepatitis, @drug_induced_anemia, 
@@ -68,7 +67,7 @@ BEGIN
         @drug_auto_expire_date4, @drug_auto_expire_date5, @hiv_program_state_v_date, 
         @hiv_program_start_date_v_date, @current_tb_status_v_date, @reason_for_starting_v_date,
         @ever_registered_at_art_v_date, @date_art_last_taken_v_date, @taken_art_in_last_two_months_v_date,
-        @pregnant_yes_v_date,@pregnant_no_v_date, @death_date_v_date, @drug_induced_abdominal_pain_v_date, 
+        @pregnant_yes_v_date,@pregnant_no_v_date, @pregnant_unknown_v_date, @death_date_v_date, @drug_induced_abdominal_pain_v_date, 
         @drug_induced_anorexia_v_date, @drug_induced_diarrhea_v_date, @drug_induced_jaundice_v_date,
         @drug_induced_leg_pain_numbness_v_date, @drug_induced_vomiting_v_date, 
         @drug_induced_peripheral_neuropathy_v_date, @drug_induced_hepatitis_v_date, 
@@ -117,14 +116,20 @@ BEGIN
                 pregnant_yes_v_date = NEW.visit_date WHERE id = @id;
         
         END IF;  
-    
-    
+
         IF DATE(@pregnant_no_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@pregnant_no_v_date) THEN
         
             UPDATE flat_cohort_table SET pregnant_no = NEW.pregnant_no,
                 pregnant_no_v_date = NEW.visit_date WHERE id = @id;
         
         END IF; 
+
+        IF DATE(@pregnant_unknown_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@pregnant_unknown_v_date) THEN
+        
+            UPDATE flat_cohort_table SET pregnant_unknown = NEW.pregnant_unknown,
+                pregnant_unknown_v_date = NEW.visit_date WHERE id = @id;
+        
+        END IF;
     
         IF DATE(@drug_induced_abdominal_pain_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@drug_induced_abdominal_pain_v_date) THEN
         
@@ -249,16 +254,16 @@ BEGIN
         
             UPDATE flat_cohort_table SET confirmed_tb_not_on_treatment = NEW.tb_status_confirmed_tb_not_on_treatment,
                 confirmed_tb_not_on_treatment_v_date = NEW.visit_date WHERE id = @id;
-        
+
         END IF;
-    
+
         IF DATE(@confirmed_tb_on_treatment_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@confirmed_tb_on_treatment_v_date) THEN
         
             UPDATE flat_cohort_table SET confirmed_tb_on_treatment = NEW.tb_status_confirmed_tb_on_treatment,
                 confirmed_tb_on_treatment_v_date = NEW.visit_date WHERE id = @id;
-        
+
         END IF;
-    
+
         IF DATE(@unknown_tb_status_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@unknown_tb_status_v_date) THEN
         
             UPDATE flat_cohort_table SET unknown_tb_status = NEW.tb_status_unknown,
@@ -343,15 +348,15 @@ BEGIN
             UPDATE flat_cohort_table SET drug_name4 = 
                 NEW.drug_name4,
                 drug_name4_v_date = NEW.visit_date WHERE id = @id;
-        
+
         END IF;
-    
+
         IF DATE(@drug_name5_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@drug_name5_v_date) THEN
-        
+
             UPDATE flat_cohort_table SET drug_name5 = 
                 NEW.drug_name5,
                 drug_name5_v_date = NEW.visit_date WHERE id = @id;
-        
+
         END IF;
     
         IF DATE(@drug_inventory_id1_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@drug_inventory_id1_v_date) THEN
@@ -423,19 +428,19 @@ BEGIN
             UPDATE flat_cohort_table SET drug_auto_expire_date4 = 
                 NEW.drug_auto_expire_date4,
                 drug_auto_expire_date4_v_date = NEW.visit_date WHERE id = @id;
-        
+
         END IF;
-    
+
         IF DATE(@drug_auto_expire_date5_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@drug_auto_expire_date5_v_date) THEN
-        
+
             UPDATE flat_cohort_table SET drug_auto_expire_date5 = 
                 NEW.drug_auto_expire_date5,
                 drug_auto_expire_date5_v_date = NEW.visit_date WHERE id = @id;
-        
+
         END IF;
-    
+  
     END IF;
-    
+
 END$$
 
 DELIMITER ;

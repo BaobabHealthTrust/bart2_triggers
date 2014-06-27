@@ -746,11 +746,11 @@ BEGIN
         
             IF in_visit_id = 0 THEN
             
-                INSERT INTO flat_table2 (patient_id, visit_date, condoms, condoms_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                INSERT INTO flat_table2 (patient_id, visit_date, condoms_given, condoms_given_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
             
             ELSE 
             
-                UPDATE flat_table2 SET condoms = in_field_value_numeric, condoms_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET condoms_given = in_field_value_numeric, condoms_given_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                 
             END IF; 
         
