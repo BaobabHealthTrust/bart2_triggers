@@ -140,6 +140,7 @@ CREATE TABLE `flat_table1` (
   `who_stage` varchar(255) DEFAULT NULL,
   `who_stages_criteria_present` varchar(255) DEFAULT NULL,
   `current_location` VARCHAR(255) DEFAULT NULL,
+  `reason_for_eligibility_enc_id` int(11) DEFAULT NULL,
   `who_stages_criteria_present_enc_id` int(11) DEFAULT NULL,
   `who_stages_criteria_present_v_date` DATE DEFAULT NULL,  
   `send_sms` varchar(255) DEFAULT NULL,
