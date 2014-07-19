@@ -31,6 +31,7 @@ CREATE TABLE `flat_table1` (
   `gender` varchar(50) DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `dob_estimated` varchar(255) DEFAULT NULL,
+  `death_date` DATE  DEFAULT NULL ,  
   `ta` varchar(50) DEFAULT NULL,
   `current_address` varchar(255) DEFAULT NULL,
   `home_district` varchar(255) DEFAULT NULL,
