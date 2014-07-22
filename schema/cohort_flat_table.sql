@@ -7,6 +7,7 @@ CREATE TABLE `flat_cohort_table`(
   `birthdate` DATE NULL ,
   `earliest_start_date` DATE DEFAULT NULL ,
   `age_at_initiation` int(11) default NULL,
+  `age_in_days` int(11) default NULL,
   `death_date` DATE  DEFAULT NULL ,  
   `hiv_program_state` VARCHAR(45) DEFAULT NULL ,
   `hiv_program_start_date` DATE DEFAULT NULL ,
