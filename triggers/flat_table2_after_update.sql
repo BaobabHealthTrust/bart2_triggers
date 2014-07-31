@@ -7,7 +7,7 @@ BEGIN
 
     
     # Get data into fields
-    SELECT id, patient_id, gender, birthdate, earliest_start_date, 
+    SELECT id, patient_id, gender, birthdate, earliest_start_date, age_at_initiation, age_in_days,
         hiv_program_state, hiv_program_start_date, reason_for_starting, 
         ever_registered_at_art, date_art_last_taken, taken_art_in_last_two_months, 
         pregnant_yes, pregnant_no, pregnant_unknown, death_date, drug_induced_abdominal_pain, drug_induced_anorexia, 
@@ -47,7 +47,7 @@ BEGIN
         drug_auto_expire_date4_v_date, drug_auto_expire_date5_v_date 
         FROM flat_cohort_table WHERE patient_id = NEW.patient_id 
         AND QUARTER(NEW.visit_date) = QUARTER(DATE(earliest_start_date)) AND YEAR(NEW.visit_date) AND YEAR(DATE(earliest_start_date)) LIMIT 1
-        INTO @id, @patient_id, @gender, @birthdate, @earliest_start_date, 
+        INTO @id, @patient_id, @gender, @birthdate, @earliest_start_date, @age_at_initiation, @age_in_days,
         @hiv_program_state, @hiv_program_start_date, 
         @reason_for_starting, @ever_registered_at_art, @date_art_last_taken, 
         @taken_art_in_last_two_months,@pregnant_yes ,@pregnant_no, @pregnant_unknown, @death_date, 

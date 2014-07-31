@@ -41,7 +41,7 @@ BEGIN
 
       SET @latest_patient_hiv_state = ( SELECT state FROM patient_state
                                         WHERE patient_program_id = @patient_program_id
-+                                       AND start_date <= DATE(new.obs_datetime)
+                                        AND start_date <= DATE(new.obs_datetime)
                                         ORDER BY patient_state_id DESC
                                         LIMIT 1);
                                         
