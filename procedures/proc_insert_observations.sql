@@ -13,6 +13,7 @@ CREATE PROCEDURE `proc_insert_observations`(
     IN field_value_datetime DATETIME,
     IN field_value_modifier VARCHAR(255),
     IN visit_id INT,
+    IN field_voided INT,
     IN encounter_id INT
 )
 BEGIN
@@ -146,6 +147,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -160,6 +162,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -173,6 +176,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,
                 encounter_id
             );
     
@@ -186,6 +190,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,             
                 encounter_id
             );
     
@@ -199,6 +204,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -212,6 +218,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -225,6 +232,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -238,6 +246,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -251,6 +260,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -264,6 +274,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -277,6 +288,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -290,6 +302,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );
     
@@ -303,6 +316,7 @@ BEGIN
                     field_value_coded_name_id, 
                     NULL,
                     visit_id,
+                    field_voided,                    
                     encounter_id
                 );
     
@@ -316,6 +330,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );       
     
@@ -329,6 +344,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );       
     
@@ -342,6 +358,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );       
     
@@ -355,6 +372,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );       
     
@@ -368,6 +386,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );       
     
@@ -381,6 +400,7 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );        
     
@@ -394,70 +414,91 @@ BEGIN
                 field_value_coded_name_id, 
                 NULL,
                 visit_id,
+                field_voided,                
                 encounter_id
             );             
 
 		WHEN @reason_for_eligibility THEN
-		
-			SET @answer = (SELECT concept_name.name FROM concept_name
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
+		  IF (field_voided = 0 ) THEN
+			  SET @answer = (SELECT concept_name.name FROM concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                          WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
 			
-			UPDATE flat_table1 SET reason_for_eligibility = @answer, reason_for_starting_v_date = value_date WHERE flat_table1.patient_id = patient_id ;
+			  UPDATE flat_table1 SET reason_for_eligibility = @answer, reason_for_starting_v_date = value_date, reason_for_eligibility_enc_id = encounter_id WHERE flat_table1.patient_id = patient_id ;
+		 ELSE
+		  UPDATE flat_table1 SET reason_for_eligibility = NULL, reason_for_starting_v_date = NULL, reason_for_eligibility_enc_id = NULL WHERE flat_table1.patient_id = patient_id ; 
+		 END IF;
 		
 		WHEN @who_stage THEN
-		
-			SET @stage = (SELECT concept_name.name FROM concept_name
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
+		  IF (field_voided = 0) THEN		
+			  SET @stage = (SELECT concept_name.name FROM concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                          WHERE concept.concept_id = field_value_coded AND name <> " " AND voided = 0 AND retired = 0 LIMIT 1);
 			
-			UPDATE flat_table1 SET who_stage = @stage WHERE flat_table1.patient_id = patient_id ;
-		
+			  UPDATE flat_table1 SET who_stage = @stage WHERE flat_table1.patient_id = patient_id ;
+      ELSE
+			  UPDATE flat_table1 SET who_stage = NULL WHERE flat_table1.patient_id = patient_id ;
+		  END IF;
 		WHEN @send_sms THEN
-		
-			SET @answer = (SELECT concept_name.name FROM concept_name
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+		  IF (field_voided = 0) THEN		
+			  SET @answer = (SELECT concept_name.name FROM concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                          WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 			
-			UPDATE flat_table1 SET send_sms = @answer WHERE flat_table1.patient_id = patient_id ;
-
+			  UPDATE flat_table1 SET send_sms = @answer WHERE flat_table1.patient_id = patient_id ;
+      ELSE
+			  UPDATE flat_table1 SET send_sms = NULL WHERE flat_table1.patient_id = patient_id ;      
+      END IF;
 		WHEN @agrees_to_followup THEN
+		  IF (field_voided = 0) THEN		
+			  SET @answer = (SELECT concept_name.name FROM concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                          WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 		
-			SET @answer = (SELECT concept_name.name FROM concept_name
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
-		
-			UPDATE flat_table1 SET agrees_to_followup = @answer WHERE flat_table1.patient_id = patient_id ;
-
+			  UPDATE flat_table1 SET agrees_to_followup = @answer WHERE flat_table1.patient_id = patient_id ;
+      ELSE
+			  UPDATE flat_table1 SET agrees_to_followup = NULL WHERE flat_table1.patient_id = patient_id ;      
+      END IF;
 		WHEN @type_of_confirmatory_hiv_test THEN
-		
-		
-			SET @answer = (SELECT concept_name.name FROM concept_name
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
+		  IF (field_voided = 0) THEN		
+			  SET @answer = (SELECT concept_name.name FROM concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                          WHERE concept.concept_id = field_value_coded AND voided = 0 AND retired = 0 LIMIT 1);
 
-		
-			UPDATE flat_table1 SET type_of_confirmatory_hiv_test = @answer WHERE flat_table1.patient_id = patient_id ;
-		    		
+			  UPDATE flat_table1 SET type_of_confirmatory_hiv_test = @answer WHERE flat_table1.patient_id = patient_id ;
+      ELSE
+			  UPDATE flat_table1 SET type_of_confirmatory_hiv_test = NULL WHERE flat_table1.patient_id = patient_id ;      
+		  END IF;		
 		WHEN @confirmatory_hiv_test_location THEN		
-		
-		 SET @answer = (SELECT name FROM location WHERE location_id = field_text);
-				 
-		 	IF @answer = NULL THEN 
-   			UPDATE flat_table1 SET confirmatory_hiv_test_location = "Unknown" WHERE flat_table1.patient_id = patient_id ;
- 			ELSE
- 				UPDATE flat_table1 SET confirmatory_hiv_test_location = @answer WHERE flat_table1.patient_id = patient_id ;
-			END IF;
-		
+		  IF (field_voided = 0) THEN		
+		   SET @answer = (SELECT name FROM location WHERE location_id = field_text);
+				   
+		   	IF NOT ISNULL(field_text) THEN
+		   	  UPDATE flat_table1 SET confirmatory_hiv_test_location = field_text WHERE flat_table1.patient_id = patient_id ;
+		   	ELSE
+		     	IF (@answer = NULL) THEN 
+       			UPDATE flat_table1 SET confirmatory_hiv_test_location = "Unknown" WHERE flat_table1.patient_id = patient_id ;
+     			ELSE
+     				UPDATE flat_table1 SET confirmatory_hiv_test_location = @answer WHERE flat_table1.patient_id = patient_id ;
+			    END IF;
+			  END IF;
+			ELSE
+   				UPDATE flat_table1 SET confirmatory_hiv_test_location = NULL WHERE flat_table1.patient_id = patient_id ;			
+		  END IF;
 		WHEN @confirmatory_hiv_test_date THEN
-		
-			UPDATE flat_table1 SET confirmatory_hiv_test_date = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
-		
+		  IF (field_voided = 0) THEN		
+			  UPDATE flat_table1 SET confirmatory_hiv_test_date = field_value_datetime WHERE flat_table1.patient_id = patient_id ;
+      ELSE
+			  UPDATE flat_table1 SET confirmatory_hiv_test_date = NULL WHERE flat_table1.patient_id = patient_id ;      
+      END IF;		
 		WHEN @cd4_count THEN
-
-      UPDATE flat_table1 SET cd4_count = field_value_numeric WHERE flat_table1.patient_id = patient_id ;
-      UPDATE flat_table1 SET cd4_count_modifier = field_value_modifier WHERE flat_table1.patient_id = patient_id ;
-		
+  	  IF (field_voided = 0) THEN
+        UPDATE flat_table1 SET cd4_count = field_value_numeric WHERE flat_table1.patient_id = patient_id ;
+        UPDATE flat_table1 SET cd4_count_modifier = field_value_modifier WHERE flat_table1.patient_id = patient_id ;
+      ELSE
+        UPDATE flat_table1 SET cd4_count = NULL WHERE flat_table1.patient_id = patient_id ;
+        UPDATE flat_table1 SET cd4_count_modifier = NULL WHERE flat_table1.patient_id = patient_id ;
+      END IF;
     ELSE
         
             CALL proc_insert_other_field(
@@ -470,6 +511,7 @@ BEGIN
                 field_value_numeric,
                 field_value_datetime,
                 visit_id,
+                field_voided,                    
                 encounter_id
             );       
             

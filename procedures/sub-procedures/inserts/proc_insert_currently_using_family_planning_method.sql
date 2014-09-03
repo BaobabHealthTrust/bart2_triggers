@@ -10,6 +10,7 @@ CREATE PROCEDURE `proc_insert_currently_using_family_planning_method`(
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
     IN in_visit_id INT,
+    IN in_field_voided INT,
     IN encounter_id INT
 )
 BEGIN

@@ -10,6 +10,7 @@ CREATE PROCEDURE `proc_insert_tb_status`(
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
     IN in_visit_id INT,
+    IN in_field_voided INT,
     IN encounter_id INT
 )
 BEGIN
@@ -29,73 +30,81 @@ BEGIN
         WHEN @tb_status_tb_not_suspected THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
                 INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_not_suspected, tb_status_tb_not_suspected_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
+              ELSE 
                 UPDATE flat_table2 SET tb_status_tb_not_suspected = @value, tb_status_tb_not_suspected_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+              END IF;
+           ELSE
+            UPDATE flat_table2 SET tb_status_tb_not_suspected = NULL, tb_status_tb_not_suspected_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+           END IF;
+           
         WHEN @tb_status_tb_suspected THEN
-        
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_suspected, tb_status_tb_suspected_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET tb_status_tb_suspected = @value, tb_status_tb_suspected_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
+            IF in_field_voided = 0 THEN
+              SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+              
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, tb_status_tb_suspected, tb_status_tb_suspected_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET tb_status_tb_suspected = @value, tb_status_tb_suspected_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET tb_status_tb_suspected = NULL, tb_status_tb_suspected_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
-    
         WHEN @tb_status_confirmed_tb_not_on_treatment THEN
-        
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_not_on_treatment, tb_status_confirmed_tb_not_on_treatment_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET tb_status_confirmed_tb_not_on_treatment = @value, tb_status_confirmed_tb_not_on_treatment_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+            IF in_field_voided = 0 THEN
+              SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+              
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_not_on_treatment, tb_status_confirmed_tb_not_on_treatment_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET tb_status_confirmed_tb_not_on_treatment = @value, tb_status_confirmed_tb_not_on_treatment_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET tb_status_confirmed_tb_not_on_treatment = NULL, tb_status_confirmed_tb_not_on_treatment_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @tb_status_confirmed_tb_on_treatment THEN
-        
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_on_treatment, tb_status_confirmed_tb_on_treatment_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET tb_status_confirmed_tb_on_treatment = @value, tb_status_confirmed_tb_on_treatment_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
+            IF in_field_voided = 0 THEN
+              SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+              
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, tb_status_confirmed_tb_on_treatment, tb_status_confirmed_tb_on_treatment_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET tb_status_confirmed_tb_on_treatment = @value, tb_status_confirmed_tb_on_treatment_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+           ELSE
+            UPDATE flat_table2 SET tb_status_confirmed_tb_on_treatment = NULL, tb_status_confirmed_tb_on_treatment_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+           END IF;
     
         WHEN @tb_status_unknown THEN
-        
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, tb_status_unknown, tb_status_unknown_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET tb_status_unknown = @value, tb_status_unknown_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-            
+            IF in_field_voided = 0 THEN
+              SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+              
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, tb_status_unknown, tb_status_unknown_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET tb_status_unknown = @value, tb_status_unknown_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+           ELSE
+            UPDATE flat_table2 SET tb_status_unknown = NULL, tb_status_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+           END IF;
         ELSE
         
             SET @enc_id = encounter_id;                  

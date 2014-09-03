@@ -10,6 +10,7 @@ CREATE PROCEDURE `proc_insert_allergic_to_sulphur`(
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
     IN in_visit_id INT,
+    IN in_field_voided INT,
     IN in_encounter_id INT
 )
 BEGIN
