@@ -25,6 +25,7 @@ BEGIN
         new.value_datetime,
         new.value_modifier,
         @visit,
+        new.voided,
         new.encounter_id
     );
 

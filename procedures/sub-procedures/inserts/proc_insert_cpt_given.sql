@@ -10,6 +10,7 @@ CREATE PROCEDURE `proc_insert_cpt_given`(
     IN in_field_value_coded_name_id INT,
     IN in_field_other VARCHAR(25),
     IN in_visit_id INT,
+    IN in_field_voided INT,
     IN encounter_id INT
 )
 BEGIN
@@ -26,31 +27,35 @@ BEGIN
         WHEN @yes THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_yes, cpt_given_yes_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET cpt_given_yes = @value, cpt_given_no = NULL, cpt_given_yes_enc_id = encounter_id, cpt_given_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-        
+            IF in_field_value = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_yes, cpt_given_yes_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET cpt_given_yes = @value, cpt_given_no = NULL, cpt_given_yes_enc_id = encounter_id, cpt_given_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET cpt_given_yes = NULL, cpt_given_no = NULL, cpt_given_yes_enc_id = NULL, cpt_given_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;        
         WHEN @no THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_no, cpt_given_no_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET cpt_given_no = @value, cpt_given_yes = NULL, cpt_given_no_enc_id = encounter_id, cpt_given_yes_enc_id = NULL WHERE flat_table2.id = in_visit_id;
-                
-            END IF;                   
-    
+            IF in_field_value = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, cpt_given_no, cpt_given_no_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET cpt_given_no = @value, cpt_given_yes = NULL, cpt_given_no_enc_id = encounter_id, cpt_given_yes_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;                   
+            ELSE
+             UPDATE flat_table2 SET cpt_given_no = NULL, cpt_given_yes = NULL, cpt_given_no_enc_id = NULL, cpt_given_yes_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;     
         ELSE
         
             SET @enc_id = encounter_id;                  
