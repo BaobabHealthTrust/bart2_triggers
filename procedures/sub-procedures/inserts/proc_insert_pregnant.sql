@@ -37,9 +37,17 @@ BEGIN
             
             ELSE 
               IF (@encounter_type = 52) THEN
-                UPDATE flat_table2 SET pregnant_yes = @value, pregnant_no = NULL, pregnant_unknown = NULL, pregnant_yes_enc_id = encounter_id, pregnant_no_enc_id = NULL, pregnant_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                IF in_field_voided = 0 THEN
+                  UPDATE flat_table2 SET pregnant_yes = @value, pregnant_no = NULL, pregnant_unknown = NULL, pregnant_yes_enc_id = encounter_id, pregnant_no_enc_id = NULL, pregnant_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                ELSE
+                  UPDATE flat_table2 SET pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown = NULL, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL, pregnant_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                END IF;
               ELSEIF (@encounter_type = 53) THEN
-                UPDATE flat_table1 SET pregnant_yes = @value, pregnant_no = NULL, pregnant_unknown = NULL, pregnant_yes_enc_id = encounter_id, pregnant_no_enc_id = NULL, pregnant_unknown_enc_id = NULL, pregnant_yes_v_date = in_visit_date, pregnant_no_v_date = NULL, pregnant_unknown_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                IF in_field_voided = 0 THEN
+                  UPDATE flat_table1 SET pregnant_yes = @value, pregnant_no = NULL, pregnant_unknown = NULL, pregnant_yes_enc_id = encounter_id, pregnant_no_enc_id = NULL, pregnant_unknown_enc_id = NULL, pregnant_yes_v_date = in_visit_date, pregnant_no_v_date = NULL, pregnant_unknown_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                ELSE
+                  UPDATE flat_table1 SET pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown = NULL, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL, pregnant_unknown_enc_id = NULL, pregnant_yes_v_date = NULL, pregnant_no_v_date = NULL, pregnant_unknown_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                END IF;
               END IF;
  
                 
@@ -60,9 +68,17 @@ BEGIN
             ELSE 
             
               IF (@encounter_type = 52) THEN
-                UPDATE flat_table2 SET pregnant_no = @value, pregnant_yes = NULL, pregnant_unknown = NULL, pregnant_no_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                IF in_field_voided = 0 THEN
+                  UPDATE flat_table2 SET pregnant_no = @value, pregnant_yes = NULL, pregnant_unknown = NULL, pregnant_no_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                ELSE
+                  UPDATE flat_table2 SET pregnant_no = NULL, pregnant_yes = NULL, pregnant_unknown = NULL, pregnant_no_enc_id = NULL, pregnant_yes_enc_id = NULL, pregnant_unknown_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                END IF;
               ELSEIF (@encounter_type = 53) THEN
-                UPDATE flat_table1 SET pregnant_no = @value, pregnant_yes = NULL, pregnant_unknown = NULL, pregnant_no_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_unknown_enc_id = NULL, pregnant_no_v_date = in_visit_date, pregnant_yes_v_date = NULL, pregnant_unknown_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                IF in_field_voided = 0 THEN                
+                  UPDATE flat_table1 SET pregnant_no = @value, pregnant_yes = NULL, pregnant_unknown = NULL, pregnant_no_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_unknown_enc_id = NULL, pregnant_no_v_date = in_visit_date, pregnant_yes_v_date = NULL, pregnant_unknown_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                ELSE
+                  UPDATE flat_table1 SET pregnant_no = NULL, pregnant_yes = NULL, pregnant_unknown = NULL, pregnant_no_enc_id = NULL, pregnant_yes_enc_id = NULL, pregnant_unknown_enc_id = NULL, pregnant_no_v_date = NULL, pregnant_yes_v_date = NULL, pregnant_unknown_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                END IF;
               END IF;
                 
             END IF;                   
@@ -82,9 +98,17 @@ BEGIN
             
             ELSE 
              IF (@encounter_type = 52) THEN
-              UPDATE flat_table2 SET pregnant_unknown = @value, pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+               IF in_field_voided = 0 THEN
+                 UPDATE flat_table2 SET pregnant_unknown = @value, pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                ELSE
+                  UPDATE flat_table2 SET pregnant_unknown = NULL, pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown_enc_id = NULL, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+                END IF;
               ELSEIF (@encounter_type = 53) THEN
-                UPDATE flat_table1 SET pregnant_unknown = @value, pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL, pregnant_unknown_v_date = in_visit_date, pregnant_yes_v_date = NULL, pregnant_no_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                IF in_field_voided = 0 THEN
+                  UPDATE flat_table1 SET pregnant_unknown = @value, pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown_enc_id = encounter_id, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL, pregnant_unknown_v_date = in_visit_date, pregnant_yes_v_date = NULL, pregnant_no_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                ELSE
+                  UPDATE flat_table1 SET pregnant_unknown = NULL, pregnant_yes = NULL, pregnant_no = NULL, pregnant_unknown_enc_id = NULL, pregnant_yes_enc_id = NULL, pregnant_no_enc_id = NULL, pregnant_unknown_v_date = NULL, pregnant_yes_v_date = NULL, pregnant_no_v_date = NULL WHERE flat_table1.id = in_visit_id;
+                END IF;
               END IF;
                 
             END IF;    

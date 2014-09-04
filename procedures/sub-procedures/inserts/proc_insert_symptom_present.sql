@@ -50,211 +50,258 @@ BEGIN
         WHEN @symptom_present_lipodystrophy THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_lipodystrophy, symptom_present_lipodystrophy_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_lipodystrophy = @value, symptom_present_lipodystrophy_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
+           
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_lipodystrophy, symptom_present_lipodystrophy_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_lipodystrophy = @value, symptom_present_lipodystrophy_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_lipodystrophy = NULL, symptom_present_lipodystrophy_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
-    
         WHEN @symptom_present_anemia THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_anemia, symptom_present_anemia_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_anemia = @value, symptom_present_anemia_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_anemia, symptom_present_anemia_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_anemia = @value, symptom_present_anemia_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_anemia = NULL, symptom_present_anemia_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_jaundice THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_jaundice, symptom_present_jaundice_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_jaundice = @value, symptom_present_jaundice_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_jaundice, symptom_present_jaundice_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_jaundice = @value, symptom_present_jaundice_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_jaundice = NULL, symptom_present_jaundice_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_lactic_acidosis THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_lactic_acidosis, symptom_present_lactic_acidosis_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_lactic_acidosis = @value, symptom_present_lactic_acidosis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_lactic_acidosis, symptom_present_lactic_acidosis_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_lactic_acidosis = @value, symptom_present_lactic_acidosis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+                UPDATE flat_table2 SET symptom_present_lactic_acidosis = NULL, symptom_present_lactic_acidosis_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_fever THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_fever, symptom_present_fever_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_fever = @value, symptom_present_fever_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_fever, symptom_present_fever_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_fever = @value, symptom_present_fever_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_fever = NULL, symptom_present_fever_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_skin_rash THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_skin_rash, symptom_present_skin_rash_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_skin_rash = @value, symptom_present_skin_rash_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_skin_rash, symptom_present_skin_rash_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_skin_rash = @value, symptom_present_skin_rash_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_skin_rash = NULL, symptom_present_skin_rash_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_abdominal_pain THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_abdominal_pain, symptom_present_abdominal_pain_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_abdominal_pain = @value, symptom_present_abdominal_pain_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_abdominal_pain, symptom_present_abdominal_pain_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_abdominal_pain = @value, symptom_present_abdominal_pain_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_abdominal_pain = NULL, symptom_present_abdominal_pain_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_anorexia THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_anorexia, symptom_present_anorexia_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_anorexia = @value, symptom_present_anorexia_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_anorexia, symptom_present_anorexia_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_anorexia = @value, symptom_present_anorexia_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_anorexia = NULL, symptom_present_anorexia_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_cough THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_cough, symptom_present_cough_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_cough = @value, symptom_present_cough_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_cough, symptom_present_cough_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_cough = @value, symptom_present_cough_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_cough = NULL, symptom_present_cough_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
     
         WHEN @symptom_present_diarrhea THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_diarrhea, symptom_present_diarrhea_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_diarrhea = @value, symptom_present_diarrhea_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_diarrhea, symptom_present_diarrhea_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_diarrhea = @value, symptom_present_diarrhea_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_diarrhea = NULL, symptom_present_diarrhea_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_hepatitis THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
-            
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_hepatitis, symptom_present_hepatitis_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_hepatitis = @value, symptom_present_hepatitis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_hepatitis, symptom_present_hepatitis_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_hepatitis = @value, symptom_present_hepatitis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_hepatitis = NULL, symptom_present_hepatitis_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_leg_pain_numbness THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_leg_pain_numbness, symptom_present_leg_pain_numbness_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_leg_pain_numbness = @value, symptom_present_leg_pain_numbness_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
-            END IF;
-    
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_leg_pain_numbness, symptom_present_leg_pain_numbness_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_leg_pain_numbness = @value, symptom_present_leg_pain_numbness_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_leg_pain_numbness = NULL, symptom_present_leg_pain_numbness_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;    
         WHEN @symptom_present_peripheral_neuropathy THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_peripheral_neuropathy, symptom_present_peripheral_neuropathy_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_peripheral_neuropathy = @value, symptom_present_peripheral_neuropathy_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_peripheral_neuropathy, symptom_present_peripheral_neuropathy_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_peripheral_neuropathy = @value, symptom_present_peripheral_neuropathy_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_peripheral_neuropathy = NULL, symptom_present_peripheral_neuropathy_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
-    
         WHEN @symptom_present_vomiting THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_vomiting, symptom_present_vomiting_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_vomiting = @value, symptom_present_vomiting_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_vomiting, symptom_present_vomiting_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_vomiting = @value, symptom_present_vomiting_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_vomiting = NULL, symptom_present_vomiting_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
-    
         WHEN @symptom_present_other_symptom THEN
         
             SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
-            IF in_visit_id = 0 THEN
-            
-                INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_other_symptom, symptom_present_other_symptom_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
-            
-            ELSE 
-            
-                UPDATE flat_table2 SET symptom_present_other_symptom = @value, symptom_present_other_symptom_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
-                
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, symptom_present_other_symptom, symptom_present_other_symptom_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET symptom_present_other_symptom = @value, symptom_present_other_symptom_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET symptom_present_other_symptom = NULL, symptom_present_other_symptom_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
             
         ELSE
