@@ -13,9 +13,10 @@ BEGIN
     DECLARE  var_obs_datetime DATE;
     DECLARE  var_value_coded INT(11);
     DECLARE  var_value_coded_name_id INT(11);
+    DECLARE  var_voided INT(11);
 
     # Declare and initialise cursor for looping through the table
-    DECLARE cur CURSOR FOR SELECT DISTINCT person_id, concept_id, DATE(obs_datetime) datetime, value_coded, value_coded_name_id 
+    DECLARE cur CURSOR FOR SELECT DISTINCT person_id, concept_id, DATE(obs_datetime) datetime, value_coded, value_coded_name_id, voided
         FROM obs WHERE encounter_id = OLD.encounter_id;   
 
     BEGIN
@@ -197,7 +198,7 @@ BEGIN
         read_loop: LOOP
         
             # Get the fields into the variables declared earlier
-            FETCH cur INTO var_person_id, var_concept_id, var_obs_datetime, var_value_coded, var_value_coded_name_id;
+            FETCH cur INTO var_person_id, var_concept_id, var_obs_datetime, var_value_coded, var_value_coded_name_id, var_voided;
                 
             # Check if we are done and exit loop if done
             IF done THEN
@@ -208,7 +209,7 @@ BEGIN
         
             # Not done, process the parameters
 
-            IF NEW.voided = 1 THEN
+            IF OLD.voided = 1 THEN
             
                 SET @pregnant = (SELECT concept_name.concept_id FROM concept_name concept_name 
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -373,10 +374,10 @@ BEGIN
 			    SET @confirmatory_hiv_test_date = (SELECT concept_name.concept_id FROM concept_name
 			                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
 			                        WHERE name = 'Confirmatory HIV test date' AND voided = 0 AND retired = 0 LIMIT 1);
-     
-                CASE var_concept_id
+   
+            CASE var_concept_id
                 
-                    WHEN @reason_for_eligibility THEN
+            WHEN @reason_for_eligibility THEN
 							
 						    UPDATE flat_table1 SET reason_for_eligibility = NULL WHERE flat_table1.patient_id = OLD.patient_id ;
 

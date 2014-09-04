@@ -31,13 +31,19 @@ BEGIN
                     new.start_date, new.auto_expire_date, new.encounter_id, new.encounter_id, new.encounter_id, new.encounter_id);
             
             ELSE 
-            
+              IF new.voided = 1 THEN
                 UPDATE flat_table2 SET drug_order_id1 = new.order_id, drug_encounter_id1 = new.encounter_id, 
                     drug_start_date1 = new.start_date, drug_auto_expire_date1 = new.auto_expire_date,
                     drug_order_id1_enc_id = new.encounter_id, drug_encounter_id1_enc_id = new.encounter_id, 
                     drug_start_date1_enc_id = new.encounter_id, drug_auto_expire_date1_enc_id = new.encounter_id 
                 WHERE flat_table2.id = @visit;
-                
+              ELSE
+                UPDATE flat_table2 SET drug_order_id1 = NULL, drug_encounter_id1 = NULL, 
+                    drug_start_date1 = NULL, drug_auto_expire_date1 = NULL,
+                    drug_order_id1_enc_id = NULL, drug_encounter_id1_enc_id = NULL, 
+                    drug_start_date1_enc_id = NULL, drug_auto_expire_date1_enc_id = NULL 
+                WHERE flat_table2.id = @visit;              
+              END IF; 
             END IF;                       
     
         WHEN @drug_set2 = "" THEN        
