@@ -6,7 +6,8 @@ CREATE PROCEDURE `proc_update_other_field`(
     IN patient_id INT, 
     IN in_concept_id INT,
     IN in_value_coded INT, 
-    IN encounter_id INT
+    IN encounter_id INT,
+    IN voided INT
 )
 
 BEGIN

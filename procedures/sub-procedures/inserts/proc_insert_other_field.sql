@@ -1625,7 +1625,7 @@ BEGIN
 
               UPDATE flat_table1 SET kaposis_sarcoma = @answer, kaposis_sarcoma_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
             ELSE
-              UPDATE flat_table1 SET kaposis_sarcoma = NULL, kaposis_sarcoma_v_date = in_visit_date WHERE flat_table1.patient_id= in_patient_id;
+              UPDATE flat_table1 SET kaposis_sarcoma = NULL, kaposis_sarcoma_v_date = NULL WHERE flat_table1.patient_id= in_patient_id;
             END IF;
           WHEN @non_typhoidal_salmonella_bacteraemia_recurrent THEN
             IF in_field_voided = 0 THEN

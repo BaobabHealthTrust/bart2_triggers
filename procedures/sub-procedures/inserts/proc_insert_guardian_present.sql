@@ -33,7 +33,12 @@ BEGIN
             IF (@value = 0) THEN
               IF (in_field_text = 'Yes') THEN
                 SET @value = 'Yes';
+              ELSE
+                IF (in_field_text = 'YES') THEN
+                  SET @value = 'Yes';
+                END IF;
               END IF;
+              
             END IF;
             
             IF in_field_voided = 0 THEN
