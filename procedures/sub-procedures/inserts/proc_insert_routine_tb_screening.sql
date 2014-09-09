@@ -27,15 +27,15 @@ BEGIN
     
         WHEN @routine_tb_screening_fever THEN
         
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+            #---SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             IF in_field_voided = 0 THEN
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_fever, routine_tb_screening_fever_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_fever, routine_tb_screening_fever_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
               
               ELSE 
               
-                  UPDATE flat_table2 SET routine_tb_screening_fever = @value, routine_tb_screening_fever_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  UPDATE flat_table2 SET routine_tb_screening_fever = 'Yes', routine_tb_screening_fever_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -43,16 +43,16 @@ BEGIN
             END IF;
         WHEN @routine_tb_screening_night_sweats THEN
         
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+            #--SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
 
             IF in_field_voided = 0 THEN
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_night_sweats, routine_tb_screening_night_sweats_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_night_sweats, routine_tb_screening_night_sweats_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
               
               ELSE 
               
-                  UPDATE flat_table2 SET routine_tb_screening_night_sweats = @value, routine_tb_screening_night_sweats_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  UPDATE flat_table2 SET routine_tb_screening_night_sweats = 'Yes', routine_tb_screening_night_sweats_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -60,16 +60,16 @@ BEGIN
             END IF;    
         WHEN @routine_tb_screening_cough_of_any_duration THEN
         
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+            #--SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
             IF in_field_voided = 0 THEN
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_cough_of_any_duration, routine_tb_screening_cough_of_any_duration_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_cough_of_any_duration, routine_tb_screening_cough_of_any_duration_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
               
               ELSE 
               
-                  UPDATE flat_table2 SET routine_tb_screening_cough_of_any_duration = @value, routine_tb_screening_cough_of_any_duration_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  UPDATE flat_table2 SET routine_tb_screening_cough_of_any_duration = 'Yes', routine_tb_screening_cough_of_any_duration_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -77,16 +77,16 @@ BEGIN
             END IF;    
         WHEN @routine_tb_screening_weight_loss_failure THEN
         
-            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+            #--SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
             
             IF in_field_voided = 0 THEN
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_weight_loss_failure, routine_tb_screening_weight_loss_failure_enc_id) VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, routine_tb_screening_weight_loss_failure, routine_tb_screening_weight_loss_failure_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
               
               ELSE 
               
-                  UPDATE flat_table2 SET routine_tb_screening_weight_loss_failure = @value, routine_tb_screening_weight_loss_failure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  UPDATE flat_table2 SET routine_tb_screening_weight_loss_failure = 'Yes', routine_tb_screening_weight_loss_failure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
