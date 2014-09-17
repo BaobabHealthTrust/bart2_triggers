@@ -556,7 +556,7 @@ BEGIN
                   
                       WHEN @guardian_present THEN
                       
-                          UPDATE flat_table2 SET guardian_present_yes = NULL, guardian_present_no = NULL, guardian_present_yes_enc_id = NULL, guardian_present_no_enc_id = NULL WHERE flat_table2.guardian_present_yes_enc_id = OLD.encounter_id OR flat_table2.guardian_present_no_enc_id = OLD.encounter_id;
+                          UPDATE flat_table2 SET guardian_present_yes = NULL, guardian_present_no = NULL, guardian_present_yes_enc_id = NULL, guardian_present_no_enc_id = NULL, guardian_present_unknown = NULL, guardian_present_unknown_enc_id = NULL WHERE flat_table2.guardian_present_yes_enc_id = OLD.encounter_id OR flat_table2.guardian_present_no_enc_id = OLD.encounter_id;
                   
                       WHEN @allergic_to_sulphur THEN
                       
