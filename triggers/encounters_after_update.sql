@@ -237,6 +237,10 @@ BEGIN
                   SET @drug_induced = (SELECT concept_name.concept_id FROM concept_name concept_name 
                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                       WHERE name = "Drug induced" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @side_effects = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                       WHERE name = "Malawi ART side effects" AND voided = 0 AND retired = 0 LIMIT 1);
                                       
                   SET @routine_tb_screening = (SELECT concept_name.concept_id FROM concept_name concept_name 
                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -1146,6 +1150,123 @@ BEGIN
                                   WHERE flat_table2.symptom_present_other_symptom_enc_id = OLD.encounter_id;
                           ELSE BEGIN END;       
                           END CASE;
+
+                      WHEN @side_effects THEN                
+                                          
+                          SET @side_effects_no = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "no" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_peripheral_neuropathy = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Peripheral neuropathy" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+
+                          SET @side_effects_hepatitis = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Hepatitis" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+
+                          SET @side_effects_skin_rash = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Skin rash" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+
+                          SET @side_effects_lipodystrophy = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Lipodystrophy" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_other = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Other" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_kidney_failure = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Kidney Failure" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_nightmares = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Nightmares" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_diziness = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Diziness" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_psychosis = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Psychosis" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @side_effects_blurry_vision = (SELECT concept_name.concept_id FROM concept_name 
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                                  WHERE name = "Blurry Vision" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+
+                          CASE var_value_coded
+                                
+                              WHEN @side_effects_no THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_no =  NULL, 
+                                      side_effects_no_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_no_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_peripheral_neuropathy THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_peripheral_neuropathy =  NULL, 
+                                      side_effects_peripheral_neuropathy_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_peripheral_neuropathy_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_hepatitis THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_hepatitis =  NULL, 
+                                      side_effects_hepatitis_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_hepatitis_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_skin_rash THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_skin_rash =  NULL, 
+                                      side_effects_skin_rash_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_skin_rash_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_lipodystrophy THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_lipodystrophy =  NULL, 
+                                      side_effects_lipodystrophy_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_lipodystrophy_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_other THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_other =  NULL, 
+                                      side_effects_other_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_other_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_kidney_failure THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_kidney_failure =  NULL, 
+                                      side_effects_kidney_failure_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_kidney_failure_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_nightmares THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_nightmares =  NULL, 
+                                      side_effects_nightmares_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_nightmares_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_diziness THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_diziness =  NULL, 
+                                      side_effects_diziness_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_diziness_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_psychosis THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_psychosis =  NULL, 
+                                      side_effects_psychosis_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_psychosis_enc_id = OLD.encounter_id;
+                                                            
+                              WHEN @side_effects_blurry_vision THEN
+                              
+                                  UPDATE flat_table2 SET side_effects_blurry_vision =  NULL, 
+                                      side_effects_blurry_vision_enc_id = NULL 
+                                  WHERE flat_table2.side_effects_blurry_vision_enc_id = OLD.encounter_id;
+
+                           ELSE BEGIN END;    
+                           END CASE;                        
           
                       WHEN @method_of_family_planning THEN
                       
