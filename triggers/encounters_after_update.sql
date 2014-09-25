@@ -900,7 +900,16 @@ BEGIN
                           SET @drug_induced_other_symptom = (SELECT concept_name.concept_id FROM concept_name 
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                   WHERE name = "Other symptom" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
-                                              
+
+                          SET @drug_induced_kidney_failure = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Kidney Failure " AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @drug_induced_nightmares = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Nightmares" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @drug_induced_diziness = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Dizziness" AND concept_name_type = "FULLY_SPECIFIED" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @drug_induced_psychosis = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Psychosis" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @drug_induced_blurry_vision = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Blurry Vision" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);                                              
                           CASE var_value_coded
                                 
                               WHEN @drug_induced_abdominal_pain THEN
@@ -992,6 +1001,37 @@ BEGIN
                                   UPDATE flat_table2 SET drug_induced_cough =  NULL, 
                                       drug_induced_cough_enc_id = NULL 
                                   WHERE flat_table2.drug_induced_cough_enc_id = OLD.encounter_id;
+
+                              WHEN @drug_induced_kidney_failure THEN
+                              
+                                  UPDATE flat_table2 SET drug_induced_kidney_failure = NULL, 
+                                      drug_induced_kidney_failure_enc_id = NULL 
+                                  WHERE flat_table2.drug_induced_kidney_failure_enc_id = OLD.encounter_id;
+
+                              WHEN @drug_induced_nightmares THEN
+                              
+                                  UPDATE flat_table2 SET drug_induced_nightmares = NULL, 
+                                      drug_induced_nightmares_enc_id = NULL 
+                                  WHERE flat_table2.drug_induced_nightmares_enc_id = OLD.encounter_id;
+
+                              WHEN @drug_induced_diziness THEN
+                              
+                                  UPDATE flat_table2 SET drug_induced_diziness = NULL, 
+                                      drug_induced_diziness_enc_id = NULL 
+                                  WHERE flat_table2.drug_induced_diziness_enc_id = OLD.encounter_id;
+
+                              WHEN @drug_induced_psychosis THEN
+                              
+                                  UPDATE flat_table2 SET drug_induced_psychosis = NULL, 
+                                      drug_induced_psychosis_enc_id = NULL 
+                                  WHERE flat_table2.drug_induced_psychosis_enc_id = OLD.encounter_id;
+
+                              WHEN @drug_induced_blurry_vision THEN
+                              
+                                  UPDATE flat_table2 SET drug_induced_blurry_vision = NULL, 
+                                      drug_induced_blurry_vision_enc_id = NULL 
+                                  WHERE flat_table2.drug_induced_blurry_vision_enc_id = OLD.encounter_id;
+                                  
                            ELSE BEGIN END;    
                            END CASE;                        
           
@@ -1056,6 +1096,16 @@ BEGIN
                           SET @symptom_present_other_symptom = (SELECT concept_name.concept_id FROM concept_name 
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                   WHERE name = "Other symptom" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+
+                          SET @symptom_present_kidney_failure = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Kidney Failure " AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @symptom_present_nightmares = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Nightmares" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @symptom_present_diziness = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Dizziness" AND concept_name_type = "FULLY_SPECIFIED" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @symptom_present_psychosis = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Psychosis" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+                          
+                          SET @symptom_present_blurry_vision = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Blurry Vision" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
                           
                           CASE var_value_coded
                                                               
@@ -1148,6 +1198,37 @@ BEGIN
                                   UPDATE flat_table2 SET symptom_present_other_symptom = NULL, 
                                       symptom_present_other_symptom_enc_id = NULL 
                                   WHERE flat_table2.symptom_present_other_symptom_enc_id = OLD.encounter_id;
+
+                              WHEN @symptom_present_kidney_failure THEN
+                              
+                                  UPDATE flat_table2 SET symptom_present_kidney_failure = NULL, 
+                                      symptom_present_kidney_failure_enc_id = NULL 
+                                  WHERE flat_table2.symptom_present_kidney_failure_enc_id = OLD.encounter_id;
+
+                              WHEN @symptom_present_nightmares THEN
+                              
+                                  UPDATE flat_table2 SET symptom_present_nightmares = NULL, 
+                                      symptom_present_nightmares_enc_id = NULL 
+                                  WHERE flat_table2.symptom_present_nightmares_enc_id = OLD.encounter_id;
+
+                              WHEN @symptom_present_diziness THEN
+                              
+                                  UPDATE flat_table2 SET symptom_present_diziness = NULL, 
+                                      symptom_present_diziness_enc_id = NULL 
+                                  WHERE flat_table2.symptom_present_diziness_enc_id = OLD.encounter_id;
+
+                              WHEN @symptom_present_psychosis THEN
+                              
+                                  UPDATE flat_table2 SET symptom_present_psychosis = NULL, 
+                                      symptom_present_psychosis_enc_id = NULL 
+                                  WHERE flat_table2.symptom_present_psychosis_enc_id = OLD.encounter_id;
+
+                              WHEN @symptom_present_blurry_vision THEN
+                              
+                                  UPDATE flat_table2 SET symptom_present_blurry_vision = NULL, 
+                                      symptom_present_blurry_vision_enc_id = NULL 
+                                  WHERE flat_table2.symptom_present_blurry_vision_enc_id = OLD.encounter_id;
+ 
                           ELSE BEGIN END;       
                           END CASE;
 

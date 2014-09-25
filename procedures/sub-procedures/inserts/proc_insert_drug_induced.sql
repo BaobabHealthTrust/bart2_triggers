@@ -44,6 +44,16 @@ BEGIN
     SET @drug_induced_vomiting = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Vomiting" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
     
     SET @drug_induced_other_symptom = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Other symptom" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+
+    SET @drug_induced_kidney_failure = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Kidney Failure " AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+    
+    SET @drug_induced_nightmares = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Nightmares" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+    
+    SET @drug_induced_diziness = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Dizziness" AND concept_name_type = "FULLY_SPECIFIED" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+    
+    SET @drug_induced_psychosis = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Psychosis" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);
+    
+    SET @drug_induced_blurry_vision = (SELECT concept_name.concept_id FROM concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id WHERE name = "Blurry Vision" AND voided = 0 AND retired = 0 ORDER BY concept_name.concept_id DESC LIMIT 1);    
     
     CASE in_field_value_coded
     
@@ -303,6 +313,86 @@ BEGIN
             ELSE
               UPDATE flat_table2 SET drug_induced_other_symptom = NULL, drug_induced_other_symptom_enc_id = NULL WHERE flat_table2.id = in_visit_id;
             END IF;
+            
+          WHEN @drug_induced_kidney_failure THEN
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_kidney_failure, drug_induced_kidney_failure_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET drug_induced_kidney_failure = 'Yes', drug_induced_kidney_failure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET drug_induced_kidney_failure = NULL, drug_induced_kidney_failure_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;
+
+          WHEN @drug_induced_nightmares THEN
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_nightmares, drug_induced_nightmares_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET drug_induced_nightmares = 'Yes', drug_induced_nightmares_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET drug_induced_nightmares = NULL, drug_induced_nightmares_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;
+
+          WHEN @drug_induced_diziness THEN
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_diziness, drug_induced_diziness_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET drug_induced_diziness = 'Yes', drug_induced_diziness_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET drug_induced_diziness = NULL, drug_induced_diziness_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;
+
+          WHEN @drug_induced_psychosis THEN
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_psychosis, drug_induced_psychosis_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET drug_induced_psychosis = 'Yes', drug_induced_psychosis_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET drug_induced_psychosis = NULL, drug_induced_psychosis_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;
+            
+          WHEN @drug_induced_blurry_vision THEN
+
+            IF in_field_voided = 0 THEN
+              IF in_visit_id = 0 THEN
+              
+                  INSERT INTO flat_table2 (patient_id, visit_date, drug_induced_blurry_vision, drug_induced_blurry_vision_enc_id) VALUES (in_patient_id, in_visit_date, 'Yes', encounter_id);
+              
+              ELSE 
+              
+                  UPDATE flat_table2 SET drug_induced_blurry_vision = 'Yes', drug_induced_blurry_vision_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  
+              END IF;
+            ELSE
+              UPDATE flat_table2 SET drug_induced_blurry_vision = NULL, drug_induced_blurry_vision_enc_id = NULL WHERE flat_table2.id = in_visit_id;
+            END IF;                                    
         ELSE
         
             SET @enc_id = encounter_id;                  
