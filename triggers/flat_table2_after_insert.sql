@@ -461,73 +461,87 @@ BEGIN
                 
                     UPDATE flat_cohort_table SET side_effects_skin_rash = NEW.side_effects_skin_rash,
                         side_effects_skin_rash_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_lipodystrophy_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_lipodystrophy_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_lipodystrophy = NEW.side_effects_lipodystrophy,
                         side_effects_lipodystrophy_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_other_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_other_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_other = NEW.side_effects_other,
                         side_effects_other_v_date = NEW.visit_date WHERE id = @id;
-                                                       
+        END IF;
+                                                               
         IF DATE(@side_effects_no_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_no_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_no = NEW.side_effects_no,
                         side_effects_no_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_kidney_failure_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_kidney_failure_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_kidney_failure = NEW.side_effects_kidney_failure,
                         side_effects_kidney_failure_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_nightmares_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_nightmares_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_nightmares = NEW.side_effects_nightmares,
                         side_effects_nightmares_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_diziness_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_diziness_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_diziness = NEW.side_effects_diziness,
                         side_effects_diziness_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_psychosis_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_psychosis_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_psychosis = NEW.side_effects_psychosis,
                         side_effects_psychosis_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@side_effects_blurry_vision_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_blurry_vision_v_date) THEN
                 
                     UPDATE flat_cohort_table SET side_effects_blurry_vision = NEW.side_effects_blurry_vision,
                         side_effects_blurry_vision_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@drug_induced_kidney_failure_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_kidney_failure_v_date) THEN
                 
                     UPDATE flat_cohort_table SET drug_induced_kidney_failure = NEW.drug_induced_kidney_failure,
                         drug_induced_kidney_failure_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@drug_induced_nightmares_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_nightmares_v_date) THEN
                 
                     UPDATE flat_cohort_table SET drug_induced_nightmares = NEW.drug_induced_nightmares,
                         drug_induced_nightmares_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@drug_induced_diziness_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_diziness_v_date) THEN
                 
                     UPDATE flat_cohort_table SET drug_induced_diziness = NEW.drug_induced_diziness,
                         drug_induced_diziness_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@drug_induced_psychosis_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_psychosis_v_date) THEN
                 
                     UPDATE flat_cohort_table SET drug_induced_psychosis = NEW.drug_induced_psychosis,
                         drug_induced_psychosis_v_date = NEW.visit_date WHERE id = @id;
-
+        END IF;
+        
         IF DATE(@drug_induced_blurry_vision_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_blurry_vision_v_date) THEN
                 
                     UPDATE flat_cohort_table SET drug_induced_blurry_vision = NEW.drug_induced_blurry_vision,
                         drug_induced_blurry_vision_v_date = NEW.visit_date WHERE id = @id;
 
-  
+        END IF;
+          
     END IF;
 
 END$$

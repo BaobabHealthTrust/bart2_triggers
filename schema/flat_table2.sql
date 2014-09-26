@@ -92,7 +92,7 @@ CREATE TABLE `flat_table2` (
   `drug_induced_other_symptom` varchar(255) DEFAULT NULL,
   `drug_induced_fever` varchar(255) DEFAULT NULL,
   `drug_induced_cough` varchar(255) DEFAULT NULL,
-  `drug_inducedt_kidney_failure` varchar(255) DEFAULT NULL,
+  `drug_induced_kidney_failure` varchar(255) DEFAULT NULL,
   `drug_induced_nightmares` varchar(255) DEFAULT NULL,  
   `drug_induced_diziness` varchar(255) DEFAULT NULL,  
   `drug_induced_psychosis` varchar(255) DEFAULT NULL,
