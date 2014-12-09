@@ -414,6 +414,174 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'invasive cancer of cervix' AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @cryptococcal_meningitis_or_other_eptb_cryptococcosis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cryptococcal meningitis or other extrapulmonary cryptococcosis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @candidiasis_of_oesophagus_trachea_bronchi_or_lungs = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Candidiasis of oseophagus, trachea and bronchi or lungs' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @severe_unexplained_wasting_malnutrition = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Severe unexplained wasting or malnutrition not responding to treatment (weight-for-height/ -age <70% or MUAC less than 11cm or oedema)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @diarrhoea_chronic_less_1_month_unexplained = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Diarrhoea, chronic (>1 month) unexplained' AND voided = 0 AND retired = 0 LIMIT 1);                                                           
+                        
+    SET @moderate_weight_loss_10_unexplained = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Moderate weight loss less than or equal to 10 percent, unexplained' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cd4_percentage_available = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cryptococcal meningitis or other extrapulmonary cryptococcosis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Acute necrotizing ulcerative stomatitis, gingivitis or periodontitis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @moderate_unexplained_wasting_malnutrition = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Moderate unexplained wasting/malnutrition not responding to treatment (weight-for-height/ -age 70-79% or muac 11-12 cm)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @diarrhoea_persistent_unexplained_14_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Diarrhoea, persistent unexplained (14 days or more)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @acute_ulcerative_mouth_infections = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Acute ulcerative mouth infections' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @anaemia_unexplained_8_g_dl = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Anaemia, unexplained < 8 g/dl' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @atypical_mycobacteriosis_disseminated_or_lung = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Atypical mycobacteriosis, disseminated or lung' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @bacterial_infections_sev_recurrent_excluding_pneumonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Bacterial infections, severe recurrent  (empyema, pyomyositis, meningitis, bone/joint infections but EXCLUDING pneumonia)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cancer_cervix = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cancer cervix' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @chronic_herpes_simplex_infection_genital = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Chronic herpes simplex infection(orolabial, genital / anorectal >1 month or visceral at any site)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cryptosporidiosis_chronic_with_diarrhoea = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cryptosporidiosis, chronic with diarroea' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cytomegalovirus_infection_retinitis_or_other_organ = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cytomegalovirus infection: rentinitis or other organ (from age 1 month)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cytomegalovirus_of_an_organ_other_than_liver = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cytomegalovirus of an organ other than liver, spleen or lymph node' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @fungal_nail_infections = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Fungal nail infection' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @herpes_simplex_infection_mucocutaneous_visceral = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Herpes simplex infection, mucocutaneous for longer than 1 month or visceral' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @hiv_associated_cardiomyopathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'HIV associated cardiomyopathy' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @hiv_associated_nephropathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'HIV associated nephropathy' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @invasive_cancer_cervix = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Invasive cancer of cervix' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @isosporiasis_1_month = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Isosporiasis >1 month' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @leishmaniasis_atypical_disseminated = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Leishmaniasis, atypical disseminated' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @minor_mucocutaneous_manifestations_seborrheic_dermatitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Minor mucocutaneous manifestations (seborrheic dermatitis, prurigo, fungal nail infections, recurrent oral ulcerations, angular chelitis)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @moderate_unexplained_malnutrition = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Moderate unexplained wasting/malnutrition not responding to treatment (weight-for-height/ -age 70-79% or muac 11-12 cm)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @molluscum_contagiosum_extensive = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Molluscum contagiosum, extensive' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @non_typhoidal_salmonella_bacteraemia_recurrent = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Non-typhoidal Salmonella bacteraemia, recurrent' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @oral_candidiasis_from_age_2_months = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Oral candidiasis (from age 2 months)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @oral_thrush = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Oral thrush' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @perform_extended_staging = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Perform extended staging' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @pneumocystis_carinii_pneumonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Pneumocystis carinii pneumonia' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @pneumonia_severe = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Pneumonia, severe' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @recurrent_bacteraemia_or_sepsis_with_nts = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Recurrent bacteraemia or sepsis with NTS' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @recurrent_severe_presumed_pneumonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Recurrent severe presumed pneumonia' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @recurrent_upper_respiratory_tract_bac_sinusitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Recurrent upper respiratory infection (ie, bacterial sinusitis)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @seborrhoeic_dermatitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Seborrhoeic dermatitis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @sepsis_severe = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Sepsis, severe' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @tb_lymphadenopathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'TB lymphadenopathy' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @unexplained_anaemia_neutropenia_or_thrombocytopenia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Unexplained anaemia, neutropaenia, or throbocytopaenia' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @visceral_leishmaniasis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Visceral leishmaniasis' AND voided = 0 AND retired = 0 LIMIT 1);
+
     SET @who_crit_stage = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Who stages criteria present' AND voided = 0 AND retired = 0 LIMIT 1);
@@ -1671,6 +1839,848 @@ BEGIN
            ELSE
               UPDATE flat_table1 SET invasive_cancer_of_cervix = NULL WHERE flat_table1.patient_id= in_patient_id;           
            END IF;
+           
+           
+        WHEN @cryptococcal_meningitis_or_other_eptb_cryptococcosis THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET cryptococcal_meningitis_or_other_eptb_cryptococcosis = @answer,   
+                cryptococcal_meningitis_or_other_eptb_cryptococcosis_v_date = in_visit_date,
+                cryptococcal_meningitis_or_other_eptb_cryptococcosis_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET cryptococcal_meningitis_or_other_eptb_cryptococcosis = NULL,
+                cryptococcal_meningitis_or_other_eptb_cryptococcosis_v_date = NULL,
+                cryptococcal_meningitis_or_other_eptb_cryptococcosis_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @candidiasis_of_oesophagus_trachea_bronchi_or_lungs THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET candidiasis_of_oesophagus_trachea_bronchi_or_lungs = @answer,   
+                candidiasis_of_oesophagus_trachea_bronchi_or_lungs_v_date = in_visit_date,
+                candidiasis_of_oesophagus_trachea_bronchi_or_lungs_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET candidiasis_of_oesophagus_trachea_bronchi_or_lungs = NULL,
+                candidiasis_of_oesophagus_trachea_bronchi_or_lungs_v_date = NULL,
+                candidiasis_of_oesophagus_trachea_bronchi_or_lungs_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @severe_unexplained_wasting_malnutrition THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET severe_unexplained_wasting_malnutrition = @answer,   
+                severe_unexplained_wasting_malnutrition_v_date = in_visit_date,
+                severe_unexplained_wasting_malnutrition_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET severe_unexplained_wasting_malnutrition = NULL,
+                severe_unexplained_wasting_malnutrition_v_date = NULL,
+                severe_unexplained_wasting_malnutrition_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @diarrhoea_chronic_less_1_month_unexplained THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET diarrhoea_chronic_less_1_month_unexplained = @answer,   
+                diarrhoea_chronic_less_1_month_unexplained_v_date = in_visit_date,
+                diarrhoea_chronic_less_1_month_unexplained_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET diarrhoea_chronic_less_1_month_unexplained = NULL,
+                diarrhoea_chronic_less_1_month_unexplained_v_date = NULL,
+                diarrhoea_chronic_less_1_month_unexplained_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @moderate_weight_loss_10_unexplained THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET moderate_weight_loss_10_unexplained = @answer,   
+                moderate_weight_loss_10_unexplained_v_date = in_visit_date,
+                moderate_weight_loss_10_unexplained_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET moderate_weight_loss_10_unexplained = NULL,
+                moderate_weight_loss_10_unexplained_v_date = NULL,
+                moderate_weight_loss_10_unexplained_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period = @answer,   
+                acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period_v_date = in_visit_date,
+                acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period = NULL,
+                acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period_v_date = NULL,
+                acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @moderate_unexplained_wasting_malnutrition THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET moderate_unexplained_wasting_malnutrition = @answer,   
+                moderate_unexplained_wasting_malnutrition_v_date = in_visit_date,
+                moderate_unexplained_wasting_malnutrition_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET moderate_unexplained_wasting_malnutrition = NULL,
+                moderate_unexplained_wasting_malnutrition_v_date = NULL,
+                moderate_unexplained_wasting_malnutrition_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @diarrhoea_persistent_unexplained_14_days_or_more THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET diarrhoea_persistent_unexplained_14_days_or_more = @answer,   
+                diarrhoea_persistent_unexplained_14_days_or_more_v_date = in_visit_date,
+                diarrhoea_persistent_unexplained_14_days_or_more_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET diarrhoea_persistent_unexplained_14_days_or_more = NULL,
+                diarrhoea_persistent_unexplained_14_days_or_more_v_date = NULL,
+                diarrhoea_persistent_unexplained_14_days_or_more_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @acute_ulcerative_mouth_infections THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET acute_ulcerative_mouth_infections = @answer,   
+                acute_ulcerative_mouth_infections_v_date = in_visit_date,
+                acute_ulcerative_mouth_infections_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET acute_ulcerative_mouth_infections = NULL,
+                acute_ulcerative_mouth_infections_v_date = NULL,
+                acute_ulcerative_mouth_infections_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @anaemia_unexplained_8_g_dl THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET anaemia_unexplained_8_g_dl = @answer,   
+                anaemia_unexplained_8_g_dl_v_date = in_visit_date,
+                anaemia_unexplained_8_g_dl_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET anaemia_unexplained_8_g_dl = NULL,
+                anaemia_unexplained_8_g_dl_v_date = NULL,
+                anaemia_unexplained_8_g_dl_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @atypical_mycobacteriosis_disseminated_or_lung THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET atypical_mycobacteriosis_disseminated_or_lung = @answer,   
+                atypical_mycobacteriosis_disseminated_or_lung_v_date = in_visit_date,
+                atypical_mycobacteriosis_disseminated_or_lung_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET atypical_mycobacteriosis_disseminated_or_lung = NULL,
+                atypical_mycobacteriosis_disseminated_or_lung_v_date = NULL,
+                atypical_mycobacteriosis_disseminated_or_lung_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @bacterial_infections_sev_recurrent_excluding_pneumonia THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET bacterial_infections_sev_recurrent_excluding_pneumonia = @answer,   
+                bacterial_infections_sev_recurrent_excluding_pneumonia_v_date = in_visit_date,
+                bacterial_infections_sev_recurrent_excluding_pneumonia_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET bacterial_infections_sev_recurrent_excluding_pneumonia = NULL,
+                bacterial_infections_sev_recurrent_excluding_pneumonia_v_date = NULL,
+                bacterial_infections_sev_recurrent_excluding_pneumonia_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @cancer_cervix THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET cancer_cervix = @answer,   
+                cancer_cervix_v_date = in_visit_date,
+                cancer_cervix_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET cancer_cervix = NULL,
+                cancer_cervix_v_date = NULL,
+                cancer_cervix_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @chronic_herpes_simplex_infection_genital THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET chronic_herpes_simplex_infection_genital = @answer,   
+                chronic_herpes_simplex_infection_genital_v_date = in_visit_date,
+                chronic_herpes_simplex_infection_genital_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET chronic_herpes_simplex_infection_genital = NULL,
+                chronic_herpes_simplex_infection_genital_v_date = NULL,
+                chronic_herpes_simplex_infection_genital_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @cryptosporidiosis_chronic_with_diarrhoea THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET cryptosporidiosis_chronic_with_diarrhoea = @answer,   
+                cryptosporidiosis_chronic_with_diarrhoea_v_date = in_visit_date,
+                cryptosporidiosis_chronic_with_diarrhoea_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET cryptosporidiosis_chronic_with_diarrhoea = NULL,
+                cryptosporidiosis_chronic_with_diarrhoea_v_date = NULL,
+                cryptosporidiosis_chronic_with_diarrhoea_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @cytomegalovirus_infection_retinitis_or_other_organ THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET cytomegalovirus_infection_retinitis_or_other_organ = @answer,   
+                cytomegalovirus_infection_retinitis_or_other_organ_v_date = in_visit_date,
+                cytomegalovirus_infection_retinitis_or_other_organ_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET cytomegalovirus_infection_retinitis_or_other_organ = NULL,
+                cytomegalovirus_infection_retinitis_or_other_organ_v_date = NULL,
+                cytomegalovirus_infection_retinitis_or_other_organ_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @cytomegalovirus_of_an_organ_other_than_liver THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET cytomegalovirus_of_an_organ_other_than_liver = @answer,   
+                cytomegalovirus_of_an_organ_other_than_liver_v_date = in_visit_date,
+                cytomegalovirus_of_an_organ_other_than_liver_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET cytomegalovirus_of_an_organ_other_than_liver = NULL,
+                cytomegalovirus_of_an_organ_other_than_liver_v_date = NULL,
+                cytomegalovirus_of_an_organ_other_than_liver_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @fungal_nail_infections THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET fungal_nail_infections = @answer,   
+                fungal_nail_infections_v_date = in_visit_date,
+                fungal_nail_infections_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET fungal_nail_infections = NULL,
+                fungal_nail_infections_v_date = NULL,
+                fungal_nail_infections_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @herpes_simplex_infection_mucocutaneous_visceral THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET herpes_simplex_infection_mucocutaneous_visceral = @answer,   
+                herpes_simplex_infection_mucocutaneous_visceral_v_date = in_visit_date,
+                herpes_simplex_infection_mucocutaneous_visceral_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET herpes_simplex_infection_mucocutaneous_visceral = NULL,
+                herpes_simplex_infection_mucocutaneous_visceral_v_date = NULL,
+                herpes_simplex_infection_mucocutaneous_visceral_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @hiv_associated_cardiomyopathy THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET hiv_associated_cardiomyopathy = @answer,   
+                hiv_associated_cardiomyopathy_v_date = in_visit_date,
+                hiv_associated_cardiomyopathy_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET hiv_associated_cardiomyopathy = NULL,
+                hiv_associated_cardiomyopathy_v_date = NULL,
+                hiv_associated_cardiomyopathy_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @hiv_associated_nephropathy THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET hiv_associated_nephropathy = @answer,   
+                hiv_associated_nephropathy_v_date = in_visit_date,
+                hiv_associated_nephropathy_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET hiv_associated_nephropathy = NULL,
+                hiv_associated_nephropathy_v_date = NULL,
+                hiv_associated_nephropathy_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @invasive_cancer_cervix THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET invasive_cancer_cervix = @answer,   
+                invasive_cancer_cervix_v_date = in_visit_date,
+                invasive_cancer_cervix_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET invasive_cancer_cervix = NULL,
+                invasive_cancer_cervix_v_date = NULL,
+                invasive_cancer_cervix_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @isosporiasis_1_month THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET isosporiasis_1_month = @answer,   
+                isosporiasis_1_month_v_date = in_visit_date,
+                isosporiasis_1_month_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET isosporiasis_1_month = NULL,
+                isosporiasis_1_month_v_date = NULL,
+                isosporiasis_1_month_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @leishmaniasis_atypical_disseminated THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET leishmaniasis_atypical_disseminated = @answer,   
+                leishmaniasis_atypical_disseminated_v_date = in_visit_date,
+                leishmaniasis_atypical_disseminated_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET leishmaniasis_atypical_disseminated = NULL,
+                leishmaniasis_atypical_disseminated_v_date = NULL,
+                leishmaniasis_atypical_disseminated_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @minor_mucocutaneous_manifestations_seborrheic_dermatitis THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET minor_mucocutaneous_manifestations_seborrheic_dermatitis = @answer,   
+                minor_mucocutaneous_manifestations_seborrheic_dermatitis_v_date = in_visit_date,
+                minor_mucocutaneous_manifestations_seborrheic_dermatitis_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET minor_mucocutaneous_manifestations_seborrheic_dermatitis = NULL,
+                minor_mucocutaneous_manifestations_seborrheic_dermatitis_v_date = NULL,
+                minor_mucocutaneous_manifestations_seborrheic_dermatitis_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @cd4_percentage_available THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET cd4_percentage_available = @answer,   
+                cd4_percentage_available_v_date = in_visit_date,
+                cd4_percentage_available_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET cd4_percentage_available = NULL,
+                cd4_percentage_available_v_date = NULL,
+                cd4_percentage_available_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @moderate_unexplained_malnutrition THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET moderate_unexplained_malnutrition = @answer,   
+                moderate_unexplained_malnutrition_v_date = in_visit_date,
+                moderate_unexplained_malnutrition_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET moderate_unexplained_malnutrition = NULL,
+                moderate_unexplained_malnutrition_v_date = NULL,
+                moderate_unexplained_malnutrition_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @molluscum_contagiosum_extensive THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET molluscum_contagiosum_extensive = @answer,   
+                molluscum_contagiosum_extensive_v_date = in_visit_date,
+                molluscum_contagiosum_extensive_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET molluscum_contagiosum_extensive = NULL,
+                molluscum_contagiosum_extensive_v_date = NULL,
+                molluscum_contagiosum_extensive_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @non_typhoidal_salmonella_bacteraemia_recurrent THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET non_typhoidal_salmonella_bacteraemia_recurrent = @answer,   
+                non_typhoidal_salmonella_bacteraemia_recurrent_v_date = in_visit_date,
+                non_typhoidal_salmonella_bacteraemia_recurrent_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET non_typhoidal_salmonella_bacteraemia_recurrent = NULL,
+                non_typhoidal_salmonella_bacteraemia_recurrent_v_date = NULL,
+                non_typhoidal_salmonella_bacteraemia_recurrent_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @oral_candidiasis_from_age_2_months THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET oral_candidiasis_from_age_2_months = @answer,   
+                oral_candidiasis_from_age_2_months_v_date = in_visit_date,
+                oral_candidiasis_from_age_2_months_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET oral_candidiasis_from_age_2_months = NULL,
+                oral_candidiasis_from_age_2_months_v_date = NULL,
+                oral_candidiasis_from_age_2_months_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @oral_thrush THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET oral_thrush = @answer,   
+                oral_thrush_v_date = in_visit_date,
+                oral_thrush_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET oral_thrush = NULL,
+                oral_thrush_v_date = NULL,
+                oral_thrush_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @perform_extended_staging THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET perform_extended_staging = @answer,   
+                perform_extended_staging_v_date = in_visit_date,
+                perform_extended_staging_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET perform_extended_staging = NULL,
+                perform_extended_staging_v_date = NULL,
+                perform_extended_staging_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @pneumocystis_carinii_pneumonia THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET pneumocystis_carinii_pneumonia = @answer,   
+                pneumocystis_carinii_pneumonia_v_date = in_visit_date,
+                pneumocystis_carinii_pneumonia_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET pneumocystis_carinii_pneumonia = NULL,
+                pneumocystis_carinii_pneumonia_v_date = NULL,
+                pneumocystis_carinii_pneumonia_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @pneumonia_severe THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET pneumonia_severe = @answer,   
+                pneumonia_severe_v_date = in_visit_date,
+                pneumonia_severe_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET pneumonia_severe = NULL,
+                pneumonia_severe_v_date = NULL,
+                pneumonia_severe_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @recurrent_bacteraemia_or_sepsis_with_nts THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET recurrent_bacteraemia_or_sepsis_with_nts = @answer,   
+                recurrent_bacteraemia_or_sepsis_with_nts_v_date = in_visit_date,
+                recurrent_bacteraemia_or_sepsis_with_nts_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET recurrent_bacteraemia_or_sepsis_with_nts = NULL,
+                recurrent_bacteraemia_or_sepsis_with_nts_v_date = NULL,
+                recurrent_bacteraemia_or_sepsis_with_nts_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @recurrent_severe_presumed_pneumonia THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET recurrent_severe_presumed_pneumonia = @answer,   
+                recurrent_severe_presumed_pneumonia_v_date = in_visit_date,
+                recurrent_severe_presumed_pneumonia_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET recurrent_severe_presumed_pneumonia = NULL,
+                recurrent_severe_presumed_pneumonia_v_date = NULL,
+                recurrent_severe_presumed_pneumonia_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @recurrent_upper_respiratory_tract_bac_sinusitis THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET recurrent_upper_respiratory_tract_bac_sinusitis = @answer,   
+                recurrent_upper_respiratory_tract_bac_sinusitis_v_date = in_visit_date,
+                recurrent_upper_respiratory_tract_bac_sinusitis_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET recurrent_upper_respiratory_tract_bac_sinusitis = NULL,
+                recurrent_upper_respiratory_tract_bac_sinusitis_v_date = NULL,
+                recurrent_upper_respiratory_tract_bac_sinusitis_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @seborrhoeic_dermatitis THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET seborrhoeic_dermatitis = @answer,   
+                seborrhoeic_dermatitis_v_date = in_visit_date,
+                seborrhoeic_dermatitis_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET seborrhoeic_dermatitis = NULL,
+                seborrhoeic_dermatitis_v_date = NULL,
+                seborrhoeic_dermatitis_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @sepsis_severe THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET sepsis_severe = @answer,   
+                sepsis_severe_v_date = in_visit_date,
+                sepsis_severe_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET sepsis_severe = NULL,
+                sepsis_severe_v_date = NULL,
+                sepsis_severe_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @tb_lymphadenopathy THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET tb_lymphadenopathy = @answer,   
+                tb_lymphadenopathy_v_date = in_visit_date,
+                tb_lymphadenopathy_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET tb_lymphadenopathy = NULL,
+                tb_lymphadenopathy_v_date = NULL,
+                tb_lymphadenopathy_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @unexplained_anaemia_neutropenia_or_thrombocytopenia THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET unexplained_anaemia_neutropenia_or_thrombocytopenia = @answer,   
+                unexplained_anaemia_neutropenia_or_thrombocytopenia_v_date = in_visit_date,
+                unexplained_anaemia_neutropenia_or_thrombocytopenia_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET unexplained_anaemia_neutropenia_or_thrombocytopenia = NULL,
+                unexplained_anaemia_neutropenia_or_thrombocytopenia_v_date = NULL,
+                unexplained_anaemia_neutropenia_or_thrombocytopenia_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;
+
+        WHEN @visceral_leishmaniasis THEN  
+          IF in_field_voided = 0 THEN
+            SET @answer = (SELECT name from concept_name 
+                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                           WHERE  concept.concept_id = in_field_value_coded
+                           AND voided = 0 AND retired = 0 LIMIT 1);
+
+            UPDATE flat_table1
+            SET visceral_leishmaniasis = @answer,   
+                visceral_leishmaniasis_v_date = in_visit_date,
+                visceral_leishmaniasis_enc_id = encounter_id
+            WHERE flat_table1.patient_id= in_patient_id;
+          ELSE
+            UPDATE flat_table1
+            SET visceral_leishmaniasis = NULL,
+                visceral_leishmaniasis_v_date = NULL,
+                visceral_leishmaniasis_enc_id = NULL                  
+            WHERE flat_table1.patient_id= in_patient_id;
+          END IF;           
+           
 
          WHEN @who_crit_stage THEN
              SET @answer = (SELECT name from concept_name LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -1682,7 +2692,7 @@ BEGIN
                 END IF;
 
                 IF (@answer = 'Anaemia, unexplained < 8 g/dl') THEN
-                  UPDATE flat_table1 SET aneamia = 'Yes' WHERE flat_table1.patient_id= in_patient_id;
+                  UPDATE flat_table1 SET anaemia_unexplained_8_g_dl = 'Yes' WHERE flat_table1.patient_id= in_patient_id;
                 END IF;
 
                 IF (@answer = 'Angular cheilitis') THEN
@@ -1850,7 +2860,7 @@ BEGIN
                 END IF;
 
                 IF (@answer = 'Severe unexplained wasting or malnutrition not responding to treatment (weight-for-height/ -age <70% or MUAC less than 11cm or oedema)') THEN
-                 UPDATE flat_table1 SET severe_weight_loss = 'Yes' WHERE flat_table1.patient_id= in_patient_id;
+                 UPDATE flat_table1 SET severe_unexplained_wasting_malnutrition = 'Yes' WHERE flat_table1.patient_id= in_patient_id;
                 END IF;
 
                 IF (@answer = 'Severe weight loss >10% and/or BMI <18.5kg/m^2, unexplained') THEN
@@ -1938,11 +2948,11 @@ BEGIN
               END IF;
 
               IF (@answer = 'Diarrhoea, chronic (>1 month) unexplained') THEN
-                UPDATE flat_table1 SET diarhoea = NULL WHERE flat_table1.patient_id= in_patient_id;
+                UPDATE flat_table1 SET diarrhoea_chronic_less_1_month_unexplained = NULL WHERE flat_table1.patient_id= in_patient_id;
               END IF;
 
               IF (@answer = 'Diarrhoea, persistent unexplained (14 days or more)') THEN
-                UPDATE flat_table1 SET diarhoea = NULL WHERE flat_table1.patient_id= in_patient_id;
+                UPDATE flat_table1 SET diarrhoea_persistent_unexplained_14_days_or_more = NULL WHERE flat_table1.patient_id= in_patient_id;
               END IF;
 
               IF (@answer = 'Disseminated mycosis (coccidiomycosis or histoplasmosis)') THEN
