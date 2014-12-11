@@ -303,7 +303,7 @@ BEGIN
                     
     SET @acute_necrotizing_ulcerative_gingivitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = ' Acute necrotizing ulcerative stomatitis, gingivitis or periodontitis' AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = '%Acute necrotizing ulcerative stomatitis, gingivitis or periodontitis%' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @lymph_node_tuberculosis = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -436,7 +436,7 @@ BEGIN
 
     SET @cd4_percentage_available = (SELECT concept_name.concept_id FROM concept_name concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                        WHERE name = 'Cryptococcal meningitis or other extrapulmonary cryptococcosis' AND voided = 0 AND retired = 0 LIMIT 1);
+                        WHERE name = 'CD4 percent available' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period = (SELECT concept_name.concept_id FROM concept_name concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
