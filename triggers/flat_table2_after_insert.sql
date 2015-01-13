@@ -6,88 +6,10 @@ FOR EACH ROW
 BEGIN
 
     # Get data into fields
-    SELECT id, patient_id, gender, birthdate, earliest_start_date, age_at_initiation, age_in_days,
-        hiv_program_state, hiv_program_start_date, reason_for_starting, 
-        ever_registered_at_art, date_art_last_taken, taken_art_in_last_two_months, 
-        pregnant_yes, pregnant_no, pregnant_unknown, death_date, drug_induced_abdominal_pain, drug_induced_anorexia, 
-        drug_induced_diarrhea, drug_induced_jaundice, drug_induced_leg_pain_numbness, 
-        drug_induced_vomiting, drug_induced_peripheral_neuropathy, drug_induced_hepatitis, 
-        drug_induced_anemia, drug_induced_lactic_acidosis, drug_induced_lipodystrophy, 
-        drug_induced_skin_rash, drug_induced_other_symptom, drug_induced_fever, 
-        drug_induced_cough, tb_not_suspected, tb_suspected, confirmed_tb_not_on_treatment, 
-        confirmed_tb_on_treatment, unknown_tb_status, extrapulmonary_tuberculosis, 
-        pulmonary_tuberculosis, pulmonary_tuberculosis_last_2_years, kaposis_sarcoma, 
-        what_was_the_patient_adherence_for_this_drug1, what_was_the_patient_adherence_for_this_drug2,
-        what_was_the_patient_adherence_for_this_drug3, what_was_the_patient_adherence_for_this_drug4,
-        what_was_the_patient_adherence_for_this_drug5, regimen_category, drug_name1, drug_name2, 
-        drug_name3, drug_name4, drug_name5, drug_inventory_id1, drug_inventory_id2, 
-        drug_inventory_id3, drug_inventory_id4, drug_inventory_id5, drug_auto_expire_date1, 
-        drug_auto_expire_date2, drug_auto_expire_date3, drug_auto_expire_date4, 
-        drug_auto_expire_date5, hiv_program_state_v_date, hiv_program_start_date_v_date, 
-        current_tb_status_v_date, reason_for_starting_v_date, ever_registered_at_art_v_date, 
-        date_art_last_taken_v_date, taken_art_in_last_two_months_v_date, pregnant_yes_v_date,pregnant_no_v_date, pregnant_unknown_v_date, death_date_v_date, drug_induced_abdominal_pain_v_date, drug_induced_anorexia_v_date, 
-        drug_induced_diarrhea_v_date, drug_induced_jaundice_v_date, drug_induced_leg_pain_numbness_v_date, 
-        drug_induced_vomiting_v_date, drug_induced_peripheral_neuropathy_v_date, 
-        drug_induced_hepatitis_v_date, drug_induced_anemia_v_date, drug_induced_lactic_acidosis_v_date, 
-        drug_induced_lipodystrophy_v_date, drug_induced_skin_rash_v_date, drug_induced_other_symptom_v_date, 
-        drug_induced_fever_v_date, drug_induced_cough_v_date, tb_not_suspected_v_date, 
-        tb_suspected_v_date, confirmed_tb_not_on_treatment_v_date, confirmed_tb_on_treatment_v_date, 
-        unknown_tb_status_v_date, extrapulmonary_tuberculosis_v_date, pulmonary_tuberculosis_v_date,
-        pulmonary_tuberculosis_last_2_years_v_date, kaposis_sarcoma_v_date, 
-        what_was_the_patient_adherence_for_this_drug1_v_date, 
-        what_was_the_patient_adherence_for_this_drug2_v_date, 
-        what_was_the_patient_adherence_for_this_drug3_v_date, 
-        what_was_the_patient_adherence_for_this_drug4_v_date, 
-        what_was_the_patient_adherence_for_this_drug5_v_date, regimen_category_v_date, 
-        drug_name1_v_date, drug_name2_v_date, drug_name3_v_date, drug_name4_v_date, 
-        drug_name5_v_date, drug_inventory_id1_v_date, drug_inventory_id2_v_date, 
-        drug_inventory_id3_v_date, drug_inventory_id4_v_date, drug_inventory_id5_v_date, 
-        drug_auto_expire_date1_v_date, drug_auto_expire_date2_v_date, drug_auto_expire_date3_v_date, 
-        drug_auto_expire_date4_v_date, drug_auto_expire_date5_v_date 
+    SELECT id, patient_id, gender, birthdate, earliest_start_date, age_at_initiation, age_in_days, hiv_program_state, hiv_program_start_date, reason_for_starting, ever_registered_at_art, date_art_last_taken, taken_art_in_last_two_months, pregnant_yes, pregnant_no, pregnant_unknown, death_date, drug_induced_abdominal_pain, drug_induced_anorexia, drug_induced_diarrhea, drug_induced_jaundice, drug_induced_leg_pain_numbness, drug_induced_vomiting, drug_induced_peripheral_neuropathy, drug_induced_hepatitis, drug_induced_anemia, drug_induced_lactic_acidosis, drug_induced_lipodystrophy, drug_induced_skin_rash, drug_induced_other_symptom, drug_induced_fever, drug_induced_cough, tb_not_suspected, tb_suspected, confirmed_tb_not_on_treatment, confirmed_tb_on_treatment, unknown_tb_status, extrapulmonary_tuberculosis, pulmonary_tuberculosis, pulmonary_tuberculosis_last_2_years, kaposis_sarcoma, what_was_the_patient_adherence_for_this_drug1, what_was_the_patient_adherence_for_this_drug2, what_was_the_patient_adherence_for_this_drug3, what_was_the_patient_adherence_for_this_drug4, what_was_the_patient_adherence_for_this_drug5, regimen_category, drug_name1, drug_name2, drug_name3, drug_name4, drug_name5, drug_inventory_id1, drug_inventory_id2, drug_inventory_id3, drug_inventory_id4, drug_inventory_id5, drug_auto_expire_date1, drug_auto_expire_date2, drug_auto_expire_date3, drug_auto_expire_date4, drug_auto_expire_date5, hiv_program_state_v_date, hiv_program_start_date_v_date, current_tb_status_v_date, reason_for_starting_v_date, ever_registered_at_art_v_date, date_art_last_taken_v_date, taken_art_in_last_two_months_v_date, pregnant_yes_v_date, pregnant_no_v_date, pregnant_unknown_v_date, death_date_v_date, drug_induced_abdominal_pain_v_date, drug_induced_anorexia_v_date, drug_induced_diarrhea_v_date, drug_induced_jaundice_v_date, drug_induced_leg_pain_numbness_v_date, drug_induced_vomiting_v_date, drug_induced_peripheral_neuropathy_v_date, drug_induced_hepatitis_v_date, drug_induced_anemia_v_date, drug_induced_lactic_acidosis_v_date, drug_induced_lipodystrophy_v_date, drug_induced_skin_rash_v_date, drug_induced_other_symptom_v_date, drug_induced_fever_v_date, drug_induced_cough_v_date, tb_not_suspected_v_date, tb_suspected_v_date, confirmed_tb_not_on_treatment_v_date, confirmed_tb_on_treatment_v_date, unknown_tb_status_v_date, extrapulmonary_tuberculosis_v_date, pulmonary_tuberculosis_v_date, pulmonary_tuberculosis_last_2_years_v_date, kaposis_sarcoma_v_date, what_was_the_patient_adherence_for_this_drug1_v_date, what_was_the_patient_adherence_for_this_drug2_v_date, what_was_the_patient_adherence_for_this_drug3_v_date, what_was_the_patient_adherence_for_this_drug4_v_date, what_was_the_patient_adherence_for_this_drug5_v_date, regimen_category_v_date, drug_name1_v_date, drug_name2_v_date, drug_name3_v_date, drug_name4_v_date, drug_name5_v_date, drug_inventory_id1_v_date, drug_inventory_id2_v_date, drug_inventory_id3_v_date, drug_inventory_id4_v_date, drug_inventory_id5_v_date, drug_auto_expire_date1_v_date, drug_auto_expire_date2_v_date, drug_auto_expire_date3_v_date, drug_auto_expire_date4_v_date, drug_auto_expire_date5_v_date, side_effects_peripheral_neuropathy, side_effects_hepatitis, side_effects_skin_rash, side_effects_lipodystrophy, side_effects_other, side_effects_no, side_effects_kidney_failure, side_effects_nightmares, side_effects_diziness, side_effects_psychosis, side_effects_blurry_vision,  drug_induced_kidney_failure, drug_induced_nightmares, drug_induced_diziness, drug_induced_psychosis, drug_induced_blurry_vision
         FROM flat_cohort_table WHERE patient_id = NEW.patient_id 
         AND QUARTER(NEW.visit_date) = QUARTER(DATE(earliest_start_date)) AND YEAR(NEW.visit_date) AND YEAR(DATE(earliest_start_date)) LIMIT 1
-        INTO @id, @patient_id, @gender, @birthdate, @earliest_start_date, @age_at_initiation, @age_in_days,
-        @hiv_program_state, @hiv_program_start_date, 
-        @reason_for_starting, @ever_registered_at_art, @date_art_last_taken, 
-        @taken_art_in_last_two_months,@pregnant_yes ,@pregnant_no, @pregnant_unknown, @death_date, 
-        @drug_induced_abdominal_pain, @drug_induced_anorexia, @drug_induced_diarrhea, 
-        @drug_induced_jaundice, @drug_induced_leg_pain_numbness, @drug_induced_vomiting, 
-        @drug_induced_peripheral_neuropathy, @drug_induced_hepatitis, @drug_induced_anemia, 
-        @drug_induced_lactic_acidosis, @drug_induced_lipodystrophy, @drug_induced_skin_rash, 
-        @drug_induced_other_symptom, @drug_induced_fever, @drug_induced_cough, 
-        @tb_not_suspected, @tb_suspected, @confirmed_tb_not_on_treatment, 
-        @confirmed_tb_on_treatment, @unknown_tb_status, @extrapulmonary_tuberculosis, 
-        @pulmonary_tuberculosis, @pulmonary_tuberculosis_last_2_years, @kaposis_sarcoma,
-        @what_was_the_patient_adherence_for_this_drug1, @what_was_the_patient_adherence_for_this_drug2,
-        @what_was_the_patient_adherence_for_this_drug3, @what_was_the_patient_adherence_for_this_drug4,
-        @what_was_the_patient_adherence_for_this_drug5, @regimen_category, @drug_name1, 
-        @drug_name2, @drug_name3, @drug_name4, @drug_name5, @drug_inventory_id1, 
-        @drug_inventory_id2, @drug_inventory_id3, @drug_inventory_id4, @drug_inventory_id5, 
-        @drug_auto_expire_date1, @drug_auto_expire_date2, @drug_auto_expire_date3, 
-        @drug_auto_expire_date4, @drug_auto_expire_date5, @hiv_program_state_v_date, 
-        @hiv_program_start_date_v_date, @current_tb_status_v_date, @reason_for_starting_v_date,
-        @ever_registered_at_art_v_date, @date_art_last_taken_v_date, @taken_art_in_last_two_months_v_date,
-        @pregnant_yes_v_date,@pregnant_no_v_date, @pregnant_unknown_v_date, @death_date_v_date, @drug_induced_abdominal_pain_v_date, 
-        @drug_induced_anorexia_v_date, @drug_induced_diarrhea_v_date, @drug_induced_jaundice_v_date,
-        @drug_induced_leg_pain_numbness_v_date, @drug_induced_vomiting_v_date, 
-        @drug_induced_peripheral_neuropathy_v_date, @drug_induced_hepatitis_v_date, 
-        @drug_induced_anemia_v_date, @drug_induced_lactic_acidosis_v_date, 
-        @drug_induced_lipodystrophy_v_date, @drug_induced_skin_rash_v_date, 
-        @drug_induced_other_symptom_v_date, @drug_induced_fever_v_date, 
-        @drug_induced_cough_v_date, @tb_not_suspected_v_date, @tb_suspected_v_date,
-        @confirmed_tb_not_on_treatment_v_date, @confirmed_tb_on_treatment_v_date, 
-        @unknown_tb_status_v_date, @extrapulmonary_tuberculosis_v_date, 
-        @pulmonary_tuberculosis_v_date, @pulmonary_tuberculosis_last_2_years_v_date, 
-        @kaposis_sarcoma_v_date, @what_was_the_patient_adherence_for_this_drug1_v_date,
-        @what_was_the_patient_adherence_for_this_drug2_v_date, 
-        @what_was_the_patient_adherence_for_this_drug3_v_date, 
-        @what_was_the_patient_adherence_for_this_drug4_v_date, 
-        @what_was_the_patient_adherence_for_this_drug5_v_date, @regimen_category_v_date, 
-        @drug_name1_v_date, @drug_name2_v_date, @drug_name3_v_date, @drug_name4_v_date, 
-        @drug_name5_v_date, @drug_inventory_id1_v_date, @drug_inventory_id2_v_date, 
-        @drug_inventory_id3_v_date, @drug_inventory_id4_v_date, @drug_inventory_id5_v_date, 
-        @drug_auto_expire_date1_v_date, @drug_auto_expire_date2_v_date, 
-        @drug_auto_expire_date3_v_date, @drug_auto_expire_date4_v_date, @drug_auto_expire_date5_v_date;
+          INTO @id, @patient_id, @gender, @birthdate, @earliest_start_date, @age_at_initiation, @age_in_days, @hiv_program_state, @hiv_program_start_date, @reason_for_starting, @ever_registered_at_art, @date_art_last_taken, @taken_art_in_last_two_months, @pregnant_yes, @pregnant_no, @pregnant_unknown, @death_date, @drug_induced_abdominal_pain, @drug_induced_anorexia, @drug_induced_diarrhea, @drug_induced_jaundice, @drug_induced_leg_pain_numbness, @drug_induced_vomiting, @drug_induced_peripheral_neuropathy, @drug_induced_hepatitis, @drug_induced_anemia, @drug_induced_lactic_acidosis, @drug_induced_lipodystrophy, @drug_induced_skin_rash, @drug_induced_other_symptom, @drug_induced_fever, @drug_induced_cough, @tb_not_suspected, @tb_suspected, @confirmed_tb_not_on_treatment, @confirmed_tb_on_treatment, @unknown_tb_status, @extrapulmonary_tuberculosis, @pulmonary_tuberculosis, @pulmonary_tuberculosis_last_2_years, @kaposis_sarcoma, @what_was_the_patient_adherence_for_this_drug1, @what_was_the_patient_adherence_for_this_drug2, @what_was_the_patient_adherence_for_this_drug3, @what_was_the_patient_adherence_for_this_drug4, @what_was_the_patient_adherence_for_this_drug5, @regimen_category, @drug_name1, @drug_name2, @drug_name3, @drug_name4, @drug_name5, @drug_inventory_id1, @drug_inventory_id2, @drug_inventory_id3, @drug_inventory_id4, @drug_inventory_id5, @drug_auto_expire_date1, @drug_auto_expire_date2, @drug_auto_expire_date3, @drug_auto_expire_date4, @drug_auto_expire_date5, @hiv_program_state_v_date, @hiv_program_start_date_v_date, @current_tb_status_v_date, @reason_for_starting_v_date, @ever_registered_at_art_v_date, @date_art_last_taken_v_date, @taken_art_in_last_two_months_v_date, @pregnant_yes_v_date, @pregnant_no_v_date, @pregnant_unknown_v_date, @death_date_v_date, @drug_induced_abdominal_pain_v_date, @drug_induced_anorexia_v_date, @drug_induced_diarrhea_v_date, @drug_induced_jaundice_v_date, @drug_induced_leg_pain_numbness_v_date, @drug_induced_vomiting_v_date, @drug_induced_peripheral_neuropathy_v_date, @drug_induced_hepatitis_v_date, @drug_induced_anemia_v_date, @drug_induced_lactic_acidosis_v_date, @drug_induced_lipodystrophy_v_date, @drug_induced_skin_rash_v_date, @drug_induced_other_symptom_v_date, @drug_induced_fever_v_date, @drug_induced_cough_v_date, @tb_not_suspected_v_date, @tb_suspected_v_date, @confirmed_tb_not_on_treatment_v_date, @confirmed_tb_on_treatment_v_date, @unknown_tb_status_v_date, @extrapulmonary_tuberculosis_v_date, @pulmonary_tuberculosis_v_date, @pulmonary_tuberculosis_last_2_years_v_date, @kaposis_sarcoma_v_date, @what_was_the_patient_adherence_for_this_drug1_v_date, @what_was_the_patient_adherence_for_this_drug2_v_date, @what_was_the_patient_adherence_for_this_drug3_v_date, @what_was_the_patient_adherence_for_this_drug4_v_date, @what_was_the_patient_adherence_for_this_drug5_v_date, @regimen_category_v_date, @drug_name1_v_date, @drug_name2_v_date, @drug_name3_v_date, @drug_name4_v_date, @drug_name5_v_date, @drug_inventory_id1_v_date, @drug_inventory_id2_v_date, @drug_inventory_id3_v_date, @drug_inventory_id4_v_date, @drug_inventory_id5_v_date, @drug_auto_expire_date1_v_date, @drug_auto_expire_date2_v_date, @drug_auto_expire_date3_v_date, @drug_auto_expire_date4_v_date, @drug_auto_expire_date5_v_date, @side_effects_peripheral_neuropathy, @side_effects_hepatitis, @side_effects_skin_rash, @side_effects_lipodystrophy, @side_effects_other, @side_effects_no, @side_effects_kidney_failure, @side_effects_nightmares, @side_effects_diziness, @side_effects_psychosis, @side_effects_blurry_vision,  @drug_induced_kidney_failure, @drug_induced_nightmares, @drug_induced_diziness, @drug_induced_psychosis, @drug_induced_blurry_vision;
 
     IF COALESCE(@id, "") != "" THEN
     
@@ -438,7 +360,92 @@ BEGIN
                 drug_auto_expire_date5_v_date = NEW.visit_date WHERE id = @id;
 
         END IF;
-  
+/*        
+        IF DATE(@side_effects_skin_rash_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_skin_rash_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_skin_rash = NEW.side_effects_skin_rash,
+                        side_effects_skin_rash_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        #--IF DATE(@side_effects_lipodystrophy_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_lipodystrophy_v_date) THEN
+                
+        #--            UPDATE flat_cohort_table SET side_effects_lipodystrophy = NEW.side_effects_lipodystrophy,
+        #--                side_effects_lipodystrophy_v_date = NEW.visit_date WHERE id = @id;
+        #--END IF;
+        
+        IF DATE(@side_effects_other_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_other_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_other = NEW.side_effects_other,
+                        side_effects_other_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+                                                               
+        IF DATE(@side_effects_no_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_no_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_no = NEW.side_effects_no,
+                        side_effects_no_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@side_effects_kidney_failure_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_kidney_failure_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_kidney_failure = NEW.side_effects_kidney_failure,
+                        side_effects_kidney_failure_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@side_effects_nightmares_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_nightmares_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_nightmares = NEW.side_effects_nightmares,
+                        side_effects_nightmares_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@side_effects_diziness_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_diziness_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_diziness = NEW.side_effects_diziness,
+                        side_effects_diziness_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@side_effects_psychosis_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_psychosis_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_psychosis = NEW.side_effects_psychosis,
+                        side_effects_psychosis_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@side_effects_blurry_vision_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(side_effects_blurry_vision_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET side_effects_blurry_vision = NEW.side_effects_blurry_vision,
+                        side_effects_blurry_vision_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+       
+        IF DATE(@drug_induced_kidney_failure_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_kidney_failure_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET drug_induced_kidney_failure = NEW.drug_induced_kidney_failure,
+                        drug_induced_kidney_failure_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@drug_induced_nightmares_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_nightmares_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET drug_induced_nightmares = NEW.drug_induced_nightmares,
+                        drug_induced_nightmares_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@drug_induced_diziness_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_diziness_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET drug_induced_diziness = NEW.drug_induced_diziness,
+                        drug_induced_diziness_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+       
+        IF DATE(@drug_induced_psychosis_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_psychosis_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET drug_induced_psychosis = NEW.drug_induced_psychosis,
+                        drug_induced_psychosis_v_date = NEW.visit_date WHERE id = @id;
+        END IF;
+        
+        IF DATE(@drug_induced_blurry_vision_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(drug_induced_blurry_vision_v_date) THEN
+                
+                    UPDATE flat_cohort_table SET drug_induced_blurry_vision = NEW.drug_induced_blurry_vision,
+                        drug_induced_blurry_vision_v_date = NEW.visit_date WHERE id = @id;
+
+        END IF;
+ */           
     END IF;
 
 END$$
