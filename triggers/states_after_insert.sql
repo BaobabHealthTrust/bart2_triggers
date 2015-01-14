@@ -14,7 +14,22 @@ BEGIN
         LEFT OUTER JOIN patient_program ON patient_program.program_id = program_workflow.program_id
         WHERE program_workflow_state.program_workflow_state_id = new.state AND patient_program.patient_program_id = new.patient_program_id
         LIMIT 1);
-        
+
+
+    SET @current_state = (SELECT IFNULL(current_state_for_program(@patient_id,1,new.start_date), 'Unknown') AS state);
+
+    IF @current_state = 'Unknown'  THEN
+      SET @current_state_name = "Unknown";
+   ELSE
+     SET @current_state_name = (SELECT name FROM concept_name 
+              LEFT OUTER JOIN program_workflow_state ON program_workflow_state.concept_id = concept_name.concept_id
+              LEFT OUTER JOIN program_workflow ON program_workflow.program_workflow_id = program_workflow_state.program_workflow_id
+              LEFT OUTER JOIN patient_program ON patient_program.program_id = program_workflow.program_id
+              WHERE program_workflow_state.program_workflow_state_id = @current_state
+              AND patient_program.patient_program_id = new.patient_program_id LIMIT 1);
+   END IF;
+
+      
     SET @on_arv = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                         WHERE name = 'On ARVs' AND voided = 0 AND retired = 0 LIMIT 1);
@@ -28,11 +43,11 @@ BEGIN
             
         INSERT INTO flat_table2 (patient_id, visit_date, current_hiv_program_state, 
             current_hiv_program_start_date, current_hiv_program_end_date) 
-        VALUES (@patient_id, new.start_date, @state, new.start_date, new.end_date);
+        VALUES (@patient_id, new.start_date, @current_state_name, new.start_date, new.end_date);
     
     ELSE 
     
-        UPDATE flat_table2 SET current_hiv_program_state = @state, current_hiv_program_start_date = new.start_date,
+        UPDATE flat_table2 SET current_hiv_program_state = @current_state_name, current_hiv_program_start_date = new.start_date,
             current_hiv_program_end_date = new.end_date
         WHERE flat_table2.id = @visit;
 
