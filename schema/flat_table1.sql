@@ -51,6 +51,16 @@ CREATE TABLE `flat_table1` (
   `prev_art_number` varchar(255) DEFAULT NULL,
   `filing_number` varchar(255) DEFAULT NULL,
   `archived_filing_number` varchar(255) DEFAULT NULL,
+  `guardian_to_which_patient1`  int(11) default NULL,
+  `guardian_to_which_patient2`  int(11) default NULL,
+  `guardian_to_which_patient3`  int(11) default NULL,
+  `guardian_to_which_patient4`  int(11) default NULL,
+  `guardian_to_which_patient5`  int(11) default NULL,  
+  `guardian_person_id1`  int(11) default NULL,
+  `guardian_person_id2`  int(11) default NULL,
+  `guardian_person_id3`  int(11) default NULL,
+  `guardian_person_id4`  int(11) default NULL,
+  `guardian_person_id5`  int(11) default NULL,       
   `ever_received_art` varchar(255) DEFAULT NULL,
   `earliest_start_date` date default NULL,
   `age_at_initiation` int(11) default NULL,
@@ -295,7 +305,8 @@ CREATE TABLE `flat_table1` (
   `ever_registered_at_art_v_date` DATE DEFAULT NULL,
   `date_art_last_taken_v_date` DATE DEFAULT NULL,
   `taken_art_in_last_two_months_v_date` DATE DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ID_UNIQUE` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

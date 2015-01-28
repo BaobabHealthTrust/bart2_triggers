@@ -453,7 +453,7 @@ CREATE TABLE `flat_table2` (
   `arv_regimen_type_d4T_3TC_d4T_3TC_NVP_enc_id` int(11) DEFAULT NULL,
   `arv_regimen_type_AZT_3TC_AZT_3TC_NVP_enc_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID_UNIQUE` (`ID`)
+  UNIQUE KEY `ID_UNIQUE` (`patient_id`, `visit_date`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
