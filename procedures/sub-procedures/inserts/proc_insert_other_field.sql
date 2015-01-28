@@ -1028,13 +1028,20 @@ BEGIN
       
           WHEN @Weight THEN
             IF in_field_voided = 0 THEN
+            #--check if weight was saved as text or nemeric
+            IF ISNULL(in_field_value_numeric) THEN
+              SET @wt_value = in_field_value_text;
+            ELSE
+              SET @wt_value = in_field_value_numeric;            
+            END IF;
+
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, Weight, Weight_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, Weight, Weight_enc_id) VALUES (in_patient_id, in_visit_date, @wt_value, encounter_id);
               
               ELSE 
               
-                  UPDATE flat_table2 SET Weight = in_field_value_numeric, Weight_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  UPDATE flat_table2 SET Weight = @wt_value, Weight_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1043,13 +1050,21 @@ BEGIN
       
           WHEN @Height THEN
             IF in_field_voided = 0 THEN
+
+            #--check if weight was saved as text or nemeric
+            IF ISNULL(in_field_value_numeric) THEN
+              SET @ht_value = in_field_value_text;
+            ELSE
+              SET @ht_value = in_field_value_numeric;            
+            END IF;
+              
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, Height, Height_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, Height, Height_enc_id) VALUES (in_patient_id, in_visit_date, @ht_value, encounter_id);
               
               ELSE 
               
-                UPDATE flat_table2 SET Height = in_field_value_numeric, Height_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET Height = @ht_value, Height_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1057,13 +1072,20 @@ BEGIN
             END IF;        
       
           WHEN @Temperature THEN
-            IF in_field_voided = 0 THEN          
+            IF in_field_voided = 0 THEN
+            #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @temp_value = in_field_value_text;
+              ELSE
+                SET @temp_value = in_field_value_numeric;            
+              END IF;
+          
               IF in_visit_id = 0 THEN
               
-                INSERT INTO flat_table2 (patient_id, visit_date, Temperature, Temperature_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                INSERT INTO flat_table2 (patient_id, visit_date, Temperature, Temperature_enc_id) VALUES (in_patient_id, in_visit_date, @temp_value, encounter_id);
               
               ELSE 
-                UPDATE flat_table2 SET Temperature = in_field_value_numeric, Temperature_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET Temperature = @temp_value, Temperature_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1072,13 +1094,19 @@ BEGIN
       
           WHEN @BMI THEN
             IF in_field_voided = 0 THEN
+              #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @bmi_value = in_field_value_text;
+              ELSE
+                SET @bmi_value = in_field_value_numeric;            
+              END IF;            
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, BMI, BMI_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, BMI, BMI_enc_id) VALUES (in_patient_id, in_visit_date, @bmi_value, encounter_id);
               
               ELSE 
               
-                  UPDATE flat_table2 SET BMI = in_field_value_numeric, BMI_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                  UPDATE flat_table2 SET BMI = @bmi_value, BMI_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1088,11 +1116,17 @@ BEGIN
       
           WHEN @systolic_blood_pressure THEN
             IF in_field_voided = 0 THEN
+              #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @sys_value = in_field_value_text;
+              ELSE
+                SET @sys_value = in_field_value_numeric;            
+              END IF;            
               IF in_visit_id = 0 THEN
-                INSERT INTO flat_table2 (patient_id, visit_date, systolic_blood_pressure, systolic_blood_pressure_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                INSERT INTO flat_table2 (patient_id, visit_date, systolic_blood_pressure, systolic_blood_pressure_enc_id) VALUES (in_patient_id, in_visit_date, @sys_value, encounter_id);
               
               ELSE 
-                UPDATE flat_table2 SET systolic_blood_pressure = in_field_value_numeric, systolic_blood_pressure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET systolic_blood_pressure = @sys_value, systolic_blood_pressure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
      
               END IF;
             ELSE
@@ -1101,13 +1135,20 @@ BEGIN
       
           WHEN @diastolic_blood_pressure THEN
             IF in_field_voided = 0 THEN
+              #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @dia_value = in_field_value_text;
+              ELSE
+                SET @dia_value = in_field_value_numeric;            
+              END IF;
+               
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, diastolic_blood_pressure, diastolic_blood_pressure_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, diastolic_blood_pressure, diastolic_blood_pressure_enc_id) VALUES (in_patient_id, in_visit_date, @dia_value, encounter_id);
               
               ELSE 
               
-                UPDATE flat_table2 SET diastolic_blood_pressure = in_field_value_numeric, diastolic_blood_pressure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET diastolic_blood_pressure = @dia_value, diastolic_blood_pressure_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1116,12 +1157,19 @@ BEGIN
       
           WHEN @weight_for_height THEN
             IF in_field_voided = 0 THEN
+              #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @wt4ht_value = in_field_value_text;
+              ELSE
+                SET @wt4ht_value = in_field_value_numeric;            
+              END IF;
+
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, weight_for_height, weight_for_height_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, weight_for_height, weight_for_height_enc_id) VALUES (in_patient_id, in_visit_date, @wt4ht_value, encounter_id);
               
               ELSE 
-                UPDATE flat_table2 SET weight_for_height = in_field_value_numeric, weight_for_height_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET weight_for_height = @wt4ht_value, weight_for_height_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1130,12 +1178,18 @@ BEGIN
       
           WHEN @weight_for_age THEN
             IF in_field_voided = 0 THEN
+              #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @wt4age_value = in_field_value_text;
+              ELSE
+                SET @wt4age = in_field_value_numeric;            
+              END IF;              
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, weight_for_age, weight_for_age_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, weight_for_age, weight_for_age_enc_id) VALUES (in_patient_id, in_visit_date, @wt4age, encounter_id);
               
               ELSE 
-                UPDATE flat_table2 SET weight_for_age = in_field_value_numeric, weight_for_age_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET weight_for_age = @wt4age, weight_for_age_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
@@ -1144,12 +1198,18 @@ BEGIN
       
           WHEN @height_for_age THEN
             IF in_field_voided = 0 THEN          
+              #--check if weight was saved as text or nemeric
+              IF ISNULL(in_field_value_numeric) THEN
+                SET @ht4age_value = in_field_value_text;
+              ELSE
+                SET @ht4age = in_field_value_numeric;            
+              END IF;              
               IF in_visit_id = 0 THEN
               
-                  INSERT INTO flat_table2 (patient_id, visit_date, height_for_age, height_for_age_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_numeric, encounter_id);
+                  INSERT INTO flat_table2 (patient_id, visit_date, height_for_age, height_for_age_enc_id) VALUES (in_patient_id, in_visit_date, @ht4age_value, encounter_id);
               
               ELSE 
-                UPDATE flat_table2 SET height_for_age = in_field_value_numeric, height_for_age_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
+                UPDATE flat_table2 SET height_for_age = @ht4age_value, height_for_age_enc_id = encounter_id WHERE flat_table2.id = in_visit_id;
                   
               END IF;
             ELSE
