@@ -53,7 +53,7 @@ BEGIN
 
       IF NOT ISNULL(@current_hiv_state) THEN
         UPDATE flat_table2 
-        SET current_hiv_program_state = @current_state, current_hiv_program_start_date = DATE(new.obs_datetime)
+        SET current_hiv_program_state = @current_hiv_state, current_hiv_program_start_date = DATE(new.obs_datetime)
         WHERE flat_table2.id = @visit;
       END IF;
     END IF;

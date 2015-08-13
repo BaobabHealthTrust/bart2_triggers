@@ -6,27 +6,44 @@ FOR EACH ROW
 BEGIN
 
     SET @patient_id = (SELECT patient_id FROM patient_program 
-        LEFT OUTER JOIN patient_state ON patient_program.patient_program_id = patient_state.patient_program_id WHERE patient_program.patient_program_id = new.patient_program_id LIMIT 1);
+                         LEFT OUTER JOIN patient_state ON patient_program.patient_program_id = patient_state.patient_program_id
+                        WHERE patient_program.patient_program_id = new.patient_program_id
+                        LIMIT 1);
 
     SET @state = (SELECT name FROM concept_name 
-        LEFT OUTER JOIN program_workflow_state ON program_workflow_state.concept_id = concept_name.concept_id
-        LEFT OUTER JOIN program_workflow ON program_workflow.program_workflow_id = program_workflow_state.program_workflow_id
-        LEFT OUTER JOIN patient_program ON patient_program.program_id = program_workflow.program_id
-        WHERE program_workflow_state.program_workflow_state_id = new.state AND patient_program.patient_program_id = new.patient_program_id
-        LIMIT 1);
+                    LEFT OUTER JOIN program_workflow_state ON program_workflow_state.concept_id = concept_name.concept_id
+                    LEFT OUTER JOIN program_workflow ON program_workflow.program_workflow_id = program_workflow_state.program_workflow_id
+                     LEFT OUTER JOIN patient_program ON patient_program.program_id = program_workflow.program_id
+                  WHERE program_workflow_state.program_workflow_state_id = new.state
+                  AND patient_program.patient_program_id = new.patient_program_id
+                  LIMIT 1);
 
         SET @current_state = (SELECT IFNULL(current_state_for_program(@patient_id,1,new.start_date), 'Unknown') AS state);
 
         IF @current_state = 'Unknown'  THEN
           SET @current_state_name = "Unknown";
        ELSE
-         SET @current_state_name = (SELECT name FROM concept_name 
-                  LEFT OUTER JOIN program_workflow_state ON program_workflow_state.concept_id = concept_name.concept_id
-                  LEFT OUTER JOIN program_workflow ON program_workflow.program_workflow_id = program_workflow_state.program_workflow_id
-                  LEFT OUTER JOIN patient_program ON patient_program.program_id = program_workflow.program_id
-                  WHERE program_workflow_state.program_workflow_state_id = @current_state
-                  AND patient_program.patient_program_id = new.patient_program_id LIMIT 1);
-       END IF;
+         SET @patient_died_concept_id = (SELECT concept_id FROM concept_name WHERE name = 'Patient died' and voided = 0 LIMIT 1);
+
+
+         SET @patient_died_states = (SELECT @current_state IN (SELECT program_workflow_state_id FROM program_workflow_state 
+                                                               WHERE concept_id = @patient_died_concept_id AND retired = 0));
+
+         
+
+         IF (@patient_died_states = 0) THEN
+          SET  @current_state_id = @current_state;
+         ELSE
+           SET @current_state_id = 3;
+         END IF;
+
+         SET @current_state_name = (SELECT name FROM concept_name
+                                     LEFT OUTER JOIN program_workflow_state ON program_workflow_state.concept_id = concept_name.concept_id
+                                     LEFT OUTER JOIN program_workflow ON program_workflow.program_workflow_id = program_workflow_state.program_workflow_id
+                                     LEFT OUTER JOIN patient_program ON patient_program.program_id = program_workflow.program_id
+                                    WHERE program_workflow_state.program_workflow_state_id = @current_state_id
+                                    AND patient_program.patient_program_id = new.patient_program_id LIMIT 1);
+     END IF;
         
     SET @on_arv = (SELECT concept_name.concept_id FROM concept_name 
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
