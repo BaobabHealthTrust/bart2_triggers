@@ -1375,7 +1375,7 @@ BEGIN
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                   WHERE name = "Female condoms" AND voided = 0 AND retired = 0 LIMIT 1);
                           
-                          SET @family_planning_method__rythm_method = (SELECT concept_name.concept_id FROM concept_name 
+                          SET @family_planning_method_rythm_method = (SELECT concept_name.concept_id FROM concept_name 
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                   WHERE name = "Rhythm method" AND voided = 0 AND retired = 0 LIMIT 1);
                           
@@ -1395,17 +1395,17 @@ BEGIN
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                   WHERE name = "Vasectomy" AND voided = 0 AND retired = 0 LIMIT 1);
                           
-                          SET @family_planning_method_emergency__contraception = (SELECT concept_name.concept_id FROM concept_name 
+                          SET @family_planning_method_emergency_contraception = (SELECT concept_name.concept_id FROM concept_name 
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                                   WHERE name = "Emergency contraception" AND voided = 0 AND retired = 0 LIMIT 1);
                   
                           CASE var_value_coded
                           
-                              WHEN @family_planning_method_emergency__contraception THEN
+                              WHEN @family_planning_method_emergency_contraception THEN
                               
-                                  UPDATE flat_table2 SET family_planning_method_emergency__contraception = NULL, 
-                                      family_planning_method_emergency__contraception_enc_id = NULL 
-                                  WHERE flat_table2.family_planning_method_emergency__contraception_enc_id = OLD.encounter_id;
+                                  UPDATE flat_table2 SET family_planning_method_emergenc_contraception = NULL, 
+                                      family_planning_method_emergency_contraception_enc_id = NULL 
+                                  WHERE flat_table2.family_planning_method_emergency_contraception_enc_id = OLD.encounter_id;
                           
                               WHEN @family_planning_method_vasectomy THEN
                               
@@ -1431,11 +1431,11 @@ BEGIN
                                       family_planning_method_withdrawal_enc_id = NULL 
                                   WHERE flat_table2.family_planning_method_withdrawal_enc_id = OLD.encounter_id;
                           
-                              WHEN @family_planning_method__rythm_method THEN
+                              WHEN @family_planning_method_rythm_method THEN
                               
-                                  UPDATE flat_table2 SET family_planning_method__rythm_method = NULL, 
-                                      family_planning_method__rythm_method_enc_id = NULL 
-                                  WHERE flat_table2.family_planning_method__rythm_method_enc_id = OLD.encounter_id;
+                                  UPDATE flat_table2 SET family_planning_method_rythm_method = NULL, 
+                                      family_planning_method_rythm_method_enc_id = NULL 
+                                  WHERE flat_table2.family_planning_method_rythm_method_enc_id = OLD.encounter_id;
                           
                               WHEN @family_planning_method_female_condoms THEN
                               
