@@ -198,9 +198,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Unspecified stage III condition' AND voided = 0 AND retired = 0 LIMIT 1);
                     
-    SET @aneamia = (SELECT concept_name.concept_id FROM concept_name concept_name 
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Anaemia, unexplained < 8 g/dl' AND voided = 0 AND retired = 0 LIMIT 1);
+#--    SET @aneamia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                    WHERE name = 'Anaemia, unexplained < 8 g/dl' AND voided = 0 AND retired = 0 LIMIT 1);
                     
     SET @neutropaenia = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -210,9 +210,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Thrombocytopaenia, chronic < 50,000 /mm(cubed)' AND voided = 0 AND retired = 0 LIMIT 1);
                     
-    SET @diarhoea = (SELECT concept_name.concept_id FROM concept_name concept_name 
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Diarrhoea, chronic (>1 month) unexplained' AND voided = 0 AND retired = 0 LIMIT 1);
+#--    SET @diarhoea = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                    WHERE name = 'Diarrhoea, chronic (>1 month) unexplained' AND voided = 0 AND retired = 0 LIMIT 1);
                     
     SET @oral_candidiasis = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -230,9 +230,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Toxoplasmosis of the brain' AND voided = 0 AND retired = 0 LIMIT 1);
                     
-    SET @cryptococcal_meningitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Cryptococcal meningitis or other extrapulmonary cryptococcosis' AND voided = 0 AND retired = 0 LIMIT 1);
+#--    SET @cryptococcal_meningitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                    WHERE name = 'Cryptococcal meningitis or other extrapulmonary cryptococcosis' AND voided = 0 AND retired = 0 LIMIT 1);
                     
     SET @progressive_multifocal_leukoencephalopathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -242,9 +242,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Disseminated mycosis (coccidiomycosis or histoplasmosis)' AND voided = 0 AND retired = 0 LIMIT 1);
                     
-    SET @candidiasis_of_oesophagus = (SELECT concept_name.concept_id FROM concept_name concept_name 
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Candidiasis of oseophagus, trachea and bronchi or lungs' AND voided = 0 AND retired = 0 LIMIT 1);
+#--    SET @candidiasis_of_oesophagus = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                    WHERE name = 'Candidiasis of oseophagus, trachea and bronchi or lungs' AND voided = 0 AND retired = 0 LIMIT 1);
                     
     SET @extrapulmonary_tuberculosis = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -259,9 +259,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'HIV encephalopathy' AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @bacterial_infections_severe_recurrent = (SELECT concept_name.concept_id FROM concept_name concept_name 
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Bacterial infections, severe recurrent  (empyema, pyomyositis, meningitis, bone/joint infections but EXCLUDING pneumonia)' AND voided = 0 AND retired = 0 LIMIT 1);
+#--    SET @bacterial_infections_severe_recurrent = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                    WHERE name = 'Bacterial infections, severe recurrent  (empyema, pyomyositis, meningitis, bone/joint infections but EXCLUDING pneumonia)' AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @unspecified_stage_4_condition = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -275,9 +275,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'Cryptosporidiosis, chronic with diarroea' AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @isosporiasis = (SELECT concept_name.concept_id FROM concept_name concept_name 
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
-                    WHERE name = 'Isosporiasis >1 month' AND voided = 0 AND retired = 0 LIMIT 1);
+#--    SET @isosporiasis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                    WHERE name = 'Isosporiasis >1 month' AND voided = 0 AND retired = 0 LIMIT 1);
                     
     SET @symptomatic_hiv_asscoiated_nephropathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
@@ -330,6 +330,178 @@ BEGIN
     SET @invasive_cancer_of_cervix = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
                     WHERE name = 'invasive cancer of cervix' AND voided = 0 AND retired = 0 LIMIT 1);
+
+
+
+    SET @cryptococcal_meningitis_or_other_eptb_cryptococcosis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cryptococcal meningitis or other extrapulmonary cryptococcosis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @candidiasis_of_oesophagus_trachea_bronchi_or_lungs = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Candidiasis of oseophagus, trachea and bronchi or lungs' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @severe_unexplained_wasting_malnutrition = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Severe unexplained wasting or malnutrition not responding to treatment (weight-for-height/ -age <70% or MUAC less than 11cm or oedema)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @diarrhoea_chronic_less_1_month_unexplained = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Diarrhoea, chronic (>1 month) unexplained' AND voided = 0 AND retired = 0 LIMIT 1);                                                           
+                        
+#--    SET @moderate_weight_loss_10_unexplained = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                        WHERE name = 'Moderate weight loss less than or equal to 10 percent, unexplained' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cd4_percentage_available = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'CD4 percent available' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @acute_necrotizing_ulcerative_stomatitis_gingivitis_or_period = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Acute necrotizing ulcerative stomatitis, gingivitis or periodontitis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @moderate_unexplained_wasting_malnutrition = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Moderate unexplained wasting/malnutrition not responding to treatment (weight-for-height/ -age 70-79% or muac 11-12 cm)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @diarrhoea_persistent_unexplained_14_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Diarrhoea, persistent unexplained (14 days or more)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @acute_ulcerative_mouth_infections = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Acute ulcerative mouth infections' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @anaemia_unexplained_8_g_dl = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Anaemia, unexplained < 8 g/dl' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @atypical_mycobacteriosis_disseminated_or_lung = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Atypical mycobacteriosis, disseminated or lung' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @bacterial_infections_sev_recurrent_excluding_pneumonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Bacterial infections, severe recurrent  (empyema, pyomyositis, meningitis, bone/joint infections but EXCLUDING pneumonia)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cancer_cervix = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cancer cervix' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @chronic_herpes_simplex_infection_genital = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Chronic herpes simplex infection(orolabial, genital / anorectal >1 month or visceral at any site)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cryptosporidiosis_chronic_with_diarrhoea = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cryptosporidiosis, chronic with diarroea' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cytomegalovirus_infection_retinitis_or_other_organ = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cytomegalovirus infection: rentinitis or other organ (from age 1 month)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @cytomegalovirus_of_an_organ_other_than_liver = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Cytomegalovirus of an organ other than liver, spleen or lymph node' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @fungal_nail_infections = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Fungal nail infection' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @herpes_simplex_infection_mucocutaneous_visceral = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Herpes simplex infection, mucocutaneous for longer than 1 month or visceral' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @hiv_associated_cardiomyopathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'HIV associated cardiomyopathy' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @hiv_associated_nephropathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'HIV associated nephropathy' AND voided = 0 AND retired = 0 LIMIT 1);
+
+#--    SET @invasive_cancer_cervix = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                        WHERE name = 'Invasive cancer of cervix' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @isosporiasis_1_month = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Isosporiasis >1 month' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @leishmaniasis_atypical_disseminated = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Leishmaniasis, atypical disseminated' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @minor_mucocutaneous_manifestations_seborrheic_dermatitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Minor mucocutaneous manifestations (seborrheic dermatitis, prurigo, fungal nail infections, recurrent oral ulcerations, angular chelitis)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+#--    SET @moderate_unexplained_malnutrition = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                        WHERE name = 'Moderate unexplained wasting/malnutrition not responding to treatment (weight-for-height/ -age 70-79% or muac 11-12 cm)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @molluscum_contagiosum_extensive = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Molluscum contagiosum, extensive' AND voided = 0 AND retired = 0 LIMIT 1);
+
+#--    SET @non_typhoidal_salmonella_bacteraemia_recurrent = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                        WHERE name = 'Non-typhoidal Salmonella bacteraemia, recurrent' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @oral_candidiasis_from_age_2_months = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Oral candidiasis (from age 2 months)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @oral_thrush = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Oral thrush' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @perform_extended_staging = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Perform extended staging' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @pneumocystis_carinii_pneumonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Pneumocystis carinii pneumonia' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @pneumonia_severe = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Pneumonia, severe' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @recurrent_bacteraemia_or_sepsis_with_nts = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Recurrent bacteraemia or sepsis with NTS' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @recurrent_severe_presumed_pneumonia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Recurrent severe presumed pneumonia' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @recurrent_upper_respiratory_tract_bac_sinusitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Recurrent upper respiratory infection (ie, bacterial sinusitis)' AND voided = 0 AND retired = 0 LIMIT 1);
+
+#--    SET @seborrhoeic_dermatitis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+#--                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+#--                        WHERE name = 'Seborrhoeic dermatitis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @sepsis_severe = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Sepsis, severe' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @tb_lymphadenopathy = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'TB lymphadenopathy' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @unexplained_anaemia_neutropenia_or_thrombocytopenia = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Unexplained anaemia, neutropaenia, or throbocytopaenia' AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @visceral_leishmaniasis = (SELECT concept_name.concept_id FROM concept_name concept_name 
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 
+                        WHERE name = 'Visceral leishmaniasis' AND voided = 0 AND retired = 0 LIMIT 1);
+
+
                     
     SET @who_crit_stage = (SELECT concept_name.concept_id FROM concept_name concept_name 
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id 

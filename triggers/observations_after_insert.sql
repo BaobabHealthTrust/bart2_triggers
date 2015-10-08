@@ -31,6 +31,8 @@ BEGIN
 
     SET @current_hiv_program_state = (SELECT current_hiv_program_state FROM flat_table2 WHERE id = @visit);
 
+    SET @current_state = (SELECT IFNULL(current_state_for_program(new.person_id,1,new.obs_datetime), 'Unknown') AS state);
+
     IF ISNULL(@current_hiv_program_state) THEN
       SET @patient_program_id = ( SELECT patient_program_id FROM patient_program
                                           WHERE patient_id = new.person_id
@@ -45,7 +47,7 @@ BEGIN
       SET @current_hiv_state = ( SELECT c.name FROM program_workflow_state pws
                                    LEFT OUTER JOIN concept_name c ON c.concept_id = pws.concept_id
                                  WHERE pws.program_workflow_id = 1
-                                 AND pws.program_workflow_state_id = @latest_patient_hiv_state
+                                 AND pws.program_workflow_state_id = @current_state
                                  AND pws.retired = 0
                                  LIMIT 1 );                                   
 

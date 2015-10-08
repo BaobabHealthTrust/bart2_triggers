@@ -142,6 +142,7 @@ CREATE TABLE `flat_cohort_table`(
   `breastfeeding_yes_v_date` DATE DEFAULT NULL,
   `breastfeeding_no_v_date` DATE DEFAULT NULL,
   `breastfeeding_unknown_v_date` DATE DEFAULT NULL,  
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ID_UNIQUE` (`patient_id`)
 
 );
