@@ -1,8 +1,8 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `proc_proc_healthy_facility_name`$$
+DROP PROCEDURE IF EXISTS `proc_healthy_facility_name`$$
 
-CREATE PROCEDURE `proc_proc_healthy_facility_name`(
+CREATE PROCEDURE `proc_healthy_facility_name`(
     IN in_patient_id INT,
     IN in_visit_date DATE,
     IN in_field_concept INT,
@@ -21,20 +21,20 @@ BEGIN
 
   IF @already_exist = 0 THEN
     IF in_visit_id = 0 THEN
-      INSERT INTO patient_visits(patient_id, visit_date, proc_healthy_facility_name, proc_healthy_facility_name_enc_id)
-      VALUES( in_patient_id, visit_date, in_field_text, encounter_id);
+      INSERT INTO patient_visits(patient_id, visit_date, healthy_facility_name, healthy_facility_name_enc_id)
+      VALUES(in_patient_id, visit_date, in_field_text, encounter_id);
     ELSE
       IF in_field_voided = 0 THEN
-        UPDATE patient_visits SET proc_healthy_facility_name = in_field_text, proc_healthy_facility_name_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+        UPDATE patient_visits SET healthy_facility_name= in_field_text, healthy_facility_name_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
       END IF;
     END IF;
   ELSE
     IF in_visit_id = 0 THEN
-      UPDATE patient_visits SET visit_date = in_visit_date, proc_healthy_facility_name = in_field_text, proc_healthy_facility_name_enc_id = encounter_id
+      UPDATE patient_visits SET visit_date = in_visit_date, healthy_facility_name= in_field_text, healthy_facility_name_enc_id = encounter_id
       WHERE patient_id = in_patient_id;
     ELSE
       IF in_field_voided = 0 THEN
-        UPDATE patient_visits SET visit_date = in_visit_date, proc_healthy_facility_name = in_field_text, proc_healthy_facility_name_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+        UPDATE patient_visits SET visit_date = in_visit_date, healthy_facility_name= in_field_text, healthy_facility_name_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
       END IF;
     END IF;
   END IF;
