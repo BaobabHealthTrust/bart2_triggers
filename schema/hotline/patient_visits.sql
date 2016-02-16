@@ -79,6 +79,7 @@ CREATE TABLE `patient_visits` (
   `baby_delivered_delivery_date_enc_id` int(11) DEFAULT NULL,
   `baby_delivered_delivery_location_enc_id` int(11) DEFAULT NULL,
   `birth_plan_delivery_location_enc_id` int(11) DEFAULT NULL,
+  `pregnancy_status_delivery_date_enc_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ID_UNIQUE` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

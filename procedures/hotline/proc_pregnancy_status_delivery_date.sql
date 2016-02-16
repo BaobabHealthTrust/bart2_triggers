@@ -18,6 +18,7 @@ CREATE PROCEDURE `proc_pregnancy_status_delivery_date`(
 
 BEGIN
   SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+  SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id), in_field_text);
 
   IF @already_exist = 0 THEN
     IF in_visit_id = 0 THEN
