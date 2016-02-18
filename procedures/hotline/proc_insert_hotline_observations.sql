@@ -125,6 +125,44 @@ BEGIN
     SET @birth_plan_delivery_location = (SELECT concept_name.concept_id FROM concept_name concept_name
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Delivery location" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @maternal_Hsymptoms = COALESCE((SELECT encounter_type FROM encounter WHERE encounter_id = encounter_id
+                               AND encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE name = 'MATERNAL HEALTH INFORMATION')), 0);
+
+    IF (@maternal_Hsymptoms = 0) THEN
+      SET @concept_id_id = in_field_concept;
+    ELSE
+      SET @ds_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
+                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+              WHERE name = 'Danger sign' AND voided = 0 AND retired = 0
+              LIMIT 1))));
+
+      IF @ds_concept_id THEN
+        SET @danger_sign_concept_id = (in_field_concept);
+      END IF;
+
+      SET @hs_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
+                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+              WHERE name = 'Health symptom' AND voided = 0 AND retired = 0
+              LIMIT 1))));
+
+      IF @hs_concept_id THEN
+        SET @health_symptom_concept_id = (in_field_concept);
+      END IF;
+
+      SET @hinf_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
+                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+              WHERE name = 'Health information' AND voided = 0 AND retired = 0
+              LIMIT 1))));
+
+      IF @hinf_concept_id THEN
+        SET @health_information_concept_id = (in_field_concept);
+      END IF;
+    END IF;
+
     CASE field_concept
 
         WHEN @call_id THEN
@@ -173,7 +211,7 @@ BEGIN
         );
 
       WHEN @pregnancy_status_delivery_date THEN
-              CALL pregnancy_status_delivery_date(
+              CALL proc_pregnancy_status_delivery_date(
                 patient_id,
                 value_date,
                 field_concept,
@@ -187,8 +225,8 @@ BEGIN
                 encounter_id
               );
 
-      WHEN @danger_signs THEN
-              CALL danger_signs(
+      WHEN @danger_sign_concept_id THEN
+              CALL proc_danger_signs(
                 patient_id,
                 value_date,
                 field_concept,
@@ -202,7 +240,7 @@ BEGIN
                 encounter_id
               );
 
-      WHEN @health_symptoms THEN
+      WHEN @health_symptom_concept_id THEN
               CALL proc_health_symptoms(
                 patient_id,
                 value_date,
@@ -217,7 +255,7 @@ BEGIN
                 encounter_id
               );
 
-      WHEN @health_information THEN
+      WHEN @health_information_concept_id THEN
               CALL proc_health_information(
                 patient_id,
                 value_date,

@@ -126,8 +126,342 @@ BEGIN
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Delivery location" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @maternal_Hsymptoms = COALESCE((SELECT encounter_type FROM encounter WHERE encounter_id = encounter_id
+                               AND encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE name = 'MATERNAL HEALTH INFORMATION')), 0);
+
+    IF (@maternal_Hsymptoms = 0) THEN
+      SET @concept_id_id = in_field_concept;
+    ELSE
+      SET @ds_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
+                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+              WHERE name = 'Danger sign' AND voided = 0 AND retired = 0
+              LIMIT 1))));
+
+      IF @ds_concept_id THEN
+        SET @danger_sign_concept_id = (in_field_concept);
+      END IF;
+
+      SET @hs_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
+                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+              WHERE name = 'Health symptom' AND voided = 0 AND retired = 0
+              LIMIT 1))));
+
+      IF @hs_concept_id THEN
+        SET @health_symptom_concept_id = (in_field_concept);
+      END IF;
+
+      SET @hinf_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
+                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+              WHERE name = 'Health information' AND voided = 0 AND retired = 0
+              LIMIT 1))));
+
+      IF @hinf_concept_id THEN
+        SET @health_information_concept_id = (in_field_concept);
+      END IF;
+    END IF;
+
     IF (in_field_voided = 0) THEN
       CASE in_field_concept
+
+          WHEN @danger_sign_concept_id THEN
+            SET @danger_sign1 = (SELECT COALESCE(danger_sign1, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @danger_sign2 = (SELECT COALESCE(danger_sign2, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @danger_sign3 = (SELECT COALESCE(danger_sign3, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @danger_sign4 = (SELECT COALESCE(danger_sign4, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @danger_sign5 = (SELECT COALESCE(danger_sign5, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @danger_sign6 = (SELECT COALESCE(danger_sign6, '') FROM patient_visits WHERE ID = in_visit_id);
+
+            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+
+            IF in_visit_id = 0 THEN
+              CASE
+                WHEN @danger_sign1 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, danger_sign1, danger_sign_enc_id1)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @danger_sign2 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, danger_sign2, danger_sign_enc_id2)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @danger_sign3 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, danger_sign3, danger_sign_enc_id3)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @danger_sign4 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, danger_sign4, danger_sign_enc_id4)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @danger_sign5 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, danger_sign5, danger_sign_enc_id5)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @danger_sign6 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, danger_sign6, danger_sign_enc_id6)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              ELSE
+                SET @enc_id = encounter_id;
+              END CASE;
+            ELSE
+              CASE
+                WHEN @danger_sign1 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET danger_sign1 = @value, danger_sign_enc_id1 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET danger_sign1 = NULL, danger_sign_enc_id1 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @danger_sign2 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET danger_sign2 = @value, danger_sign_enc_id2 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET danger_sign2 = NULL, danger_sign_enc_id2 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @danger_sign3 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET danger_sign3 = @value, danger_sign_enc_id3 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET danger_sign3 = NULL, danger_sign_enc_id3 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @danger_sign4 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET danger_sign4 = @value, danger_sign_enc_id4 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET danger_sign4 = NULL, danger_sign_enc_id4 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @danger_sign5 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET danger_sign5 = @value, danger_sign_enc_id5 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET danger_sign5 = NULL, danger_sign_enc_id5 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @danger_sign6 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET danger_sign6 = @value, danger_sign_enc_id6 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET danger_sign6 = NULL, danger_sign_enc_id6 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+              ELSE
+                SET @enc_id = encounter_id;
+              END CASE;
+           END IF;
+          #######################################################################################################################################
+
+          WHEN @health_symptom_concept_id THEN
+            SET @health_symptom1 = (SELECT COALESCE(health_symptom1, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_symptom2 = (SELECT COALESCE(health_symptom2, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_symptom3 = (SELECT COALESCE(health_symptom3, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_symptom4 = (SELECT COALESCE(health_symptom4, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_symptom5 = (SELECT COALESCE(health_symptom5, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_symptom6 = (SELECT COALESCE(health_symptom6, '') FROM patient_visits WHERE ID = in_visit_id);
+
+            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+
+            IF in_visit_id = 0 THEN
+              CASE
+                WHEN @health_symptom1 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_symptom1, health_symptom_enc_id1)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_symptom2 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_symptom2, health_symptom_enc_id2)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_symptom3 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_symptom3, health_symptom_enc_id3)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_symptom4 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_symptom4, health_symptom_enc_id4)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_symptom5 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_symptom5, health_symptom_enc_id5)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_symptom6 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_symptom6, health_symptom_enc_id6)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              ELSE
+                SET @enc_id = encounter_id;
+              END CASE;
+            ELSE
+              CASE
+                WHEN @health_symptom1 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_symptom1 = @value, health_symptom_enc_id1 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_symptom1 = NULL, health_symptom_enc_id1 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_symptom2 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_symptom2 = @value, health_symptom_enc_id2 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_symptom2 = NULL, health_symptom_enc_id2 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_symptom3 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_symptom3 = @value, health_symptom_enc_id3 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_symptom3 = NULL, health_symptom_enc_id3 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_symptom4 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_symptom4 = @value, health_symptom_enc_id4 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_symptom4 = NULL, health_symptom_enc_id4 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_symptom5 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_symptom5 = @value, health_symptom_enc_id5 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_symptom5 = NULL, health_symptom_enc_id5 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_symptom6 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_symptom6 = @value, health_symptom_enc_id6 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_symptom6 = NULL, health_symptom_enc_id6 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+              ELSE
+                SET @enc_id = encounter_id;
+              END CASE;
+           END IF;
+          #######################################################################################################################################
+
+          WHEN @health_information_concept_id THEN
+            SET @health_information1 = (SELECT COALESCE(health_information1, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_information2 = (SELECT COALESCE(health_information2, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_information3 = (SELECT COALESCE(health_information3, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_information4 = (SELECT COALESCE(health_information4, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_information5 = (SELECT COALESCE(health_information5, '') FROM patient_visits WHERE ID = in_visit_id);
+            SET @health_information6 = (SELECT COALESCE(health_information6, '') FROM patient_visits WHERE ID = in_visit_id);
+
+            SET @value = (SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id);
+
+            IF in_visit_id = 0 THEN
+              CASE
+                WHEN @health_information1 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_information1, health_information_enc_id1)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_information2 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_information2, health_information_enc_id2)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_information3 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_information3, health_information_enc_id3)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_information4 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_information4, health_information_enc_id4)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_information5 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_information5, health_information_enc_id5)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+
+                WHEN @health_information6 = "" THEN
+                  INSERT INTO patient_visits (patient_id, visit_date, health_information6, health_information_enc_id6)
+                  VALUES (in_patient_id, in_visit_date, @value, encounter_id);
+              ELSE
+                SET @enc_id = encounter_id;
+              END CASE;
+            ELSE
+              CASE
+                WHEN @health_information1 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_information1 = @value, health_information_enc_id1 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_information1 = NULL, health_information_enc_id1 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_information2 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_information2 = @value, health_information_enc_id2 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_information2 = NULL, health_information_enc_id2 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_information3 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_information3 = @value, health_information_enc_id3 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_information3 = NULL, health_information_enc_id3 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_information4 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_information4 = @value, health_information_enc_id4 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_information4 = NULL, health_information_enc_id4 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_information5 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_information5 = @value, health_information_enc_id5 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_information5 = NULL, health_information_enc_id5 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+
+                WHEN @health_information6 = "" THEN
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits SET health_information6 = @value, health_information_enc_id6 = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  ELSE
+                    UPDATE patient_visits SET health_information6 = NULL, health_information_enc_id6 = NULL
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+              ELSE
+                SET @enc_id = encounter_id;
+              END CASE;
+           END IF;
+          #######################################################################################################################################
 
           WHEN @call_id THEN
 

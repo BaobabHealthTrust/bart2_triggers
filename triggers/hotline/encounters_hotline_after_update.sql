@@ -24,14 +24,63 @@ BEGIN
 
     BEGIN
 
-        SET @hotline_encounters = (SELECT encounter_type_id FROM encounter_type
-                                   WHERE encounter_type_id IN (5, 40, 71, 72, 73, 90, 111, 150, 151) LIMIT 1);
+        SET @maternal_Hsymptoms = (SELECT encounter_type_id FROM encounter_type
+                                   WHERE name = 'MATERNAL HEALTH SYMPTOMS' LIMIT 1);
 
-        IF OLD.encounter_type = @hotline_encounters THEN
+        IF OLD.encounter_type = @maternal_Hsymptoms THEN
+          UPDATE patient_visits SET  danger_sign1 = NULL, danger_sign_enc_id1 = NULL
+          WHERE patient_visits.danger_sign_enc_id1 = OLD.encounter_id;
 
-            UPDATE patient_visits SET call_id = NULL
-            WHERE patient_visits.call_id_enc_id = OLD.encounter_id;
+          UPDATE patient_visits SET  danger_sign2 = NULL, danger_sign_enc_id2 = NULL
+          WHERE patient_visits.danger_sign_enc_id2 = OLD.encounter_id;
 
+          UPDATE patient_visits SET  danger_sign3 = NULL, danger_sign_enc_id3 = NULL
+          WHERE patient_visits.danger_sign_enc_id3 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  danger_sign4 = NULL, danger_sign_enc_id4 = NULL
+          WHERE patient_visits.danger_sign_enc_id4 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  danger_sign5 = NULL, danger_sign_enc_id5 = NULL
+          WHERE patient_visits.danger_sign_enc_id5 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  danger_sign6 = NULL, danger_sign_enc_id6 = NULL
+          WHERE patient_visits.danger_sign_enc_id6 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_symptom1 = NULL, health_symptoms_enc_id1 = NULL
+          WHERE patient_visits.health_symptoms_enc_id1 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_symptom2 = NULL, health_symptoms_enc_id2 = NULL
+          WHERE patient_visits.health_symptoms_enc_id2 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_symptom3 = NULL, health_symptoms_enc_id3 = NULL
+          WHERE patient_visits.health_symptoms_enc_id3 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_symptom4 = NULL, health_symptoms_enc_id4 = NULL
+          WHERE patient_visits.health_symptoms_enc_id4 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_symptom5 = NULL, health_symptoms_enc_id5 = NULL
+          WHERE patient_visits.health_symptoms_enc_id5 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_symptom6 = NULL, health_symptoms_enc_id6 = NULL
+          WHERE patient_visits.health_symptoms_enc_id6 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_information1 = NULL, health_information_enc_id1 = NULL
+          WHERE patient_visits.health_information_enc_id1 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_information2 = NULL, health_information_enc_id2 = NULL
+          WHERE patient_visits.health_information_enc_id2 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_information3 = NULL, health_information_enc_id3 = NULL
+          WHERE patient_visits.health_information_enc_id3 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_information4 = NULL, health_information_enc_id4 = NULL
+          WHERE patient_visits.health_information_enc_id4 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_information5 = NULL, health_information_enc_id5 = NULL
+          WHERE patient_visits.health_information_enc_id5 = OLD.encounter_id;
+
+          UPDATE patient_visits SET  health_information6 = NULL, health_information_enc_id6 = NULL
+          WHERE patient_visits.health_information_enc_id6 = OLD.encounter_id;
         END IF;
 
     END;
