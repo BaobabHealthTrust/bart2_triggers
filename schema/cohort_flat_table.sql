@@ -6,6 +6,7 @@ CREATE TABLE `flat_cohort_table`(
   `gender` VARCHAR(45) DEFAULT NULL ,
   `birthdate` DATE NULL ,
   `earliest_start_date` DATE DEFAULT NULL ,
+  `date_enrolled` date default NULL,
   `age_at_initiation` int(11) default NULL,
   `age_in_days` int(11) default NULL,
   `death_date` DATE  DEFAULT NULL ,
