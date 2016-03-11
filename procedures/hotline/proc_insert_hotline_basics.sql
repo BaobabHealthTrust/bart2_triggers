@@ -48,8 +48,8 @@ CREATE PROCEDURE `proc_insert_hotline_basics`(
 
     SET @creator = (COALESCE((SELECT username FROM users WHERE user_id = in_creator), in_creator));
 
-		SELECT given_name, family_name2, family_name FROM person_name WHERE person_id = in_patient_id LIMIT 1
-				INTO @given_name, @mothers_surname, @last_name;
+		SELECT given_name, family_name2, family_name, family_name_prefix, family_name_suffix FROM person_name WHERE person_id = in_patient_id LIMIT 1
+				INTO @given_name, @mothers_surname, @last_name, @family_name_prefix, @family_name_suffix;
 
 		SELECT birthdate, birthdate_estimated, gender FROM person WHERE person_id = in_patient_id LIMIT 1
 				INTO @birthdate, @birthdate_est, @gender;
@@ -57,8 +57,8 @@ CREATE PROCEDURE `proc_insert_hotline_basics`(
 		SELECT city_village, county_district, address2, subregion FROM person_address WHERE person_id = in_patient_id
 			AND voided = 0 LIMIT 1 INTO @current_address, @current_ta, @home_village, @group_village_head ;
 
-		INSERT INTO patient_demographics (patient_id, given_name, last_name, mothers_surname, date_of_birth, dob_estimated, gender, national_id, IVR_access_code, anc_connect_id, cellphone_number, nearest_health_facility, current_residence, current_ta, home_village, group_village_head, occupation, date_created, creator)
-	  VALUES (in_patient_id, @given_name, @last_name, @mothers_surname, @birthdate, @birthdate_est, @gender, @national_id, @IVR_access_code, @anc_connect_id, @cell_phone_number, @nearest_health_facility, @current_address, @current_ta, @home_village, @group_village_head, @occupation, in_date_created, in_creator);
+		INSERT INTO patient_demographics (patient_id, given_name, last_name, mothers_surname, nick_name ,date_of_birth, dob_estimated, gender, national_id, IVR_access_code, anc_connect_id, cellphone_number, nearest_health_facility, current_residence, current_ta, home_village, group_village_head, occupation, date_created, creator)
+	  VALUES (in_patient_id, @given_name, @last_name, @mothers_surname, @family_name_prefix, @birthdate, @birthdate_est, @gender, @national_id, @IVR_access_code, @anc_connect_id, @cell_phone_number, @nearest_health_facility, @current_address, @current_ta, @home_village, @group_village_head, @occupation, in_date_created, @creator);
 
 	END$$
 

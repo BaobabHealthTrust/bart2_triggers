@@ -50,6 +50,10 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                         WHERE name = "Symptom present" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @malawi_ART_side_effects = (SELECT concept_name.concept_id FROM concept_name concept_name
+                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                    WHERE name = "malawi ART side effects" AND voided = 0 AND retired = 0 LIMIT 1);
+
     SET @drug_induced = (SELECT concept_name.concept_id FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                         WHERE name = "Drug induced" AND voided = 0 AND retired = 0 LIMIT 1);

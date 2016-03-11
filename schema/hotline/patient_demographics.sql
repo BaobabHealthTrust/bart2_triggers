@@ -28,6 +28,7 @@ CREATE TABLE `patient_demographics` (
   `given_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `mothers_surname` varchar(50) DEFAULT NULL,
+  `nick_name` varchar(50) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `dob_estimated` varchar(255) DEFAULT NULL,

@@ -126,37 +126,53 @@ BEGIN
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Delivery location" AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @maternal_Hsymptoms = COALESCE((SELECT encounter_type FROM encounter WHERE encounter_id = encounter_id
-                               AND encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE name = 'MATERNAL HEALTH INFORMATION')), 0);
+    SET @encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE name = 'MATERNAL HEALTH SYMPTOMS' LIMIT 1);
+
+    SET @maternal_Hsymptoms = COALESCE((SELECT e.encounter_type FROM encounter e
+                           WHERE e.encounter_id = encounter_id
+                           AND e.voided = 0
+                           AND e.encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE name = 'MATERNAL HEALTH SYMPTOMS')), 0);
 
     IF (@maternal_Hsymptoms = 0) THEN
-      SET @concept_id_id = in_field_concept;
-    ELSE
       SET @ds_concept_id = (
-              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
-                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-              WHERE name = 'Danger sign' AND voided = 0 AND retired = 0
-              LIMIT 1))));
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @danger_signs)));
 
       IF @ds_concept_id THEN
         SET @danger_sign_concept_id = (in_field_concept);
       END IF;
 
       SET @hs_concept_id = (
-              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
-                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-              WHERE name = 'Health symptom' AND voided = 0 AND retired = 0
-              LIMIT 1))));
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_symptoms)));
 
       IF @hs_concept_id THEN
         SET @health_symptom_concept_id = (in_field_concept);
       END IF;
 
       SET @hinf_concept_id = (
-              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = (SELECT concept_name.concept_id FROM concept_name concept_name
-                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-              WHERE name = 'Health information' AND voided = 0 AND retired = 0
-              LIMIT 1))));
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_information)));
+
+      IF @hinf_concept_id THEN
+        SET @health_information_concept_id = (in_field_concept);
+      END IF;
+    ELSE
+      SET @concept_id_id = in_field_concept;
+
+      SET @ds_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @danger_signs)));
+
+      IF @ds_concept_id THEN
+        SET @danger_sign_concept_id = (in_field_concept);
+      END IF;
+
+      SET @hs_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_symptoms)));
+
+      IF @hs_concept_id THEN
+        SET @health_symptom_concept_id = (in_field_concept);
+      END IF;
+
+      SET @hinf_concept_id = (
+              SELECT in_field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_information)));
 
       IF @hinf_concept_id THEN
         SET @health_information_concept_id = (in_field_concept);
