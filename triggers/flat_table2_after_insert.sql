@@ -51,7 +51,6 @@ BEGIN
             UPDATE flat_cohort_table SET pregnant_unknown = NEW.pregnant_unknown,
                 pregnant_unknown_v_date = NEW.visit_date WHERE id = @id;
 
-<<<<<<< HEAD
         END IF;
 
       IF DATE(@malawi_ART_side_effects_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@malawi_ART_side_effects_v_date) THEN
@@ -59,8 +58,6 @@ BEGIN
             UPDATE flat_cohort_table SET malawi_ART_side_effects = NEW.malawi_ART_side_effects,
                 malawi_ART_side_effects_v_date = NEW.visit_date WHERE id = @id;
 
-=======
->>>>>>> d389b8da95029477a71e0d68bd1a9e3025b299d3
         END IF;
 
         IF DATE(@drug_induced_abdominal_pain_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@drug_induced_abdominal_pain_v_date) THEN

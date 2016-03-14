@@ -97,7 +97,7 @@ CREATE TABLE `flat_table2` (
   `drug_induced_diziness` varchar(255) DEFAULT NULL,
   `drug_induced_psychosis` varchar(255) DEFAULT NULL,
   `drug_induced_blurry_vision` varchar(255) DEFAULT NULL,
-  `malawi_ART_side_effects`, varchar(255) DEFAULT NULL,
+  `malawi_ART_side_effects` varchar(255) DEFAULT NULL,
   `routine_tb_screening_fever` varchar(255) DEFAULT NULL,
   `routine_tb_screening_night_sweats` varchar(255) DEFAULT NULL,
   `routine_tb_screening_cough_of_any_duration` varchar(255) DEFAULT NULL,
