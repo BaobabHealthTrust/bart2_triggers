@@ -10,11 +10,11 @@ CREATE PROCEDURE`proc_insert_hotline_patient_identifier`(
 
 	BEGIN
 
-		SET @national_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'National id');
+		SET @national_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'National id' LIMIT 1);
 
-		SET @IVR_access_code = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'IVR Access Code');
+		SET @IVR_access_code = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'IVR Access Code' LIMIT 1);
 
-		SET @anc_connect_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'ANC Connect ID');
+		SET @anc_connect_id = (SELECT patient_identifier_type_id FROM patient_identifier_type where name = 'ANC Connect ID' LIMIT 1);
 
 		CASE identifier_type
 
