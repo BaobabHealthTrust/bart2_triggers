@@ -34,18 +34,6 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                   WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
 
-  SET @danger_signs = (SELECT concept_name.concept_id FROM concept_name concept_name
-                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                        WHERE name = "Danger sign" AND voided = 0 AND retired = 0 LIMIT 1);
-
-  SET @health_symptoms = (SELECT concept_name.concept_id FROM concept_name concept_name
-                            LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                          WHERE name = "Health symptom" AND voided = 0 AND retired = 0 LIMIT 1);
-
-  SET @health_information = (SELECT concept_name.concept_id FROM concept_name concept_name
-                              LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                             WHERE name = "Health information" AND voided = 0 AND retired = 0 LIMIT 1);
-
   SET @outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                   WHERE name = "Outcome" AND voided = 0 AND retired = 0 LIMIT 1);
@@ -139,18 +127,6 @@ BEGIN
     WHEN @pregnancy_status_delivery_date THEN
       UPDATE patient_visits SET pregnancy_status_delivery_date = NULL, pregnancy_status_delivery_date_enc_id = NULL
       WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.pregnancy_status_delivery_date_enc_id = OLD.encounter_id;
-
-    WHEN @danger_signs THEN
-      UPDATE patient_visits SET danger_signs = NULL, danger_signs_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.danger_signs_enc_id = OLD.encounter_id;
-
-    WHEN @health_symptoms THEN
-      UPDATE patient_visits SET health_symptoms = NULL, health_symptoms_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.health_symptoms_enc_id = OLD.encounter_id;
-
-    WHEN @health_information THEN
-      UPDATE patient_visits SET health_information = NULL, health_information_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.health_information_enc_id = OLD.encounter_id;
 
     WHEN @outcome THEN
       UPDATE patient_visits SET outcome = NULL, outcome_enc_id = NULL
