@@ -36,7 +36,7 @@ BEGIN
 
     SET @danger_signs = (SELECT concept_name.concept_id FROM concept_name concept_name
                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                          WHERE name = "Danger sign" AND voided = 0 AND retired = 0 LIMIT 1);
+                          WHERE name = "Danger signs" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @health_symptoms = (SELECT concept_name.concept_id FROM concept_name concept_name
                               LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -44,7 +44,7 @@ BEGIN
 
     SET @health_information = (SELECT concept_name.concept_id FROM concept_name concept_name
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                               WHERE name = "Health information" AND voided = 0 AND retired = 0 LIMIT 1);
+                               WHERE name = "Maternal health info" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -126,59 +126,13 @@ BEGIN
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Delivery location" AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @maternal_Hsymptoms = (SELECT COALESCE((SELECT e.encounter_type FROM encounter e
-                               WHERE e.encounter_id = encounter_id
-                               AND e.encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE name = 'MATERNAL HEALTH SYMPTOMS')), 0));
-
-    IF (@maternal_Hsymptoms = 0) THEN
-      SET @ds_concept_id = (
-              SELECT field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @danger_signs)));
-
-      IF @ds_concept_id THEN
-        SET @danger_sign_concept_id = (field_concept);
-      END IF;
-
-      SET @hs_concept_id = (
-              SELECT field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_symptoms)));
-
-      IF @hs_concept_id THEN
-        SET @health_symptom_concept_id = (field_concept);
-      END IF;
-
-      SET @hinf_concept_id = (
-              SELECT field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_information)));
-
-      IF @hinf_concept_id THEN
-        SET @health_information_concept_id = (field_concept);
-      END IF;
-    ELSE
-      SET @concept_id_id = field_concept;
-
-      SET @ds_concept_id = (
-              SELECT field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @danger_signs)));
-
-      IF @ds_concept_id THEN
-        SET @danger_sign_concept_id = (field_concept);
-      END IF;
-
-      SET @hs_concept_id = (
-              SELECT field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_symptoms)));
-
-      IF @hs_concept_id THEN
-        SET @health_symptom_concept_id = (field_concept);
-      END IF;
-
-      SET @hinf_concept_id = (
-              SELECT field_concept IN ((SELECT concept_id FROM concept_set WHERE concept_set = @health_information)));
-
-      IF @hinf_concept_id THEN
-        SET @health_information_concept_id = (field_concept);
-      END IF;
-    END IF;
+    SET @maternal_Hsymptoms = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                        WHERE name = "Maternal health symptoms" AND voided = 0 AND retired = 0 LIMIT 1);
 
     CASE field_concept
 
-        WHEN @call_id THEN
+      WHEN @call_id THEN
             CALL proc_insert_call_id(
                 patient_id,
                 value_date,
@@ -192,6 +146,36 @@ BEGIN
                 field_voided,
                 encounter_id
               );
+
+    WHEN @maternal_Hsymptoms THEN
+          CALL proc_health_symptoms(
+              patient_id,
+              value_date,
+              field_concept,
+              field_value_coded,
+              field_value_coded_name_id,
+              field_text,
+              field_value_numeric,
+              field_value_datetime,
+              visit_id,
+              field_voided,
+              encounter_id
+            );
+
+    WHEN @danger_signs THEN
+          CALL proc_danger_signs(
+              patient_id,
+              value_date,
+              field_concept,
+              field_value_coded,
+              field_value_coded_name_id,
+              field_text,
+              field_value_numeric,
+              field_value_datetime,
+              visit_id,
+              field_voided,
+              encounter_id
+            );
 
      WHEN @pregnancy_status THEN
          CALL proc_insert_pregnancy_status(
@@ -268,7 +252,7 @@ BEGIN
                 encounter_id
               );
 
-      WHEN @health_information_concept_id THEN
+      WHEN @health_information THEN
               CALL proc_health_information(
                 patient_id,
                 value_date,
