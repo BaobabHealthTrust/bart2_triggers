@@ -103,7 +103,7 @@ BEGIN
 
                   SET @tips_telephone_number_type = (SELECT concept_name.concept_id FROM concept_name concept_name
                                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                                    WHERE name = "Telephone number type" AND voided = 0 AND retired = 0 LIMIT 1);
+                                                    WHERE name = "Phone type" AND voided = 0 AND retired = 0 LIMIT 1);
 
                   SET @on_tips_and_reminders_program = (SELECT concept_name.concept_id FROM concept_name concept_name
                                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -115,7 +115,7 @@ BEGIN
 
                   SET @tips_type_of_message = (SELECT concept_name.concept_id FROM concept_name concept_name
                                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                               WHERE name = "Type of message" AND voided = 0 AND retired = 0 LIMIT 1);
+                                               WHERE name = "Message type" AND voided = 0 AND retired = 0 LIMIT 1);
 
                   SET @tips_type_of_message_content = (SELECT concept_name.concept_id FROM concept_name concept_name
                                                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
