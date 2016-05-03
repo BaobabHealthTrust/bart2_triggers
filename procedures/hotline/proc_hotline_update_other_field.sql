@@ -374,7 +374,21 @@ BEGIN
                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                     WHERE name = "Gained or lost weight" AND voided = 0 AND retired = 0 LIMIT 1);
 
+  SET @nearest_health_facility = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                  WHERE name = "Nearest health facility" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @phone_type = (SELECT concept_name.concept_id FROM concept_name concept_name
+                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                     WHERE name = "Phone type" AND voided = 0 AND retired = 0 LIMIT 1);
+
 	CASE in_field_concept
+    When @nearest_health_facility THEN
+      UPDATE patient_demographics SET nearest_health_facility = NULL WHERE patient_demographics.patient_id = in_patient_id;
+
+    When @phone_type THEN
+      UPDATE patient_visits SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
+
     WHEN @call_id THEN
       UPDATE patient_visits SET call_id = NULL, call_id_enc_id = NULL WHERE patient_visits.patient_id = in_patient_id;
 

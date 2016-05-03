@@ -17,6 +17,13 @@ CREATE PROCEDURE `proc_insert_other_hotline_field`(
 )
 
 BEGIN
+    SET @nearest_health_facility = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                    WHERE name = "Nearest health facility" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @phone_type = (SELECT concept_name.concept_id FROM concept_name concept_name
+                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Phone type" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @call_id = (SELECT concept_name.concept_id FROM concept_name concept_name
                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -128,8 +135,58 @@ BEGIN
 
     IF (in_field_voided = 0) THEN
       CASE in_field_concept
+      WHEN @nearest_health_facility THEN
 
-          WHEN @call_id THEN
+          SET @nearest_health_facility1 = (SELECT COALESCE(nearest_health_facility, '')
+                                           FROM patient_demographics
+                                           WHERE patient_demographics.patient_id = in_patient_id);
+
+          IF in_visit_id = 0 THEN
+              CASE
+                  WHEN @nearest_health_facility1 = "" THEN
+                    INSERT INTO patient_demographics (patient_id, nearest_health_facility) VALUES (in_patient_id, in_field_value_text);
+                  ELSE
+                    SET @enc_id = encounter_id;
+              END CASE;
+          ELSE
+              CASE
+                  WHEN @nearest_health_facility1  = "" THEN
+                    IF in_field_voided = 0 THEN
+                      UPDATE patient_demographics SET nearest_health_facility = in_field_value_text WHERE patient_demographics.id = in_visit_id;
+                    ELSE
+                      UPDATE patient_demographics SET nearest_health_facility = NULL WHERE patient_demographics.patient_id = in_patient_id;
+                    END IF;
+                  ELSE
+                      SET @enc_id = encounter_id;
+              END CASE;
+          END IF;
+
+          WHEN @phone_type THEN
+
+                SET @tips_telephone_number_type1 = (SELECT COALESCE(tips_telephone_number_type, '') FROM patient_visits WHERE ID = in_visit_id);
+
+                IF in_visit_id = 0 THEN
+                    CASE
+
+                        WHEN @tips_telephone_number_type1 = "" THEN
+                          INSERT INTO patient_visits (patient_id, visit_date, tips_telephone_number_type, tips_telephone_number_type_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        ELSE
+                          SET @enc_id = encounter_id;
+                    END CASE;
+                ELSE
+                    CASE
+                        WHEN @tips_telephone_number_type1  = "" THEN
+                          IF in_field_voided = 0 THEN
+                            UPDATE patient_visits SET tips_telephone_number_type = in_field_value_text, tips_telephone_number_type_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                          ELSE
+                            UPDATE patient_visits SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL WHERE patient_visits.id = in_visit_id;
+                          END IF;
+                        ELSE
+                            SET @enc_id = encounter_id;
+                    END CASE;
+                END IF;
+
+        WHEN @call_id THEN
 
               SET @call_id1 = (SELECT COALESCE(call_id, '') FROM patient_visits WHERE ID = in_visit_id);
 

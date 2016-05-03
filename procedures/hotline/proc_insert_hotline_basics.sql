@@ -10,11 +10,9 @@ CREATE PROCEDURE `proc_insert_hotline_basics`(
 
 	BEGIN
 
-		SET @cell_phone_number =	(SELECT value FROM person_attribute
-		                           WHERE person_id = in_patient_id AND voided = 0
-		                           AND person_attribute_type_id IN (SELECT person_attribute_type_id
-		                                                            FROM person_attribute_type
-		                                                            WHERE name = 'Cell phone number') LIMIT 1);
+		SET @cell_phone_number =	(SELECT person_attribute_type_id
+		                           FROM person_attribute_type
+		                           WHERE name = 'Cell phone number' LIMIT 1);
 
 		SET @occupation = (SELECT value FROM person_attribute
 		                   WHERE person_id = in_patient_id AND voided = 0
