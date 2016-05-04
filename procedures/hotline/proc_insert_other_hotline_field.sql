@@ -53,9 +53,9 @@ BEGIN
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                WHERE name = "Health information" AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
+    SET @general_outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                    WHERE name = "Outcome" AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = "General outcome" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @healthy_facility_name = (SELECT concept_name.concept_id FROM concept_name concept_name
                                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -87,7 +87,7 @@ BEGIN
 
     SET @tips_type_of_message = (SELECT concept_name.concept_id FROM concept_name concept_name
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                 WHERE name = "Type of message" AND voided = 0 AND retired = 0 LIMIT 1);
+                                 WHERE name = "Message type" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @tips_type_of_message_content = (SELECT concept_name.concept_id FROM concept_name concept_name
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -111,7 +111,7 @@ BEGIN
 
     SET @next_ANC_visit_date = (SELECT concept_name.concept_id FROM concept_name concept_name
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                WHERE name = "Last ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
+                                WHERE name = "Next ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @baby_delivered = (SELECT concept_name.concept_id FROM concept_name concept_name
                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -132,6 +132,15 @@ BEGIN
     SET @birth_plan_delivery_location = (SELECT concept_name.concept_id FROM concept_name concept_name
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Delivery location" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @purpose_of_call = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                WHERE name = "Purpose of call" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @last_menstrual_period_date = (SELECT concept_name.concept_id FROM concept_name concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Last menstrual period" AND voided = 0 AND retired = 0 LIMIT 1);
+
 
     IF (in_field_voided = 0) THEN
       CASE in_field_concept
@@ -161,15 +170,38 @@ BEGIN
               END CASE;
           END IF;
 
+        WHEN @last_menstrual_period_date THEN
+              SET @last_menstrual_period_date1 = (SELECT COALESCE(last_menstrual_period_date, '') FROM patient_visits WHERE ID = in_visit_id);
+              IF in_visit_id = 0 THEN
+                  CASE
+
+                      WHEN @last_menstrual_period_date1 = "" THEN
+                        INSERT INTO patient_visits (patient_id, visit_date, last_menstrual_period_date, last_menstrual_period_date_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                      ELSE
+                        SET @enc_id = encounter_id;
+                  END CASE;
+              ELSE
+                  CASE
+                      WHEN @last_menstrual_period_date1  = "" THEN
+                        IF in_field_voided = 0 THEN
+                          UPDATE patient_visits SET last_menstrual_period_date = in_field_value_text, last_menstrual_period_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                        ELSE
+                          UPDATE patient_visits SET last_menstrual_period_date = NULL, last_menstrual_period_date_enc_id = NULL WHERE patient_visits.id = in_visit_id;
+                        END IF;
+                      ELSE
+                          SET @enc_id = encounter_id;
+                  END CASE;
+              END IF;
+
           WHEN @phone_type THEN
-
                 SET @tips_telephone_number_type1 = (SELECT COALESCE(tips_telephone_number_type, '') FROM patient_visits WHERE ID = in_visit_id);
-
                 IF in_visit_id = 0 THEN
                     CASE
 
                         WHEN @tips_telephone_number_type1 = "" THEN
-                          INSERT INTO patient_visits (patient_id, visit_date, tips_telephone_number_type, tips_telephone_number_type_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                          INSERT INTO patient_visits (patient_id, visit_date, tips_telephone_number_type, tips_telephone_number_type_enc_id)
+                          VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                         ELSE
                           SET @enc_id = encounter_id;
                     END CASE;
@@ -212,6 +244,32 @@ BEGIN
 
               END IF;
 
+      WHEN @purpose_of_call THEN
+
+            SET @purpose_of_call1 = (SELECT COALESCE(purpose_of_call, '') FROM patient_visits WHERE ID = in_visit_id);
+
+            IF in_visit_id = 0 THEN
+                CASE
+
+                    WHEN @purpose_of_call1 = "" THEN
+                      INSERT INTO patient_visits (patient_id, visit_date, purpose_of_call, purpose_of_call_enc_id)
+                      VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                    ELSE
+                      SET @enc_id = encounter_id;
+                END CASE;
+            ELSE
+                CASE
+                    WHEN @purpose_of_call1  = "" THEN
+                      IF in_field_voided = 0 THEN
+                        UPDATE patient_visits SET purpose_of_call = in_field_value_text, purpose_of_call_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                      ELSE
+                        UPDATE patient_visits SET purpose_of_call = NULL, purpose_of_call_enc_id = NULL WHERE patient_visits.id = in_visit_id;
+                      END IF;
+                    ELSE
+                        SET @enc_id = encounter_id;
+                END CASE;
+            END IF;
+
           WHEN @pregnancy_status THEN
 
               SET @pregnancy_status1 = (SELECT COALESCE(pregnancy_status, '') FROM patient_visits WHERE ID = in_visit_id);
@@ -219,7 +277,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @pregnancy_status1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, pregnancy_status_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, pregnancy_status_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -268,7 +327,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @pregnancy_status_delivery_date1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, pregnancy_status_delivery_date_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status_delivery_date, pregnancy_status_delivery_date_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_datetime, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -285,24 +345,27 @@ BEGIN
                   END CASE;
               END IF;
 
-          WHEN @outcome THEN
-
-                              SET @outcome1 = (SELECT COALESCE(outcome, '') FROM patient_visits WHERE ID = in_visit_id);
-
-                              IF in_visit_id = 0 THEN
+          WHEN @general_outcome THEN
+            SET @general_outcome1 = (SELECT COALESCE(general_outcome, '') FROM patient_visits WHERE ID = in_visit_id);
+              IF in_visit_id = 0 THEN
                                   CASE
-                                      WHEN @outcome1 = "" THEN
-                                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, outcome_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                                      WHEN @general_outcome1 = "" THEN
+                                        INSERT INTO patient_visits (patient_id, visit_date, general_outcome, general_outcome_enc_id)
+                                        VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                                       ELSE
                                         SET @enc_id = encounter_id;
                                   END CASE;
                               ELSE
                                   CASE
-                                      WHEN @outcome1  = "" THEN
+                                      WHEN @general_outcome1  = "" THEN
                                         IF in_field_voided = 0 THEN
-                                          UPDATE patient_visits SET outcome = in_field_value_text, outcome_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                                          UPDATE patient_visits
+                                          SET general_outcome = in_field_value_text, general_outcome_enc_id = encounter_id
+                                          WHERE patient_visits.id = in_visit_id;
                                         ELSE
-                                          UPDATE patient_visits SET outcome = NULL, outcome_enc_id = NULL WHERE patient_visits.id = in_visit_id;
+                                          UPDATE patient_visits
+                                          SET general_outcome = NULL, general_outcome_enc_id = NULL
+                                          WHERE patient_visits.id = in_visit_id;
                                         END IF;
                                       ELSE
                                           SET @enc_id = encounter_id;
@@ -316,7 +379,7 @@ BEGIN
                                   IF in_visit_id = 0 THEN
                                       CASE
                                           WHEN @healthy_facility_name1 = "" THEN
-                                            INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, healthy_facility_name_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                                            INSERT INTO patient_visits (patient_id, visit_date, healthy_facility_name, healthy_facility_name_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                                           ELSE
                                             SET @enc_id = encounter_id;
                                       END CASE;
@@ -340,7 +403,7 @@ BEGIN
                                       IF in_visit_id = 0 THEN
                                           CASE
                                               WHEN @reason_for_referral1 = "" THEN
-                                                INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, reason_for_referral_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                                                INSERT INTO patient_visits (patient_id, visit_date, reason_for_referral, reason_for_referral_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                                               ELSE
                                                 SET @enc_id = encounter_id;
                                           END CASE;
@@ -358,28 +421,31 @@ BEGIN
                                       END IF;
 
           WHEN @secondary_outcome THEN
-
-                                          SET @secondary_outcome1 = (SELECT COALESCE(secondary_outcome, '') FROM patient_visits WHERE ID = in_visit_id);
-
-                                          IF in_visit_id = 0 THEN
-                                              CASE
-                                                  WHEN @secondary_outcome1 = "" THEN
-                                                    INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, secondary_outcome_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
-                                                  ELSE
-                                                    SET @enc_id = encounter_id;
-                                              END CASE;
-                                          ELSE
-                                              CASE
-                                                  WHEN @secondary_outcome1  = "" THEN
-                                                    IF in_field_voided = 0 THEN
-                                                      UPDATE patient_visits SET secondary_outcome = in_field_value_text, secondary_outcome_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
-                                                    ELSE
-                                                      UPDATE patient_visits SET secondary_outcome = NULL, secondary_outcome_enc_id = NULL WHERE patient_visits.id = in_visit_id;
-                                                    END IF;
-                                                  ELSE
-                                                      SET @enc_id = encounter_id;
-                                              END CASE;
-                                          END IF;
+            SET @secondary_outcome1 = (SELECT COALESCE(secondary_outcome, '') FROM patient_visits WHERE ID = in_visit_id);
+            IF in_visit_id = 0 THEN
+                CASE
+                  WHEN @secondary_outcome1 = "" THEN
+                    INSERT INTO patient_visits (patient_id, visit_date, secondary_outcome, secondary_outcome_enc_id)
+                    VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                ELSE
+                  SET @enc_id = encounter_id;
+                END CASE;
+            ELSE
+                CASE
+                  WHEN @secondary_outcome1  = "" THEN
+                    IF in_field_voided = 0 THEN
+                      UPDATE patient_visits
+                      SET secondary_outcome = in_field_value_text, secondary_outcome_enc_id = encounter_id
+                      WHERE patient_visits.id = in_visit_id;
+                    ELSE
+                      UPDATE patient_visits
+                      SET secondary_outcome = NULL, secondary_outcome_enc_id = NULL
+                      WHERE patient_visits.id = in_visit_id;
+                    END IF;
+                ELSE
+                  SET @enc_id = encounter_id;
+                END CASE;
+            END IF;
 
           WHEN @tips_telephone_number THEN
 
@@ -388,7 +454,7 @@ BEGIN
                                               IF in_visit_id = 0 THEN
                                                   CASE
                                                       WHEN @tips_telephone_number1 = "" THEN
-                                                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, tips_telephone_number_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                                                        INSERT INTO patient_visits (patient_id, visit_date, tips_telephone_number, tips_telephone_number_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                                                       ELSE
                                                         SET @enc_id = encounter_id;
                                                   END CASE;
@@ -412,7 +478,7 @@ BEGIN
                                                 IF in_visit_id = 0 THEN
                                                     CASE
                                                         WHEN @tips_telephone_number_type1 = "" THEN
-                                                          INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, tips_telephone_number_type_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                                                          INSERT INTO patient_visits (patient_id, visit_date, tips_telephone_number_type, tips_telephone_number_type_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                                                         ELSE
                                                           SET @enc_id = encounter_id;
                                                     END CASE;
@@ -436,7 +502,7 @@ BEGIN
                                                     IF in_visit_id = 0 THEN
                                                         CASE
                                                             WHEN @on_tips_and_reminders_program1 = "" THEN
-                                                              INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, on_tips_and_reminders_program_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                                                              INSERT INTO patient_visits (patient_id, visit_date, on_tips_and_reminders_program, on_tips_and_reminders_program_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                                                             ELSE
                                                               SET @enc_id = encounter_id;
                                                         END CASE;
@@ -460,7 +526,7 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @tips_language_preference1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, tips_language_preference_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, tips_language_preference, tips_language_preference_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -484,7 +550,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @tips_type_of_message1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, tips_type_of_message_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, tips_type_of_message, tips_type_of_message_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -508,7 +575,7 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @tips_type_of_message_content1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, tips_type_of_message_content_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, tips_type_of_message_content, tips_type_of_message_content_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -532,7 +599,7 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @birth_plan_delivery_location1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, birth_plan_delivery_location_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, birth_plan_delivery_location, birth_plan_delivery_location_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -556,7 +623,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @birth_plan_go_to_hospital_date1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, birth_plan_go_to_hospital_date_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, birth_plan_go_to_hospital_date, birth_plan_go_to_hospital_date_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_datetime, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -580,7 +648,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @birth_plan1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, birth_plan_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, birth_plan, birth_plan_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -604,7 +673,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @antenatal_clinic_patient_appointment1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, antenatal_clinic_patient_appointment_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, antenatal_clinic_patient_appointment, antenatal_clinic_patient_appointment_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -628,7 +698,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @last_ANC_visit_date1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, last_ANC_visit_date_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, last_ANC_visit_date, last_ANC_visit_date_enc_id)
+                         VALUES (in_patient_id, in_visit_date, in_field_value_datetime, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -636,7 +707,7 @@ BEGIN
                   CASE
                       WHEN @last_ANC_visit_date1 = ""  THEN
                         IF in_field_voided = 0 THEN
-                          UPDATE patient_visits SET last_ANC_visit_date = in_field_value_text, last_ANC_visit_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                          UPDATE patient_visits SET last_ANC_visit_date = in_field_value_datetime, last_ANC_visit_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
                         ELSE
                           UPDATE patient_visits SET last_ANC_visit_date = NULL, last_ANC_visit_date_enc_id = NULL WHERE patient_visits.id = in_visit_id;
                         END IF;
@@ -652,7 +723,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @next_ANC_visit_date1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, next_ANC_visit_date_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, next_ANC_visit_date, next_ANC_visit_date_enc_id)
+                        VALUES (in_patient_id, in_visit_date, in_field_value_datetime, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -660,7 +732,7 @@ BEGIN
                   CASE
                       WHEN @next_ANC_visit_date1 = ""  THEN
                         IF in_field_voided = 0 THEN
-                          UPDATE patient_visits SET next_ANC_visit_date = in_field_value_text, next_ANC_visit_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                          UPDATE patient_visits SET next_ANC_visit_date = in_field_value_datetime, next_ANC_visit_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
                         ELSE
                           UPDATE patient_visits SET next_ANC_visit_date = NULL, next_ANC_visit_date_enc_id = NULL WHERE patient_visits.id = in_visit_id;
                         END IF;
@@ -724,7 +796,8 @@ BEGIN
               IF in_visit_id = 0 THEN
                   CASE
                       WHEN @baby_delivered_delivery_date1 = "" THEN
-                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, baby_delivered_delivery_date_enc_id) VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
+                        INSERT INTO patient_visits (patient_id, visit_date, pregnancy_status, baby_delivered_delivery_date_enc_id)
+                         VALUES (in_patient_id, in_visit_date, in_field_value_datetime, encounter_id);
                       ELSE
                         SET @enc_id = encounter_id;
                   END CASE;
@@ -732,9 +805,13 @@ BEGIN
                   CASE
                       WHEN @baby_delivered_delivery_date1 = "" THEN
                         IF in_field_voided = 0 THEN
-                          UPDATE patient_visits SET baby_delivered_delivery_date = in_field_value_text, baby_delivered_delivery_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+                          UPDATE patient_visits
+                          SET baby_delivered_delivery_date = in_field_value_datetime, baby_delivered_delivery_date_enc_id = encounter_id
+                          WHERE patient_visits.id = in_visit_id;
                         ELSE
-                          UPDATE patient_visits SET baby_delivered_delivery_date = NULL, baby_delivered_delivery_date_enc_id = NULL WHERE patient_visits.id = in_visit_id;
+                          UPDATE patient_visits
+                          SET baby_delivered_delivery_date = NULL, baby_delivered_delivery_date_enc_id = NULL
+                          WHERE patient_visits.id = in_visit_id;
                         END IF;
                       ELSE
                           SET @enc_id = encounter_id;

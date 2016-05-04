@@ -139,7 +139,7 @@ BEGIN
 
                   SET @next_ANC_visit_date = (SELECT concept_name.concept_id FROM concept_name concept_name
                                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                              WHERE name = "Last ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
+                                              WHERE name = "Next ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
 
                   SET @baby_delivered = (SELECT concept_name.concept_id FROM concept_name concept_name
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id

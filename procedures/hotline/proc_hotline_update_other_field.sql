@@ -34,9 +34,9 @@ BEGIN
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                   WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
 
-  SET @outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
+  SET @general_outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                  WHERE name = "Outcome" AND voided = 0 AND retired = 0 LIMIT 1);
+                  WHERE name = "General Outcome" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @healthy_facility_name = (SELECT concept_name.concept_id FROM concept_name concept_name
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -68,7 +68,7 @@ BEGIN
 
   SET @tips_type_of_message = (SELECT concept_name.concept_id FROM concept_name concept_name
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                               WHERE name = "Type of message" AND voided = 0 AND retired = 0 LIMIT 1);
+                               WHERE name = "Message type" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @tips_type_of_message_content = (SELECT concept_name.concept_id FROM concept_name concept_name
                                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -92,7 +92,7 @@ BEGIN
 
   SET @next_ANC_visit_date = (SELECT concept_name.concept_id FROM concept_name concept_name
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                              WHERE name = "Last ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
+                              WHERE name = "Next ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @baby_delivered = (SELECT concept_name.concept_id FROM concept_name concept_name
                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -382,9 +382,23 @@ BEGIN
                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                      WHERE name = "Phone type" AND voided = 0 AND retired = 0 LIMIT 1);
 
+  SET @purpose_of_call = (SELECT concept_name.concept_id FROM concept_name concept_name
+                              LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                            WHERE name = "Purpose of call" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @last_menstrual_period_date = (SELECT concept_name.concept_id FROM concept_name concept_name
+                            LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                          WHERE name = "Last menstrual period" AND voided = 0 AND retired = 0 LIMIT 1);
+
 	CASE in_field_concept
     When @nearest_health_facility THEN
       UPDATE patient_demographics SET nearest_health_facility = NULL WHERE patient_demographics.patient_id = in_patient_id;
+
+    When @purpose_of_call THEN
+      UPDATE patient_visits SET purpose_of_call = NULL, purpose_of_call_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
+
+    When @purpose_of_call THEN
+      UPDATE patient_visits SET last_menstrual_period_date = NULL, last_menstrual_period_date_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
 
     When @phone_type THEN
       UPDATE patient_visits SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
@@ -402,9 +416,9 @@ BEGIN
       UPDATE patient_visits SET pregnancy_status_delivery_date = NULL, pregnancy_status_delivery_date_enc_id = NULL
       WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.pregnancy_status_delivery_date_enc_id = OLD.encounter_id;
 
-    WHEN @outcome THEN
-      UPDATE patient_visits SET outcome = NULL, outcome_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.outcome_enc_id = OLD.encounter_id;
+    WHEN @general_outcome THEN
+      UPDATE patient_visits SET general_outcome = NULL, general_outcome_enc_id = NULL
+      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.general_outcome_enc_id = OLD.encounter_id;
 
     WHEN @healthy_facility_name THEN
       UPDATE patient_visits SET healthy_facility_name = NULL, healthy_facility_name_enc_id = NULL

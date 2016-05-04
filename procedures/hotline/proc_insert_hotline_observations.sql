@@ -30,10 +30,6 @@ BEGIN
                       	LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                       WHERE name = "Expected due date" AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @pregnancy_due_date = (SELECT concept_name.concept_id FROM concept_name
-                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                    WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
-
     SET @danger_signs = (SELECT concept_name.concept_id FROM concept_name concept_name
                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                           WHERE name = "Danger signs" AND voided = 0 AND retired = 0 LIMIT 1);
@@ -46,9 +42,9 @@ BEGIN
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                WHERE name = "Maternal health info" AND voided = 0 AND retired = 0 LIMIT 1);
 
-    SET @outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
+    SET @general_outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                    WHERE name = "Outcome" AND voided = 0 AND retired = 0 LIMIT 1);
+                    WHERE name = "General outcome" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @healthy_facility_name = (SELECT concept_name.concept_id FROM concept_name concept_name
                                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -68,7 +64,7 @@ BEGIN
 
     SET @tips_telephone_number_type = (SELECT concept_name.concept_id FROM concept_name concept_name
                                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                      WHERE name = "Telephone number type" AND voided = 0 AND retired = 0 LIMIT 1);
+                                      WHERE name = "Phone type" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @on_tips_and_reminders_program = (SELECT concept_name.concept_id FROM concept_name concept_name
                                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -80,7 +76,7 @@ BEGIN
 
     SET @tips_type_of_message = (SELECT concept_name.concept_id FROM concept_name concept_name
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                 WHERE name = "Type of message" AND voided = 0 AND retired = 0 LIMIT 1);
+                                 WHERE name = "Message type" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @tips_type_of_message_content = (SELECT concept_name.concept_id FROM concept_name concept_name
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -104,7 +100,7 @@ BEGIN
 
     SET @next_ANC_visit_date = (SELECT concept_name.concept_id FROM concept_name concept_name
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                WHERE name = "Last ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
+                                WHERE name = "Next ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @baby_delivered = (SELECT concept_name.concept_id FROM concept_name concept_name
                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -126,11 +122,72 @@ BEGIN
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Delivery location" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @nearest_health_facility = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                    WHERE name = "Nearest health facility" AND voided = 0 AND retired = 0 LIMIT 1);
+
+
+    SET @purpose_of_call = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                    WHERE name = "Purpose of call" AND voided = 0 AND retired = 0 LIMIT 1);
+
     SET @maternal_Hsymptoms = (SELECT concept_name.concept_id FROM concept_name concept_name
                                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                         WHERE name = "Maternal health symptoms" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @last_menstrual_period_date = (SELECT concept_name.concept_id FROM concept_name concept_name
+                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                    WHERE name = "Last menstrual period" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @pregnancy_due_date = (SELECT concept_name.concept_id FROM concept_name concept_name
+                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                    WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
+
     CASE field_concept
+      WHEN @pregnancy_due_date THEN
+        CALL proc_pregnancy_due_date(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
+
+      WHEN @last_menstrual_period_date THEN
+        CALL proc_last_menstrual_period_date(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
+
+      WHEN @purpose_of_call THEN
+        CALL proc_purpose_of_call(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
 
       WHEN @call_id THEN
             CALL proc_insert_call_id(
@@ -267,7 +324,7 @@ BEGIN
                 encounter_id
               );
 
-      WHEN @outcome THEN
+      WHEN @general_outcome THEN
               CALL proc_outcome(
                 patient_id,
                 value_date,
