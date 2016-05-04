@@ -22,6 +22,10 @@ BEGIN
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                         WHERE name = "Call Id" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @current_complaints_or_symptoms = (SELECT concept_name.concept_id FROM concept_name concept_name
+                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                       WHERE name = "Current complaints or symptoms" AND voided = 0 AND retired = 0 LIMIT 1);
+
     SET @pregnancy_status = (SELECT concept_name.concept_id FROM concept_name
                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                       WHERE name = "Pregnancy Status" AND voided = 0 AND retired = 0 LIMIT 1);
@@ -144,6 +148,21 @@ BEGIN
                     WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
 
     CASE field_concept
+      WHEN @current_complaints_or_symptoms THEN
+        CALL proc_current_complaints_or_symptoms(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
+
       WHEN @pregnancy_due_date THEN
         CALL proc_pregnancy_due_date(
           patient_id,

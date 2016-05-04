@@ -73,6 +73,54 @@ BEGIN
      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
    WHERE name = "Antenatal care" AND voided = 0 AND retired = 0 LIMIT 1);
 
+  SET @convulsions = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Convulsions" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @dry_or_flaking_skin_extensive_skin_lesions = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Dry or flaking skin/extensive skin lesions" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @symptoms_of_underweight_or_overweight = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Symptoms of underweight or overweight" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @symptoms_of_wasting_loss_of_muscle_fat_visible_ribs = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Symptoms of wasting (loss of muscle, fat, visible ribs)" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @pallor_of_palms_nails = (SELECT concept.concept_id FROM concept_name concept_name
+      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+    WHERE name = "Pallor of palms, nails" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @persistent_fatigue_weakness = (SELECT concept.concept_id FROM concept_name concept_name
+        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+      WHERE name = "Persistent fatigue/weakness" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @not_able_to_eat_or_drink = (SELECT concept.concept_id FROM concept_name concept_name
+            LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+          WHERE name = "Not able to eat or drink" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @mouth_sores_thrush_or_difficulty_swallowing = (SELECT concept.concept_id FROM concept_name concept_name
+          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+        WHERE name = "Mouth sores, thrush or difficulty swallowing" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @severe_dehydration = (SELECT concept.concept_id FROM concept_name concept_name
+        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+      WHERE name = "Severe dehydration" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @difficult_or_rapid_breathing_or_increased_pulse_rate = (SELECT concept.concept_id FROM concept_name concept_name
+      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+    WHERE name = "Difficult or rapid breathing or increased pulse rate" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @hypoglycemia_low_blood_sugar = (SELECT concept.concept_id FROM concept_name concept_name
+      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+    WHERE name = "Hypoglycemia/Low blood sugar" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @dull_dry_thin_or_discolored_hair = (SELECT concept.concept_id FROM concept_name concept_name
+      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+    WHERE name = "Dull, dry, thin or discolored hair" AND voided = 0 AND retired = 0 LIMIT 1);
+
   SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
 
   CASE in_field_value_coded
@@ -431,6 +479,258 @@ BEGIN
             UPDATE patient_visits
             SET visit_date = in_visit_date, antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
             WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @dry_or_flaking_skin_extensive_skin_lesions THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, dry_or_flaking_skin_extensive_skin_lesions, dry_or_flaking_skin_extensive_skin_lesions_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET dry_or_flaking_skin_extensive_skin_lesions= 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  dry_or_flaking_skin_extensive_skin_lesions = 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, dry_or_flaking_skin_extensive_skin_lesions = 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @symptoms_of_underweight_or_overweight  THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, symptoms_of_underweight_or_overweight , symptoms_of_underweight_or_overweight _enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET symptoms_of_underweight_or_overweight = 'Yes', symptoms_of_underweight_or_overweight _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  symptoms_of_underweight_or_overweight  = 'Yes', symptoms_of_underweight_or_overweight _enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, symptoms_of_underweight_or_overweight  = 'Yes', symptoms_of_underweight_or_overweight _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, symptoms_of_wasting_loss_of_muscle_fat_visible_ribs , symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET symptoms_of_wasting_loss_of_muscle_fat_visible_ribs = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @pallor_of_palms_nails THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, pallor_of_palms_nails, pallor_of_palms_nails_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET pallor_of_palms_nails= 'Yes', pallor_of_palms_nails_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  pallor_of_palms_nails = 'Yes', pallor_of_palms_nails_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, pallor_of_palms_nails = 'Yes', pallor_of_palms_nails_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @persistent_fatigue_weakness THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, persistent_fatigue_weakness, persistent_fatigue_weakness_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET persistent_fatigue_weakness= 'Yes', persistent_fatigue_weakness_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  persistent_fatigue_weakness = 'Yes', persistent_fatigue_weakness_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, persistent_fatigue_weakness = 'Yes', persistent_fatigue_weakness_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @not_able_to_eat_or_drink THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, not_able_to_eat_or_drink, not_able_to_eat_or_drink_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET not_able_to_eat_or_drink= 'Yes', not_able_to_eat_or_drink_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  not_able_to_eat_or_drink = 'Yes', not_able_to_eat_or_drink_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, not_able_to_eat_or_drink = 'Yes', not_able_to_eat_or_drink_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @mouth_sores_thrush_or_difficulty_swallowing THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, mouth_sores_thrush_or_difficulty_swallowing, mouth_sores_thrush_or_difficulty_swallowing_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET mouth_sores_thrush_or_difficulty_swallowing= 'Yes', mouth_sores_thrush_or_difficulty_swallowing_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  mouth_sores_thrush_or_difficulty_swallowing = 'Yes', mouth_sores_thrush_or_difficulty_swallowing_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, mouth_sores_thrush_or_difficulty_swallowing = 'Yes', mouth_sores_thrush_or_difficulty_swallowing_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @severe_dehydration THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, severe_dehydration, severe_dehydration_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET severe_dehydration= 'Yes', severe_dehydration_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  severe_dehydration = 'Yes', severe_dehydration_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, severe_dehydration = 'Yes', severe_dehydration_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @difficult_or_rapid_breathing_or_increased_pulse_rate THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, difficult_or_rapid_breathing_or_increased_pulse_rate, difficult_or_rapid_breathing_or_increased_pulse_rate_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET difficult_or_rapid_breathing_or_increased_pulse_rate= 'Yes', difficult_or_rapid_breathing_or_increased_pulse_rate_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  difficult_or_rapid_breathing_or_increased_pulse_rate = 'Yes', difficult_or_rapid_breathing_or_increased_pulse_rate_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, difficult_or_rapid_breathing_or_increased_pulse_rate = 'Yes', difficult_or_rapid_breathing_or_increased_pulse_rate_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @hypoglycemia_low_blood_sugar THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, hypoglycemia_low_blood_sugar, hypoglycemia_low_blood_sugar_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET hypoglycemia_low_blood_sugar= 'Yes', hypoglycemia_low_blood_sugar_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  hypoglycemia_low_blood_sugar = 'Yes', hypoglycemia_low_blood_sugar_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, hypoglycemia_low_blood_sugar = 'Yes', hypoglycemia_low_blood_sugar_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @dull_dry_thin_or_discolored_hair THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, dull_dry_thin_or_discolored_hair, dull_dry_thin_or_discolored_hair_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET dull_dry_thin_or_discolored_hair= 'Yes', dull_dry_thin_or_discolored_hair_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  dull_dry_thin_or_discolored_hair = 'Yes', dull_dry_thin_or_discolored_hair_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, dull_dry_thin_or_discolored_hair = 'Yes', dull_dry_thin_or_discolored_hair_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+    WHEN @convulsions THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, convulsions, convulsions_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET convulsions= 'Yes', convulsions_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits SET visit_date = in_visit_date,  convulsions = 'Yes', convulsions_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits SET visit_date = in_visit_date, convulsions = 'Yes', convulsions_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
       END IF;

@@ -21,13 +21,9 @@ BEGIN
     # Declare and initialise cursor for looping through the table
     DECLARE cur CURSOR FOR SELECT DISTINCT person_id, DATE(obs_datetime) datetime, concept_id, value_coded, value_coded_name_id, value_text , value_numeric, value_datetime, voided
         FROM obs WHERE encounter_id = OLD.encounter_id;
-
     BEGIN
-
         SET @maternal_Hsymptoms = (SELECT encounter_type_id FROM encounter_type
                                    WHERE name = 'MATERNAL HEALTH SYMPTOMS' LIMIT 1);
-
-
     END;
 
     # Open cursor
@@ -38,21 +34,15 @@ BEGIN
 
         # Declare loop for traversing through the records
         read_loop: LOOP
-
             # Get the fields into the variables declared earlier
             FETCH cur INTO var_person_id, var_obs_datetime, var_concept_id, var_value_coded, var_value_coded_name_id, var_value_text , var_field_value_numeric, var_field_value_datetime, var_voided;
-
             # Check if we are done and exit loop if done
             IF done THEN
-
                 LEAVE read_loop;
-
             END IF;
 
             # Not done, process the parameters
-
            IF new.voided = 1 THEN
-
                   SET @call_id = (SELECT concept_name.concept_id FROM concept_name concept_name
                                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                   WHERE name = "Call Id" AND voided = 0 AND retired = 0 LIMIT 1);
