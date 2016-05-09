@@ -495,11 +495,14 @@ BEGIN
         END IF;
       ELSE
         IF in_visit_id = 0 THEN
-          UPDATE patient_visits SET visit_date = in_visit_date,  dry_or_flaking_skin_extensive_skin_lesions = 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id
+          UPDATE patient_visits
+          SET visit_date = in_visit_date,  dry_or_flaking_skin_extensive_skin_lesions = 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id
           WHERE patient_id = in_patient_id;
         ELSE
           IF in_field_voided = 0 THEN
-            UPDATE patient_visits SET visit_date = in_visit_date, dry_or_flaking_skin_extensive_skin_lesions = 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+            UPDATE patient_visits
+            SET visit_date = in_visit_date, dry_or_flaking_skin_extensive_skin_lesions = 'Yes', dry_or_flaking_skin_extensive_skin_lesions_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
       END IF;
@@ -507,20 +510,25 @@ BEGIN
     WHEN @symptoms_of_underweight_or_overweight  THEN
       IF @already_exist = 0 THEN
         IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, symptoms_of_underweight_or_overweight , symptoms_of_underweight_or_overweight _enc_id)
+          INSERT INTO patient_visits(patient_id, visit_date, symptoms_of_underweight_or_overweight , symptoms_of_underweight_or_overweight_enc_id)
           VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
         ELSE
           IF in_field_voided = 0 THEN
-            UPDATE patient_visits SET symptoms_of_underweight_or_overweight = 'Yes', symptoms_of_underweight_or_overweight _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+            UPDATE patient_visits
+            SET symptoms_of_underweight_or_overweight = 'Yes', symptoms_of_underweight_or_overweight_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
       ELSE
         IF in_visit_id = 0 THEN
-          UPDATE patient_visits SET visit_date = in_visit_date,  symptoms_of_underweight_or_overweight  = 'Yes', symptoms_of_underweight_or_overweight _enc_id = encounter_id
+          UPDATE patient_visits
+          SET visit_date = in_visit_date,  symptoms_of_underweight_or_overweight  = 'Yes', symptoms_of_underweight_or_overweight_enc_id = encounter_id
           WHERE patient_id = in_patient_id;
         ELSE
           IF in_field_voided = 0 THEN
-            UPDATE patient_visits SET visit_date = in_visit_date, symptoms_of_underweight_or_overweight  = 'Yes', symptoms_of_underweight_or_overweight _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+            UPDATE patient_visits
+            SET visit_date = in_visit_date, symptoms_of_underweight_or_overweight  = 'Yes', symptoms_of_underweight_or_overweight_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
       END IF;
@@ -528,20 +536,20 @@ BEGIN
     WHEN @symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  THEN
       IF @already_exist = 0 THEN
         IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, symptoms_of_wasting_loss_of_muscle_fat_visible_ribs , symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id)
+          INSERT INTO patient_visits(patient_id, visit_date, symptoms_of_wasting_loss_of_muscle_fat_visible_ribs , symptoms_of_wasting_loss_of_muscle_fat_visible_ribs_enc_id)
           VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
         ELSE
           IF in_field_voided = 0 THEN
-            UPDATE patient_visits SET symptoms_of_wasting_loss_of_muscle_fat_visible_ribs = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+            UPDATE patient_visits SET symptoms_of_wasting_loss_of_muscle_fat_visible_ribs = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
       ELSE
         IF in_visit_id = 0 THEN
-          UPDATE patient_visits SET visit_date = in_visit_date,  symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id = encounter_id
+          UPDATE patient_visits SET visit_date = in_visit_date,  symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs_enc_id = encounter_id
           WHERE patient_id = in_patient_id;
         ELSE
           IF in_field_voided = 0 THEN
-            UPDATE patient_visits SET visit_date = in_visit_date, symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs _enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
+            UPDATE patient_visits SET visit_date = in_visit_date, symptoms_of_wasting_loss_of_muscle_fat_visible_ribs  = 'Yes', symptoms_of_wasting_loss_of_muscle_fat_visible_ribs_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
       END IF;

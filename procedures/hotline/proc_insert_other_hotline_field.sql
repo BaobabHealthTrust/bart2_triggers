@@ -141,6 +141,85 @@ BEGIN
                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                         WHERE name = "Last menstrual period" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET  @fever_of_7_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                     WHERE name = "Fever of 7 days or more" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @diarrhea_for_14_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                            LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                          WHERE name = "Diarrhea for 14 days or more" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @blood_in_stool = (SELECT concept_name.concept_id FROM concept_name concept_name
+                              LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                            WHERE name = "Blood in stool" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @cough_for_21_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                       WHERE name = "Cough for 21 days or more" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @not_eating_or_drinking_anything = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                              LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                              WHERE name = "Not eating or drinking anything" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @red_eye_for_4_days_or_more_with_visual_problems = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                              LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                             WHERE name = "Red eye for 4 days or more with visual problems" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @very_sleepy_or_unconscious = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                        WHERE name = "Very sleepy or unconscious" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @convulsions_sign = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                              WHERE name = "Convulsions sign" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @vomiting_everything = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                 WHERE name = "Vomiting everything" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @visual_problems = (SELECT concept_name.concept_id FROM concept_name concept_name
+                              LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                             WHERE name = "Visual problems" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @cough = (SELECT concept_name.concept_id FROM concept_name concept_name
+                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                   WHERE name = "Cough" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @not_eating = (SELECT concept_name.concept_id FROM concept_name concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Not eating" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @unconscious = (SELECT concept_name.concept_id FROM concept_name concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                         WHERE name = "Unconscious" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @gained_or_lost_weight = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                   WHERE name = "Gained or lost weight" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @severity_of_cough = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                               WHERE name = "Severity of cough" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @severity_of_diarrhea = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                  WHERE name = "Severity of diarrhea" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @severity_of_fever = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                               WHERE name = "Severity of fever" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @severity_of_red_eye = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                 WHERE name = "Severity of red eye" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @red_eye = (SELECT concept_name.concept_id FROM concept_name concept_name
+                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                     WHERE name = "Red eye" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET  @flaky_skin = (SELECT concept_name.concept_id FROM concept_name concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Flaky skin" AND voided = 0 AND retired = 0 LIMIT 1);
 
     IF (in_field_voided = 0) THEN
       CASE in_field_concept
@@ -245,12 +324,9 @@ BEGIN
               END IF;
 
       WHEN @purpose_of_call THEN
-
             SET @purpose_of_call1 = (SELECT COALESCE(purpose_of_call, '') FROM patient_visits WHERE ID = in_visit_id);
-
             IF in_visit_id = 0 THEN
                 CASE
-
                     WHEN @purpose_of_call1 = "" THEN
                       INSERT INTO patient_visits (patient_id, visit_date, purpose_of_call, purpose_of_call_enc_id)
                       VALUES (in_patient_id, in_visit_date, in_field_value_text, encounter_id);
@@ -841,6 +917,621 @@ BEGIN
                           SET @enc_id = encounter_id;
                   END CASE;
               END IF;
+#------------------------------------------------------------------------------------------------------------------------------------------
+            WHEN @fever_of_7_days_or_more  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, fever_of_7_days_or_more, fever_of_7_days_or_more_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET fever_of_7_days_or_more = @value, fever_of_7_days_or_more_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, fever_of_7_days_or_more = @value, fever_of_7_days_or_more_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, fever_of_7_days_or_more = @value, fever_of_7_days_or_more_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @diarrhea_for_14_days_or_more  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, diarrhea_for_14_days_or_more, diarrhea_for_14_days_or_more_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET diarrhea_for_14_days_or_more = @value, diarrhea_for_14_days_or_more_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, diarrhea_for_14_days_or_more = @value, diarrhea_for_14_days_or_more_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, diarrhea_for_14_days_or_more = @value, diarrhea_for_14_days_or_more_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @blood_in_stool  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, blood_in_stool, blood_in_stool_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET blood_in_stool = @value, blood_in_stool_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, blood_in_stool = @value, blood_in_stool_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, blood_in_stool = @value, blood_in_stool_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @cough_for_21_days_or_more  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, cough_for_21_days_or_more, cough_for_21_days_or_more_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET cough_for_21_days_or_more = @value, cough_for_21_days_or_more_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, cough_for_21_days_or_more = @value, cough_for_21_days_or_more_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, cough_for_21_days_or_more = @value, cough_for_21_days_or_more_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @not_eating_or_drinking_anything  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, not_eating_or_drinking_anything, not_eating_or_drinking_anything_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET not_eating_or_drinking_anything = @value, not_eating_or_drinking_anything_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, not_eating_or_drinking_anything = @value, not_eating_or_drinking_anything_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, not_eating_or_drinking_anything = @value, not_eating_or_drinking_anything_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @red_eye_for_4_days_or_more_with_visual_problems  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, red_eye_for_4_days_or_more_with_visual_problems, red_eye_for_4_days_or_more_with_visual_problems_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET red_eye_for_4_days_or_more_with_visual_problems = @value, red_eye_for_4_days_or_more_with_visual_problems_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, red_eye_for_4_days_or_more_with_visual_problems = @value, red_eye_for_4_days_or_more_with_visual_problems_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, red_eye_for_4_days_or_more_with_visual_problems = @value, red_eye_for_4_days_or_more_with_visual_problems_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @very_sleepy_or_unconscious  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, very_sleepy_or_unconscious, very_sleepy_or_unconscious_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET very_sleepy_or_unconscious = @value, very_sleepy_or_unconscious_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, very_sleepy_or_unconscious = @value, very_sleepy_or_unconscious_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, very_sleepy_or_unconscious = @value, very_sleepy_or_unconscious_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @convulsions_sign  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, convulsions_sign, convulsions_sign_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET convulsions_sign = @value, convulsions_sign_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, convulsions_sign = @value, convulsions_sign_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, convulsions_sign = @value, convulsions_sign_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @vomiting_everything  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, vomiting_everything, vomiting_everything_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET vomiting_everything = @value, vomiting_everything_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, vomiting_everything = @value, vomiting_everything_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, vomiting_everything = @value, vomiting_everything_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @visual_problems  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, visual_problems, visual_problems_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visual_problems = @value, visual_problems_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, visual_problems = @value, visual_problems_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, visual_problems = @value, visual_problems_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @cough  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, cough, cough_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET cough = @value, cough_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, cough = @value, cough_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, cough = @value, cough_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @not_eating  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, not_eating, not_eating_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET not_eating = @value, not_eating_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, not_eating = @value, not_eating_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, not_eating = @value, not_eating_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @unconscious  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, unconscious, unconscious_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET unconscious = @value, unconscious_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, unconscious = @value, unconscious_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, unconscious = @value, unconscious_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @gained_or_lost_weight  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, gained_or_lost_weight, gained_or_lost_weight_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET gained_or_lost_weight = @value, gained_or_lost_weight_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, gained_or_lost_weight = @value, gained_or_lost_weight_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, gained_or_lost_weight = @value, gained_or_lost_weight_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @severity_of_cough  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, severity_of_cough, severity_of_cough_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET severity_of_cough = @value, severity_of_cough_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, severity_of_cough = @value, severity_of_cough_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, severity_of_cough = @value, severity_of_cough_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @severity_of_diarrhea  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, severity_of_diarrhea, severity_of_diarrhea_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET severity_of_diarrhea = @value, severity_of_diarrhea_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, severity_of_diarrhea = @value, severity_of_diarrhea_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, severity_of_diarrhea = @value, severity_of_diarrhea_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @severity_of_fever  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, severity_of_fever, severity_of_fever_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET severity_of_fever = @value, severity_of_fever_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, severity_of_fever = @value, severity_of_fever_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, severity_of_fever = @value, severity_of_fever_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @severity_of_fever  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, severity_of_fever, severity_of_fever_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET severity_of_fever = @value, severity_of_fever_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, severity_of_fever = @value, severity_of_fever_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, severity_of_fever = @value, severity_of_fever_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @severity_of_red_eye  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, severity_of_red_eye, severity_of_red_eye_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET severity_of_red_eye = @value, severity_of_red_eye_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, severity_of_red_eye = @value, severity_of_red_eye_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, severity_of_red_eye = @value, severity_of_red_eye_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @red_eye  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, red_eye, red_eye_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET red_eye = @value, red_eye_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, red_eye = @value, red_eye_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, red_eye = @value, red_eye_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+            WHEN @flaky_skin  THEN
+              SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
+              SET @value = COALESCE((SELECT name FROM concept_name WHERE concept_name_id = in_field_value_coded_name_id AND voided = 0), in_field_text);
+
+              IF @already_exist = 0 THEN
+                IF in_visit_id = 0 THEN
+                  INSERT INTO patient_visits(patient_id, visit_date, flaky_skin, flaky_skin_enc_id)
+                  VALUES( in_patient_id, in_visit_date, @value, encounter_id);
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET flaky_skin = @value, flaky_skin_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              ELSE
+                IF in_visit_id = 0 THEN
+                  UPDATE patient_visits
+                  SET visit_date = in_visit_date, flaky_skin = @value, flaky_skin_enc_id = encounter_id
+                  WHERE patient_id = in_patient_id;
+                ELSE
+                  IF in_field_voided = 0 THEN
+                    UPDATE patient_visits
+                    SET visit_date = in_visit_date, flaky_skin = @value, flaky_skin_enc_id = encounter_id
+                    WHERE patient_visits.id = in_visit_id;
+                  END IF;
+                END IF;
+              END IF;
+
+
+
+
+
+
             ELSE
 
               SET @enc_id = encounter_id;

@@ -411,7 +411,166 @@ BEGIN
                                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                                     WHERE name = "Gained or lost weight" AND voided = 0 AND retired = 0 LIMIT 1);
 
+                  SET @fever_of_7_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Fever of 7 days or more" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @diarrhea_for_14_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Diarrhea for 14 days or more" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @blood_in_stool = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Blood in stool" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @cough_for_21_days_or_more = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Cough for 21 days or more" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @not_eating_or_drinking_anything = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Not eating or drinking anything" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @red_eye_for_4_days_or_more_with_visual_problems = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Red eye for 4 days or more with visual problems" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @very_sleepy_or_unconscious = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Very sleepy or unconscious" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @convulsions_sign = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Convulsions sign" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @vomiting_everything = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Vomiting everything" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @visual_problems = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Visual problems" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @cough = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Cough" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @not_eating = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Not eating" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @unconscious = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Unconscious" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @gained_or_lost_weight = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Gained or lost weight" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @severity_of_cough = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Severity of cough" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @severity_of_diarrhea = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Severity of diarrhea" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @severity_of_fever = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Severity of fever" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @severity_of_red_eye = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Severity of red eye" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @red_eye = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Red eye" AND voided = 0 AND retired = 0 LIMIT 1);
+
+                  SET @flaky_skin = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                                      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                                    WHERE name = "Flaky skin" AND voided = 0 AND retired = 0 LIMIT 1);
+
                   CASE var_concept_id
+                    WHEN @flaky_skin THEN
+                      UPDATE patient_visits SET flaky_skin = NULL, flaky_skin_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.flaky_skin_enc_id = OLD.encounter_id;
+
+                    WHEN @red_eye THEN
+                      UPDATE patient_visits SET red_eye = NULL, red_eye_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.red_eye_enc_id = OLD.encounter_id;
+
+                    WHEN @severity_of_red_eye THEN
+                      UPDATE patient_visits SET severity_of_red_eye = NULL, severity_of_red_eye_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.severity_of_red_eye_enc_id = OLD.encounter_id;
+
+                    WHEN @severity_of_fever THEN
+                      UPDATE patient_visits SET severity_of_fever = NULL, severity_of_fever_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.severity_of_fever_enc_id = OLD.encounter_id;
+
+                    WHEN @severity_of_diarrhea THEN
+                      UPDATE patient_visits SET severity_of_diarrhea = NULL, severity_of_diarrhea_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.severity_of_diarrhea_enc_id = OLD.encounter_id;
+
+                    WHEN @severity_of_cough THEN
+                      UPDATE patient_visits SET severity_of_cough = NULL, severity_of_cough_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.severity_of_cough_enc_id = OLD.encounter_id;
+
+                    WHEN @gained_or_lost_weight THEN
+                      UPDATE patient_visits SET gained_or_lost_weight = NULL, gained_or_lost_weight_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.gained_or_lost_weight_enc_id = OLD.encounter_id;
+
+                    WHEN @unconscious THEN
+                      UPDATE patient_visits SET unconscious = NULL, unconscious_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.unconscious_enc_id = OLD.encounter_id;
+
+                    WHEN @not_eating THEN
+                      UPDATE patient_visits SET not_eating = NULL, not_eating_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.not_eating_enc_id = OLD.encounter_id;
+
+                    WHEN @cough THEN
+                      UPDATE patient_visits SET cough = NULL, cough_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.cough_enc_id = OLD.encounter_id;
+
+                    WHEN @visual_problems THEN
+                       UPDATE patient_visits SET visual_problems = NULL, visual_problems_enc_id = NULL
+                       WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.visual_problems_enc_id = OLD.encounter_id;
+
+                    WHEN @vomiting_everything THEN
+                      UPDATE patient_visits SET vomiting_everything = NULL, vomiting_everything_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.vomiting_everything_enc_id = OLD.encounter_id;
+
+                    WHEN @convulsions_sign THEN
+                      UPDATE patient_visits SET convulsions_sign = NULL, convulsions_sign_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.convulsions_sign_enc_id = OLD.encounter_id;
+
+                    WHEN @very_sleepy_or_unconscious THEN
+                      UPDATE patient_visits SET very_sleepy_or_unconscious = NULL, very_sleepy_or_unconscious_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.very_sleepy_or_unconscious_enc_id = OLD.encounter_id;
+
+                    WHEN @red_eye_for_4_days_or_more_with_visual_problems THEN
+                      UPDATE patient_visits SET red_eye_for_4_days_or_more_with_visual_problems = NULL, red_eye_for_4_days_or_more_with_visual_problems_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.red_eye_for_4_days_or_more_with_visual_problems_enc_id = OLD.encounter_id;
+
+                    WHEN @not_eating_or_drinking_anything THEN
+                      UPDATE patient_visits SET not_eating_or_drinking_anything = NULL, not_eating_or_drinking_anything_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.not_eating_or_drinking_anything_enc_id = OLD.encounter_id;
+
+                    WHEN @cough_for_21_days_or_more THEN
+                      UPDATE patient_visits SET cough_for_21_days_or_more = NULL, cough_for_21_days_or_more_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.cough_for_21_days_or_more_enc_id = OLD.encounter_id;
+
+                    WHEN @blood_in_stool THEN
+                      UPDATE patient_visits SET blood_in_stool = NULL, blood_in_stool_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.blood_in_stool_enc_id = OLD.encounter_id;
+
+                    WHEN @diarrhea_for_14_days_or_more THEN
+                      UPDATE patient_visits SET diarrhea_for_14_days_or_more = NULL, diarrhea_for_14_days_or_more_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.diarrhea_for_14_days_or_more_enc_id = OLD.encounter_id;
+
+                    WHEN @fever_of_7_days_or_more THEN
+                      UPDATE patient_visits SET fever_of_7_days_or_more = NULL, fever_of_7_days_or_more_enc_id = NULL
+                      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fever_of_7_days_or_more_enc_id = OLD.encounter_id;
 
                     WHEN @call_id THEN
 						          UPDATE patient_visits SET call_id = NULL, call_id_enc_id = NULL

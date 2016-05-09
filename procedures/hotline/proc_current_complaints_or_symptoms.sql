@@ -56,10 +56,10 @@ BEGIN
   SET @bp_hypertension = (SELECT concept.concept_id FROM concept_name concept_name
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
       WHERE name = "Tb/tuberculosis" AND voided = 0 AND retired = 0 LIMIT 1);
-  aa
+
   SET @child_conditions_interfering_with_breastfeeding = (SELECT concept.concept_id FROM concept_name concept_name
        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-     WHERE name = "Child conditions interfering with breastfeeding" AND voided = 0 AND retired = 0 LIMIT 1);
+     WHERE name = "Conditions interfering with breastfeeding" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @bp_hypertension = (SELECT concept.concept_id FROM concept_name concept_name
         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
