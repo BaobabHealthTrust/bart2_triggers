@@ -17,6 +17,18 @@ CREATE PROCEDURE `proc_health_information`(
 )
 
 BEGIN
+  SET @malaria_sign = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Malaria" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @antenatal_care_sign = (SELECT concept.concept_id FROM concept_name concept_name
+    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+  WHERE name = "Antenatal care" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @anemia_sign = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Anemia" AND voided = 0 AND retired = 0 LIMIT 1);
+
   SET @family_planning = (SELECT concept.concept_id FROM concept_name concept_name
        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
      WHERE name = "Family planning" AND voided = 0 AND retired = 0 LIMIT 1);
@@ -59,7 +71,7 @@ BEGIN
 
   SET @babys_growth = (SELECT concept.concept_id FROM concept_name concept_name
        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-     WHERE name = "Baby's growth" AND voided = 0 AND retired = 0 LIMIT 1);
+     WHERE name = "Baby\'s growth" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @milestones = (SELECT concept.concept_id FROM concept_name concept_name
        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -77,9 +89,148 @@ BEGIN
        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
      WHERE name = "Birth planning - female" AND voided = 0 AND retired = 0 LIMIT 1);
 
+  SET @fits_or_convulsions_sign = (SELECT concept.concept_id FROM concept_name concept_name
+     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+   WHERE name = "Fits or convulsions" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @cervical_cancer = (SELECT concept.concept_id FROM concept_name concept_name
+      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+    WHERE name = "Cervical cancer" AND voided = 0 AND retired = 0 LIMIT 1);
+
   SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
 
   CASE in_field_value_coded
+    WHEN @cervical_cancer THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, cervical_cancer, cervical_cancer_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits
+          SET visit_date = in_visit_date,  cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = in_visit_date, cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+     WHEN @fits_or_convulsions_sign THEN
+       IF @already_exist = 0 THEN
+         IF in_visit_id = 0 THEN
+           INSERT INTO patient_visits(patient_id, visit_date, fits_or_convulsions_sign, fits_or_convulsions_sign_enc_id)
+           VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+         ELSE
+           IF in_field_voided = 0 THEN
+             UPDATE patient_visits
+             SET fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
+             WHERE patient_visits.id = in_visit_id;
+           END IF;
+         END IF;
+       ELSE
+         IF in_visit_id = 0 THEN
+           UPDATE patient_visits
+           SET visit_date = in_visit_date,  fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
+           WHERE patient_id = in_patient_id;
+         ELSE
+           IF in_field_voided = 0 THEN
+             UPDATE patient_visits
+             SET visit_date = in_visit_date, fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
+             WHERE patient_visits.id = in_visit_id;
+           END IF;
+         END IF;
+       END IF;
+
+      WHEN @malaria_sign THEN
+        IF @already_exist = 0 THEN
+          IF in_visit_id = 0 THEN
+            INSERT INTO patient_visits(patient_id, visit_date, malaria_sign, malaria_sign_enc_id)
+            VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+          ELSE
+            IF in_field_voided = 0 THEN
+              UPDATE patient_visits
+              SET malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
+              WHERE patient_visits.id = in_visit_id;
+            END IF;
+          END IF;
+        ELSE
+          IF in_visit_id = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = in_visit_date,  malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
+            WHERE patient_id = in_patient_id;
+          ELSE
+            IF in_field_voided = 0 THEN
+              UPDATE patient_visits
+              SET visit_date = in_visit_date, malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
+              WHERE patient_visits.id = in_visit_id;
+            END IF;
+          END IF;
+        END IF;
+
+    WHEN @antenatal_care_sign THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, antenatal_care_sign, antenatal_care_sign_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits
+          SET visit_date = in_visit_date,  antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = in_visit_date, antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
+
+    WHEN @anemia_sign THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, anemia_sign, anemia_sign_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits
+          SET visit_date = in_visit_date,  anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = in_visit_date, anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
     WHEN @birth_planning_female THEN
       IF @already_exist = 0 THEN
         IF in_visit_id = 0 THEN

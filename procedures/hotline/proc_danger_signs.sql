@@ -121,9 +121,39 @@ BEGIN
       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
     WHERE name = "Dull, dry, thin or discolored hair" AND voided = 0 AND retired = 0 LIMIT 1);
 
+  SET @cervical_cancer = (SELECT concept.concept_id FROM concept_name concept_name
+      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+    WHERE name = "Cervical cancer" AND voided = 0 AND retired = 0 LIMIT 1);
+
   SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
 
   CASE in_field_value_coded
+    WHEN @cervical_cancer THEN
+      IF @already_exist = 0 THEN
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, cervical_cancer, cervical_cancer_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      ELSE
+        IF in_visit_id = 0 THEN
+          UPDATE patient_visits
+          SET visit_date = in_visit_date,  cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+          WHERE patient_id = in_patient_id;
+        ELSE
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = in_visit_date, cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
+      END IF;
+
     WHEN @heavy_vaginal_bleeding_during_pregnancy THEN
       IF @already_exist = 0 THEN
         IF in_visit_id = 0 THEN

@@ -71,7 +71,7 @@ BEGIN
     WHEN @aneamia THEN
       IF @already_exist = 0 THEN
         IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, aneamia, aneamia_enc_id)
+          INSERT INTO patient_visits(patient_id, visit_date, anemia_sign, aneamia_enc_id)
           VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
         ELSE
           IF in_field_voided = 0 THEN

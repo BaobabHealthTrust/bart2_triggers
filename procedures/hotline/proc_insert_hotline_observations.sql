@@ -106,6 +106,14 @@ BEGIN
                                   LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                 WHERE name = "Next ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
 
+    SET @clinic = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                WHERE name = "clinic" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @nearest_health_facility = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                WHERE name = "Nearest health facility" AND voided = 0 AND retired = 0 LIMIT 1);
+
     SET @baby_delivered = (SELECT concept_name.concept_id FROM concept_name concept_name
                             LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                           WHERE name = "Delivered" AND voided = 0 AND retired = 0 LIMIT 1);
@@ -721,6 +729,63 @@ BEGIN
                 field_voided,
                 encounter_id
               );
+
+      WHEN @nearest_health_facility  THEN
+        SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = patient_id), 0);
+
+        IF @already_exist = 0 THEN
+          IF visit_id = 0 THEN
+            INSERT INTO patient_visits(patient_id, visit_date, nearest_health_facility, nearest_health_facility_enc_id)
+            VALUES( patient_id, value_date, field_text, encounter_id);
+          ELSE
+            IF field_voided = 0 THEN
+              UPDATE patient_visits
+              SET nearest_health_facility = field_text, nearest_health_facility_enc_id = encounter_id
+              WHERE patient_visits.id = visit_id;
+            END IF;
+          END IF;
+        ELSE
+          IF visit_id = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = value_date, nearest_health_facility = field_text, nearest_health_facility_enc_id = encounter_id
+            WHERE patient_id = patient_id;
+          ELSE
+            IF field_voided = 0 THEN
+              UPDATE patient_visits
+              SET visit_date = value_date, nearest_health_facility = field_text, nearest_health_facility_enc_id = encounter_id
+              WHERE patient_visits.id = visit_id;
+            END IF;
+          END IF;
+        END IF;
+
+      WHEN @clinic  THEN
+        SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = patient_id), 0);
+
+        IF @already_exist = 0 THEN
+          IF visit_id = 0 THEN
+            INSERT INTO patient_visits(patient_id, visit_date, clinic, clinic_enc_id)
+            VALUES( patient_id, value_date, field_text, encounter_id);
+          ELSE
+            IF field_voided = 0 THEN
+              UPDATE patient_visits
+              SET clinic = field_text, clinic_enc_id = encounter_id
+              WHERE patient_visits.id = visit_id;
+            END IF;
+          END IF;
+        ELSE
+          IF visit_id = 0 THEN
+            UPDATE patient_visits
+            SET visit_date = value_date, clinic = field_text, clinic_enc_id = encounter_id
+            WHERE patient_id = patient_id;
+          ELSE
+            IF field_voided = 0 THEN
+              UPDATE patient_visits
+              SET visit_date = value_date, clinic = field_text, clinic_enc_id = encounter_id
+              WHERE patient_visits.id = visit_id;
+            END IF;
+          END IF;
+        END IF;
+
 
       WHEN @fever_of_7_days_or_more  THEN
         SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = patient_id), 0);

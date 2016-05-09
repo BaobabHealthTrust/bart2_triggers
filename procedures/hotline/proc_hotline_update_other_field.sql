@@ -26,13 +26,17 @@ BEGIN
                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                   WHERE name = "Pregnancy Status" AND voided = 0 AND retired = 0 LIMIT 1);
 
+  SET @pregnancy_due_date = (SELECT concept_name.concept_id FROM concept_name
+                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @last_menstrual_period_date = (SELECT concept_name.concept_id FROM concept_name concept_name
+                          LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Last menstrual period" AND voided = 0 AND retired = 0 LIMIT 1);
+
   SET @estimated_date_of_delivery = (SELECT concept_name.concept_id FROM concept_name
                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                 WHERE name = "Expected due date" AND voided = 0 AND retired = 0 LIMIT 1);
-
-  SET @pregnancy_due_date = (SELECT concept_name.concept_id FROM concept_name
-                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                  WHERE name = "Pregnancy due date" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @general_outcome = (SELECT concept_name.concept_id FROM concept_name concept_name
                     LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -93,6 +97,14 @@ BEGIN
   SET @next_ANC_visit_date = (SELECT concept_name.concept_id FROM concept_name concept_name
                                 LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                               WHERE name = "Next ANC Visit Date" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @clinic = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                WHERE name = "clinic" AND voided = 0 AND retired = 0 LIMIT 1);
+
+  SET @nearest_health_facility = (SELECT concept_name.concept_id FROM concept_name concept_name
+                                  LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                                WHERE name = "Nearest health facility" AND voided = 0 AND retired = 0 LIMIT 1);
 
   SET @baby_delivered = (SELECT concept_name.concept_id FROM concept_name concept_name
                           LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -374,10 +386,6 @@ BEGIN
                                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                                     WHERE name = "Gained or lost weight" AND voided = 0 AND retired = 0 LIMIT 1);
 
-  SET @nearest_health_facility = (SELECT concept_name.concept_id FROM concept_name concept_name
-                                    LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                                  WHERE name = "Nearest health facility" AND voided = 0 AND retired = 0 LIMIT 1);
-
   SET @phone_type = (SELECT concept_name.concept_id FROM concept_name concept_name
                       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                      WHERE name = "Phone type" AND voided = 0 AND retired = 0 LIMIT 1);
@@ -386,375 +394,506 @@ BEGIN
                               LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
                             WHERE name = "Purpose of call" AND voided = 0 AND retired = 0 LIMIT 1);
 
-  SET @last_menstrual_period_date = (SELECT concept_name.concept_id FROM concept_name concept_name
-                            LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
-                          WHERE name = "Last menstrual period" AND voided = 0 AND retired = 0 LIMIT 1);
-
 	CASE in_field_concept
-    When @nearest_health_facility THEN
-      UPDATE patient_demographics SET nearest_health_facility = NULL WHERE patient_demographics.patient_id = in_patient_id;
-
     When @purpose_of_call THEN
-      UPDATE patient_visits SET purpose_of_call = NULL, purpose_of_call_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
+      UPDATE patient_visits
+      SET purpose_of_call = NULL, purpose_of_call_enc_id = NULL
+      WHERE patient_visits.patient_id  = in_patient_id
+      AND patient_visits.purpose_of_call_enc_id = encounter_id;
 
-    When @purpose_of_call THEN
-      UPDATE patient_visits SET last_menstrual_period_date = NULL, last_menstrual_period_date_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
+    When @last_menstrual_period_date THEN
+      UPDATE patient_visits
+      SET last_menstrual_period_date = NULL, last_menstrual_period_date_enc_id = NULL
+      WHERE patient_visits.patient_id  = in_patient_id
+      AND patient_visits.last_menstrual_period_date_enc_id = encounter_id;
 
     When @phone_type THEN
-      UPDATE patient_visits SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL WHERE patient_visits.patient_id  = in_patient_id;
+      UPDATE patient_visits
+      SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL
+      WHERE patient_visits.patient_id  = in_patient_id
+      AND patient_visits.tips_telephone_number_type_enc_id = encounter_id;
 
     WHEN @call_id THEN
-      UPDATE patient_visits SET call_id = NULL, call_id_enc_id = NULL WHERE patient_visits.patient_id = in_patient_id;
+      UPDATE patient_visits
+      SET call_id = NULL, call_id_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.call_id_enc_id = encounter_id;
 
     WHEN @pregnancy_status THEN
-      UPDATE patient_visits SET pregnancy_status = NULL, pregnancy_status_enc_id = NULL WHERE patient_visits.patient_id = in_patient_id;
+      UPDATE patient_visits
+      SET pregnancy_status = NULL, pregnancy_status_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.pregnancy_status_enc_id = encounter_id;
 
-    WHEN @pregnancy_status THEN
-        UPDATE patient_visits SET estimated_date_of_delivery = NULL, estimated_date_of_delivery_enc_id = NULL WHERE patient_visits.patient_id = in_patient_id;
+    WHEN @pregnancy_due_date THEN
+      UPDATE patient_visits
+      SET pregnancy_due_date = NULL, pregnancy_due_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.pregnancy_due_date_enc_id = encounter_id;
+
+    WHEN @last_menstrual_period_date THEN
+      UPDATE patient_visits
+      SET last_menstrual_period_date = NULL, last_menstrual_period_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.last_menstrual_period_date_enc_id = encounter_id;
+
+    WHEN @estimated_date_of_delivery THEN
+        UPDATE patient_visits
+        SET estimated_date_of_delivery = NULL, estimated_date_of_delivery_enc_id = NULL
+        WHERE patient_visits.patient_id = in_patient_id
+        AND patient_visits.estimated_date_of_delivery_enc_id = encounter_id;
 
     WHEN @pregnancy_status_delivery_date THEN
-      UPDATE patient_visits SET pregnancy_status_delivery_date = NULL, pregnancy_status_delivery_date_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.pregnancy_status_delivery_date_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET pregnancy_status_delivery_date = NULL, pregnancy_status_delivery_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.pregnancy_status_delivery_date_enc_id = encounter_id;
 
     WHEN @general_outcome THEN
-      UPDATE patient_visits SET general_outcome = NULL, general_outcome_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.general_outcome_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET general_outcome = NULL, general_outcome_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.general_outcome_enc_id = encounter_id;
 
     WHEN @healthy_facility_name THEN
-      UPDATE patient_visits SET healthy_facility_name = NULL, healthy_facility_name_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.healthy_facility_name_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET healthy_facility_name = NULL, healthy_facility_name_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.healthy_facility_name_enc_id = encounter_id;
 
     WHEN @reason_for_referral THEN
-      UPDATE patient_visits SET reason_for_referral = NULL, reason_for_referral_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.reason_for_referral_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET reason_for_referral = NULL, reason_for_referral_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.reason_for_referral_enc_id = encounter_id;
 
     WHEN @secondary_outcome THEN
-      UPDATE patient_visits SET secondary_outcome = NULL, secondary_outcome_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.secondary_outcome_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET secondary_outcome = NULL, secondary_outcome_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.secondary_outcome_enc_id = encounter_id;
 
     WHEN @tips_telephone_number THEN
-      UPDATE patient_visits SET tips_telephone_number = NULL, tips_telephone_number_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.tips_telephone_number_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET tips_telephone_number = NULL, tips_telephone_number_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.tips_telephone_number_enc_id = encounter_id;
 
     WHEN @tips_telephone_number_type THEN
-      UPDATE patient_visits SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.tips_telephone_number_type_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET tips_telephone_number_type = NULL, tips_telephone_number_type_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.tips_telephone_number_type_enc_id = encounter_id;
 
     WHEN @on_tips_and_reminders_program THEN
-      UPDATE patient_visits SET on_tips_and_reminders_program = NULL, on_tips_and_reminders_program_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.on_tips_and_reminders_program_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET on_tips_and_reminders_program = NULL, on_tips_and_reminders_program_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.on_tips_and_reminders_program_enc_id = encounter_id;
 
     WHEN @tips_language_preference THEN
-      UPDATE patient_visits SET tips_language_preference = NULL, tips_language_preference_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.tips_language_preference_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET tips_language_preference = NULL, tips_language_preference_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.tips_language_preference_enc_id = encounter_id;
 
     WHEN @tips_type_of_message THEN
-      UPDATE patient_visits SET tips_type_of_message = NULL, tips_type_of_message_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.tips_type_of_message_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET tips_type_of_message = NULL, tips_type_of_message_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.tips_type_of_message_enc_id = encounter_id;
 
     WHEN @tips_type_of_message_content THEN
-      UPDATE patient_visits SET tips_type_of_message_content = NULL, tips_type_of_message_content_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.tips_type_of_message_content_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET tips_type_of_message_content = NULL, tips_type_of_message_content_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.tips_type_of_message_content_enc_id = encounter_id;
 
     WHEN @birth_plan_delivery_location THEN
-      UPDATE patient_visits SET birth_plan_delivery_location = NULL, pregnancy_status_delivery_date_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.birth_plan_delivery_location_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET birth_plan_delivery_location = NULL, pregnancy_status_delivery_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.birth_plan_delivery_location_enc_id = encounter_id;
 
     WHEN @birth_plan_go_to_hospital_date THEN
-      UPDATE patient_visits SET birth_plan_go_to_hospital_date = NULL, birth_plan_go_to_hospital_date_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.birth_plan_go_to_hospital_date_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET birth_plan_go_to_hospital_date = NULL, birth_plan_go_to_hospital_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.birth_plan_go_to_hospital_date_enc_id = encounter_id;
 
     WHEN @birth_plan THEN
-      UPDATE patient_visits SET birth_plan = NULL, birth_plan_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.birth_plan_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET birth_plan = NULL, birth_plan_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.birth_plan_enc_id = encounter_id;
 
     WHEN @antenatal_clinic_patient_appointment THEN
-      UPDATE patient_visits SET antenatal_clinic_patient_appointment = NULL, antenatal_clinic_patient_appointment_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.antenatal_clinic_patient_appointment_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET antenatal_clinic_patient_appointment = NULL, antenatal_clinic_patient_appointment_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.antenatal_clinic_patient_appointment_enc_id = encounter_id;
 
     WHEN @last_ANC_visit_date THEN
-      UPDATE patient_visits SET last_ANC_visit_date = NULL, pregnancy_status_delivery_date_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.last_ANC_visit_date_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET last_ANC_visit_date = NULL, pregnancy_status_delivery_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.last_ANC_visit_date_enc_id = encounter_id;
 
     WHEN @next_ANC_visit_date THEN
-      UPDATE patient_visits SET next_ANC_visit_date = NULL, next_ANC_visit_date_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.next_ANC_visit_date_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET next_ANC_visit_date = NULL, next_ANC_visit_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.next_ANC_visit_date_enc_id = encounter_id;
+
+    WHEN @nearest_health_facility THEN
+      UPDATE patient_visits
+      SET nearest_health_facility = NULL, nearest_health_facility_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.nearest_health_facility_enc_id = encounter_id;
+
+    WHEN @clinic THEN
+      UPDATE patient_visits
+      SET clinic = NULL, clinic_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.clinic_enc_id = encounter_id;
 
     WHEN @baby_delivered THEN
-      UPDATE patient_visits SET baby_delivered = NULL, baby_delivered_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.baby_delivered_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET baby_delivered = NULL, baby_delivered_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.baby_delivered_enc_id = encounter_id;
 
     WHEN @baby_delivered_health_facility_name THEN
-      UPDATE patient_visits SET baby_delivered_health_facility_name = NULL, baby_delivered_health_facility_name_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.baby_delivered_health_facility_name_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET baby_delivered_health_facility_name = NULL, baby_delivered_health_facility_name_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.baby_delivered_health_facility_name_enc_id = encounter_id;
 
     WHEN @baby_delivered_delivery_date THEN
-      UPDATE patient_visits SET baby_delivered_delivery_date = NULL, baby_delivered_delivery_date_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.baby_delivered_delivery_date_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET baby_delivered_delivery_date = NULL, baby_delivered_delivery_date_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.baby_delivered_delivery_date_enc_id = encounter_id;
 
     WHEN @baby_delivered_delivery_location THEN
-      UPDATE patient_visits SET baby_delivered_delivery_location = NULL, baby_delivered_delivery_location_enc_id = NULL
-      WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.baby_delivered_delivery_location_enc_id = OLD.encounter_id;
+      UPDATE patient_visits
+      SET baby_delivered_delivery_location = NULL, baby_delivered_delivery_location_enc_id = NULL
+      WHERE patient_visits.patient_id = in_patient_id
+      AND patient_visits.baby_delivered_delivery_location_enc_id = encounter_id;
 
     WHEN @skin_dryness  THEN
-          UPDATE patient_visits SET skin_dryness = NULL, skin_dryness_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.skin_dryness_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET skin_dryness = NULL, skin_dryness_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.skin_dryness_enc_id = encounter_id;
 
     WHEN @fever_of_7_days_or_more THEN
-          UPDATE patient_visits SET fever_of_7_days_or_more = NULL, fever_of_7_days_or_more_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fever_of_7_days_or_more_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET fever_of_7_days_or_more = NULL, fever_of_7_days_or_more_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.fever_of_7_days_or_more_enc_id = encounter_id;
 
     WHEN @diarrhea_for_14_days_or_more THEN
-          UPDATE patient_visits SET diarrhea_for_14_days_or_more = NULL, diarrhea_for_14_days_or_more_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.diarrhea_for_14_days_or_more_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET diarrhea_for_14_days_or_more = NULL, diarrhea_for_14_days_or_more_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.diarrhea_for_14_days_or_more_enc_id = encounter_id;
 
     WHEN @blood_in_stool THEN
-          UPDATE patient_visits SET blood_in_stool = NULL, blood_in_stool_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.blood_in_stool_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET blood_in_stool = NULL, blood_in_stool_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.blood_in_stool_enc_id = encounter_id;
 
     WHEN @cough_for_21_days_or_more THEN
-          UPDATE patient_visits SET cough_for_21_days_or_more = NULL, cough_for_21_days_or_more_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.cough_for_21_days_or_more_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET cough_for_21_days_or_more = NULL, cough_for_21_days_or_more_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.cough_for_21_days_or_more_enc_id = encounter_id;
 
     WHEN @not_eating_or_drinking_anything THEN
-          UPDATE patient_visits SET not_eating_or_drinking_anything = NULL, not_eating_or_drinking_anything_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.not_eating_or_drinking_anything_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET not_eating_or_drinking_anything = NULL, not_eating_or_drinking_anything_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.not_eating_or_drinking_anything_enc_id = encounter_id;
 
     WHEN @red_eye_for_4_days_or_more_with_visual_problems THEN
-          UPDATE patient_visits SET red_eye_for_4_days_or_more_with_visual_problems = NULL, red_eye_for_4_days_or_more_with_visual_problems_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.red_eye_for_4_days_or_more_with_visual_problems_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET red_eye_for_4_days_or_more_with_visual_problems = NULL, red_eye_for_4_days_or_more_with_visual_problems_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.red_eye_for_4_days_or_more_with_visual_problems_enc_id = encounter_id;
 
     WHEN @potential_chest_indrawing THEN
-          UPDATE patient_visits SET potential_chest_indrawing = NULL, potential_chest_indrawing_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.potential_chest_indrawing_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET potential_chest_indrawing = NULL, potential_chest_indrawing_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.potential_chest_indrawing_enc_id = encounter_id;
 
     WHEN @heavy_vaginal_bleeding_during_pregnancy THEN
-          UPDATE patient_visits SET heavy_vaginal_bleeding_during_pregnancy = NULL, heavy_vaginal_bleeding_during_pregnancy_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.heavy_vaginal_bleeding_during_pregnancy_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET heavy_vaginal_bleeding_during_pregnancy = NULL, heavy_vaginal_bleeding_during_pregnancy_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.heavy_vaginal_bleeding_during_pregnancy_enc_id = encounter_id;
 
     WHEN @excessive_postnatal_bleeding THEN
-          UPDATE patient_visits SET excessive_postnatal_bleeding = NULL, excessive_postnatal_bleeding_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.excessive_postnatal_bleeding_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET excessive_postnatal_bleeding = NULL, excessive_postnatal_bleeding_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.excessive_postnatal_bleeding_enc_id = encounter_id;
 
     WHEN @severe_headache THEN
-          UPDATE patient_visits SET severe_headache = NULL, severe_headache_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.severe_headache_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET severe_headache = NULL, severe_headache_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.severe_headache_enc_id = encounter_id;
 
     WHEN @very_sleepy_or_unconscious THEN
-          UPDATE patient_visits SET very_sleepy_or_unconscious = NULL, very_sleepy_or_unconscious_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.very_sleepy_or_unconscious_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET very_sleepy_or_unconscious = NULL, very_sleepy_or_unconscious_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.very_sleepy_or_unconscious_enc_id = encounter_id;
 
     WHEN @convulsions_sign THEN
-          UPDATE patient_visits SET convulsions_sign = NULL, convulsions_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.convulsions_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET convulsions_sign = NULL, convulsions_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.convulsions_sign_enc_id = encounter_id;
 
     WHEN @vomiting_everything THEN
-          UPDATE patient_visits SET vomiting_everything = NULL, vomiting_everything_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.vomiting_everything_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET vomiting_everything = NULL, vomiting_everything_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.vomiting_everything_enc_id = encounter_id;
 
     WHEN @fever_during_pregnancy_sign THEN
-          UPDATE patient_visits SET fever_during_pregnancy_sign = NULL, fever_during_pregnancy_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fever_during_pregnancy_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET fever_during_pregnancy_sign = NULL, fever_during_pregnancy_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.fever_during_pregnancy_sign_enc_id = encounter_id;
 
     WHEN @postnatal_fever_sign THEN
-          UPDATE patient_visits SET postnatal_fever_sign = NULL, postnatal_fever_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.postnatal_fever_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET postnatal_fever_sign = NULL, postnatal_fever_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.postnatal_fever_sign_enc_id = encounter_id;
 
     WHEN @fits_or_convulsions_sign THEN
-          UPDATE patient_visits SET fits_or_convulsions_sign = NULL, fits_or_convulsions_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fits_or_convulsions_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET fits_or_convulsions_sign = NULL, fits_or_convulsions_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.fits_or_convulsions_sign_enc_id = encounter_id;
 
     WHEN @swollen_hands_feet_sign THEN
-          UPDATE patient_visits SET baby_swollen_hands_feet_sign = NULL, baby_swollen_hands_feet_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.baby_swollen_hands_feet_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET baby_swollen_hands_feet_sign = NULL, baby_swollen_hands_feet_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.baby_swollen_hands_feet_sign_enc_id = encounter_id;
 
     WHEN @paleness_of_the_skin_and_tiredness_sign THEN
-          UPDATE patient_visits SET paleness_of_the_skin_and_tiredness_sign = NULL, paleness_of_the_skin_and_tiredness_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.paleness_of_the_skin_and_tiredness_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET paleness_of_the_skin_and_tiredness_sign = NULL, paleness_of_the_skin_and_tiredness_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.paleness_of_the_skin_and_tiredness_sign_enc_id = encounter_id;
 
     WHEN @no_fetal_movements_sign THEN
-          UPDATE patient_visits SET no_fetal_movements_sign = NULL, no_fetal_movements_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.no_fetal_movements_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET no_fetal_movements_sign = NULL, no_fetal_movements_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.no_fetal_movements_sign_enc_id = encounter_id;
 
     WHEN @water_breaks_sign THEN
-          UPDATE patient_visits SET water_breaks_sign = NULL, water_breaks_sign_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.water_breaks_sign_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET water_breaks_sign = NULL, water_breaks_sign_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.water_breaks_sign_enc_id = encounter_id;
 
     WHEN @visual_problems THEN
-          UPDATE patient_visits SET visual_problems = NULL, visual_problems_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.visual_problems_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET visual_problems = NULL, visual_problems_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.visual_problems_enc_id = encounter_id;
 
     WHEN @diarrhea THEN
-          UPDATE patient_visits SET diarrhea = NULL, diarrhea_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.diarrhea_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET diarrhea = NULL, diarrhea_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.diarrhea_enc_id = encounter_id;
 
     WHEN @cough THEN
-          UPDATE patient_visits SET cough = NULL, cough_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.cough_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET cough = NULL, cough_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.cough_enc_id = encounter_id;
 
     WHEN @tachypnea THEN
-          UPDATE patient_visits SET tachypnea = NULL, tachypnea_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.tachypnea_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET tachypnea = NULL, tachypnea_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.tachypnea_enc_id = encounter_id;
 
     WHEN @eye_infection THEN
-          UPDATE patient_visits SET eye_infection = NULL, eye_infection_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.eye_infection_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET eye_infection = NULL, eye_infection_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.eye_infection_enc_id = encounter_id;
 
     WHEN @fever THEN
-          UPDATE patient_visits SET fever = NULL, fever_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fever_enc_id = OLD.encounter_id;
+          UPDATE patient_visits
+          SET fever = NULL, fever_enc_id = NULL
+          WHERE patient_visits.patient_id = in_patient_id
+          AND patient_visits.fever_enc_id = encounter_id;
 
     WHEN @vomiting THEN
           UPDATE patient_visits SET vomiting = NULL, vomiting_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.vomiting_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.vomiting_enc_id = encounter_id;
 
     WHEN @vaginal_bleeding_during_pregnancy THEN
           UPDATE patient_visits SET vaginal_bleeding_during_pregnancy = NULL, vaginal_bleeding_during_pregnancy_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.vaginal_bleeding_during_pregnancy_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.vaginal_bleeding_during_pregnancy_enc_id = encounter_id;
 
     WHEN @postnatal_bleeding THEN
           UPDATE patient_visits SET postnatal_bleeding = NULL, postnatal_bleeding_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.postnatal_bleeding_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.postnatal_bleeding_enc_id = encounter_id;
 
     WHEN @Not_eating THEN
           UPDATE patient_visits SET not_eating = NULL, not_eating_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.not_eating_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.not_eating_enc_id = encounter_id;
 
     WHEN @very_sleepy THEN
           UPDATE patient_visits SET very_sleepy = NULL, very_sleepy_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.very_sleepy_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.very_sleepy_enc_id = encounter_id;
 
     WHEN @unconscious THEN
           UPDATE patient_visits SET unconscious = NULL, unconscious_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.unconscious_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.unconscious_enc_id = encounter_id;
 
     WHEN @convulsions_symptom THEN
           UPDATE patient_visits SET convulsions_symptom = NULL, convulsions_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.convulsions_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.convulsions_symptom_enc_id = encounter_id;
 
     WHEN @fever_during_pregnancy_symptom THEN
           UPDATE patient_visits SET fever_during_pregnancy_symptom = NULL, fever_during_pregnancy_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fever_during_pregnancy_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.fever_during_pregnancy_symptom_enc_id = encounter_id;
 
     WHEN @postnatal_fever_symptom THEN
           UPDATE patient_visits SET postnatal_fever_symptom = NULL, postnatal_fever_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.postnatal_fever_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.postnatal_fever_symptom_enc_id = encounter_id;
 
     WHEN @headaches THEN
           UPDATE patient_visits SET headaches = NULL, headaches_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.headaches_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.headaches_enc_id = encounter_id;
 
     WHEN @fits_or_convulsions_symptom THEN
           UPDATE patient_visits SET fits_or_convulsions_symptom = NULL, fits_or_convulsions_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.fits_or_convulsions_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.fits_or_convulsions_symptom_enc_id = encounter_id;
 
     WHEN @swollen_hands_or_feet_symptom THEN
           UPDATE patient_visits SET swollen_hands_or_feet_symptom = NULL, swollen_hands_or_feet_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.swollen_hands_or_feet_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.swollen_hands_or_feet_symptom_enc_id = encounter_id;
 
     WHEN @paleness_of_the_skin_and_tiredness_symptom THEN
           UPDATE patient_visits SET paleness_of_the_skin_and_tiredness_symptom = NULL, paleness_of_the_skin_and_tiredness_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.paleness_of_the_skin_and_tiredness_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.paleness_of_the_skin_and_tiredness_symptom_enc_id = encounter_id;
 
     WHEN @no_fetal_movements_symptom THEN
           UPDATE patient_visits SET baby_no_fetal_movements_symptom = NULL, no_fetal_movements_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.no_fetal_movements_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.no_fetal_movements_symptom_enc_id = encounter_id;
 
     WHEN @water_breaks_symptom THEN
           UPDATE patient_visits SET water_breaks_symptom = NULL, water_breaks_symptom_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.water_breaks_symptom_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.water_breaks_symptom_enc_id = encounter_id;
 
     WHEN @gained_or_lost_weight THEN
           UPDATE patient_visits SET gained_or_lost_weight = NULL, gained_or_lost_weight_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.gained_or_lost_weight_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.gained_or_lost_weight_enc_id = encounter_id;
 
     WHEN @family_planning THEN
           UPDATE patient_visits SET family_planning = NULL, family_planning_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.family_planning_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.family_planning_enc_id = encounter_id;
 
     WHEN @crying THEN
           UPDATE patient_visits SET crying = NULL, crying_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.crying_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.crying_enc_id = encounter_id;
 
     WHEN @sleeping THEN
           UPDATE patient_visits SET sleeping = NULL, sleeping_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.sleeping_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.sleeping_enc_id = encounter_id;
 
     WHEN @feeding_problems THEN
           UPDATE patient_visits SET feeding_problems = NULL, feeding_problems_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.feeding_problems_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.feeding_problems_enc_id = encounter_id;
 
     WHEN @bowel_movements THEN
           UPDATE patient_visits SET bowel_movements = NULL, bowel_movements_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.bowel_movements_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.bowel_movements_enc_id = encounter_id;
 
     WHEN @skin_infections THEN
           UPDATE patient_visits SET skin_infections = NULL, skin_infections_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.skin_infections_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.skin_infections_enc_id = encounter_id;
 
     WHEN @umbilicus_infection THEN
           UPDATE patient_visits SET umbilicus_infection = NULL, umbilicus_infection_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.umbilicus_infection_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.umbilicus_infection_enc_id = encounter_id;
 
     WHEN @growth_milestones THEN
           UPDATE patient_visits SET growth_milestones = NULL, growth_milestones_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.growth_milestones_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.growth_milestones_enc_id = encounter_id;
 
     WHEN @accessing_healthcare_services THEN
           UPDATE patient_visits SET accessing_healthcare_services = NULL, accessing_healthcare_services_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.accessing_healthcare_services_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.accessing_healthcare_services_enc_id = encounter_id;
 
     WHEN @healthcare_visits THEN
           UPDATE patient_visits SET healthcare_visits = NULL, healthcare_visits_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.healthcare_visits_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.healthcare_visits_enc_id = encounter_id;
 
     WHEN @nutrition THEN
           UPDATE patient_visits SET nutrition = NULL, nutrition_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.nutrition_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.nutrition_enc_id = encounter_id;
 
     WHEN @body_changes THEN
           UPDATE patient_visits SET body_changes = NULL, body_changes_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.body_changes_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.body_changes_enc_id = encounter_id;
 
     WHEN @discomfort THEN
           UPDATE patient_visits SET discomfort = NULL, discomfort_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.discomfort_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.discomfort_enc_id = encounter_id;
 
     WHEN @concerns THEN
           UPDATE patient_visits SET concerns = NULL, concerns_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.concerns_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.concerns_enc_id = encounter_id;
 
     WHEN @emotions THEN
           UPDATE patient_visits SET emotions = NULL, emotions_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.emotions_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.emotions_enc_id = encounter_id;
 
     WHEN @warning_signs THEN
           UPDATE patient_visits SET warning_signs = NULL, warning_signs_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.warning_signs_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.warning_signs_enc_id = encounter_id;
 
     WHEN @routines THEN
           UPDATE patient_visits SET routines = NULL, routines_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.routines_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.routines_enc_id = encounter_id;
 
     WHEN @beliefs THEN
           UPDATE patient_visits SET beliefs = NULL, beliefs_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.beliefs_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.beliefs_enc_id = encounter_id;
 
     WHEN @babys_growth THEN
           UPDATE patient_visits SET babys_growth = NULL, babys_growth_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.babys_growth_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.babys_growth_enc_id = encounter_id;
 
     WHEN @milestones THEN
           UPDATE patient_visits SET milestones = NULL, milestones_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.milestones_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.milestones_enc_id = encounter_id;
 
     WHEN @revention THEN
           UPDATE patient_visits SET revention = NULL, revention_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.revention_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.revention_enc_id = encounter_id;
 
     WHEN @skin_rashes THEN
           UPDATE patient_visits SET skin_rashes = NULL, skin_rashes_enc_id = NULL
-          WHERE patient_visits.patient_id = OLD.patient_id AND patient_visits.skin_rashes_enc_id = OLD.encounter_id;
+          WHERE patient_visits.patient_id = in_patient_id AND patient_visits.skin_rashes_enc_id = encounter_id;
 	ELSE
 		SET @new = in_patient_id;
   END CASE;
