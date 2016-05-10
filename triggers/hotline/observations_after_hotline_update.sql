@@ -24,6 +24,7 @@ BEGIN
        new.value_numeric,
        new.value_datetime,
        new.value_modifier,
+       new.value_complex,
        @visit,
        new.voided,
        new.encounter_id

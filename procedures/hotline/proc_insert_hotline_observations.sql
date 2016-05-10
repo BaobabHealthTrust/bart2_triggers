@@ -12,11 +12,23 @@ CREATE PROCEDURE `proc_insert_observations1`(
     IN field_value_numeric DOUBLE,
     IN field_value_datetime DATETIME,
     IN field_value_modifier VARCHAR(255),
+    IN field_value_complex VARCHAR(255),
     IN visit_id INT,
     IN field_voided INT,
     IN encounter_id INT
 )
 BEGIN
+    SET @food_type = (SELECT concept_name.concept_id FROM concept_name
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Food type" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @meal_type = (SELECT concept_name.concept_id FROM concept_name
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Meal type" AND voided = 0 AND retired = 0 LIMIT 1);
+
+    SET @consumption_method = (SELECT concept_name.concept_id FROM concept_name
+                        LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
+                        WHERE name = "Consumption method" AND voided = 0 AND retired = 0 LIMIT 1);
 
     SET @call_id = (SELECT concept_name.concept_id FROM concept_name
                         LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
@@ -235,6 +247,54 @@ BEGIN
                         WHERE name = "Flaky skin" AND voided = 0 AND retired = 0 LIMIT 1);
 
     CASE field_concept
+      WHEN @food_type THEN
+        CALL proc_food_type(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          field_value_complex,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
+
+      WHEN @meal_type THEN
+        CALL proc_meal_type(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          field_value_complex,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
+
+      WHEN @consumption_method THEN
+        CALL proc_consumption_method(
+          patient_id,
+          value_date,
+          field_concept,
+          field_value_coded,
+          field_value_coded_name_id,
+          field_text,
+          field_value_numeric,
+          field_value_datetime,
+          field_value_complex,
+          visit_id,
+          field_voided,
+          encounter_id
+        );
+
       WHEN @current_complaints_or_symptoms THEN
         CALL proc_current_complaints_or_symptoms(
           patient_id,
