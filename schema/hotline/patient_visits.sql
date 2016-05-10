@@ -295,7 +295,7 @@ CREATE TABLE `patient_visits` (
   `last_menstrual_period_date_enc_id` INT(11) DEFAULT NULL,
   `purpose_of_call_enc_id` INT(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ID_UNIQUE` (`patient_id`)
+  UNIQUE KEY `ID_UNIQUE` (`patient_id`, `visit_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

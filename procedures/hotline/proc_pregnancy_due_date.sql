@@ -17,25 +17,13 @@ CREATE PROCEDURE `proc_pregnancy_due_date`(
 )
 
 BEGIN
-  SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
 
-  IF @already_exist = 0 THEN
-    IF in_visit_id = 0 THEN
-      INSERT INTO patient_visits(patient_id, visit_date, pregnancy_due_date, pregnancy_due_date_enc_id)
-      VALUES(in_patient_id, visit_date, in_field_value_datetime, encounter_id);
-    ELSE
-      IF in_field_voided = 0 THEN
-        UPDATE patient_visits SET pregnancy_due_date= in_field_value_datetime, pregnancy_due_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
-      END IF;
-    END IF;
+  IF in_visit_id = 0 THEN
+    INSERT INTO patient_visits(patient_id, visit_date, pregnancy_due_date, pregnancy_due_date_enc_id)
+    VALUES(in_patient_id, visit_date, in_field_value_datetime, encounter_id);
   ELSE
-    IF in_visit_id = 0 THEN
-      UPDATE patient_visits SET visit_date = in_visit_date, pregnancy_due_date= in_field_value_datetime, pregnancy_due_date_enc_id = encounter_id
-      WHERE patient_id = in_patient_id;
-    ELSE
-      IF in_field_voided = 0 THEN
-        UPDATE patient_visits SET visit_date = in_visit_date, pregnancy_due_date = in_field_value_datetime, pregnancy_due_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
-      END IF;
+    IF in_field_voided = 0 THEN
+      UPDATE patient_visits SET pregnancy_due_date= in_field_value_datetime, pregnancy_due_date_enc_id = encounter_id WHERE patient_visits.id = in_visit_id;
     END IF;
   END IF;
 

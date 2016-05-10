@@ -26,61 +26,31 @@ BEGIN
      LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
    WHERE name = "No" AND voided = 0 AND retired = 0 LIMIT 1);
 
-  SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
-
   CASE in_field_value_coded
-      WHEN @yes THEN
-        IF @already_exist = 0 THEN
-          IF in_visit_id = 0 THEN
-            INSERT INTO patient_visits(patient_id, visit_date, consumption_method, consumption_method_enc_id)
-            VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-          ELSE
-            IF in_field_voided = 0 THEN
-              UPDATE patient_visits
-              SET consumption_method = 'Yes', consumption_method_enc_id = encounter_id
-              WHERE patient_visits.id = in_visit_id;
-            END IF;
-          END IF;
-        ELSE
-          IF in_visit_id = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date,  consumption_method = 'Yes', consumption_method_enc_id = encounter_id
-            WHERE patient_id = in_patient_id;
-          ELSE
-            IF in_field_voided = 0 THEN
-              UPDATE patient_visits
-              SET visit_date = in_visit_date, consumption_method = 'Yes', consumption_method_enc_id = encounter_id
-              WHERE patient_visits.id = in_visit_id;
-            END IF;
-          END IF;
-        END IF;
-
-    WHEN @no THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, consumption_method, consumption_method_enc_id)
-          VALUES(in_patient_id, visit_date, 'No', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET consumption_method = 'No', consumption_method_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+    WHEN @yes THEN
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, consumption_method, consumption_method_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  consumption_method = 'No', consumption_method_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, consumption_method = 'No', consumption_method_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET consumption_method = 'Yes', consumption_method_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
-  ELSE
+
+    WHEN @no THEN
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, consumption_method, consumption_method_enc_id)
+        VALUES(in_patient_id, visit_date, 'No', encounter_id);
+      ELSE
+        IF in_field_voided = 0 THEN
+          UPDATE patient_visits
+          SET consumption_method = 'No', consumption_method_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
+        END IF;
+      END IF;
+    ELSE
     SET @enc_id = (encounter_id);
   END CASE;
 END$$

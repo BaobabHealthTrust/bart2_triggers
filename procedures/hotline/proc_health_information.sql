@@ -97,527 +97,244 @@ BEGIN
       LEFT OUTER JOIN concept ON concept.concept_id = concept_name.concept_id
     WHERE name = "Cervical cancer" AND voided = 0 AND retired = 0 LIMIT 1);
 
-  SET @already_exist = COALESCE((SELECT patient_id FROM patient_visits WHERE patient_visits.patient_id = in_patient_id), 0);
-
   CASE in_field_value_coded
     WHEN @cervical_cancer THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, cervical_cancer, cervical_cancer_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, cervical_cancer, cervical_cancer_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET cervical_cancer = 'Yes', cervical_cancer_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
      WHEN @fits_or_convulsions_sign THEN
-       IF @already_exist = 0 THEN
-         IF in_visit_id = 0 THEN
-           INSERT INTO patient_visits(patient_id, visit_date, fits_or_convulsions_sign, fits_or_convulsions_sign_enc_id)
-           VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, fits_or_convulsions_sign, fits_or_convulsions_sign_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
          ELSE
-           IF in_field_voided = 0 THEN
-             UPDATE patient_visits
-             SET fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
-             WHERE patient_visits.id = in_visit_id;
-           END IF;
-         END IF;
-       ELSE
-         IF in_visit_id = 0 THEN
-           UPDATE patient_visits
-           SET visit_date = in_visit_date,  fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
-           WHERE patient_id = in_patient_id;
-         ELSE
-           IF in_field_voided = 0 THEN
-             UPDATE patient_visits
-             SET visit_date = in_visit_date, fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
-             WHERE patient_visits.id = in_visit_id;
-           END IF;
-         END IF;
-       END IF;
+          IF in_field_voided = 0 THEN
+            UPDATE patient_visits
+            SET fits_or_convulsions_sign = 'Yes', fits_or_convulsions_sign_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
+          END IF;
+        END IF;
 
       WHEN @malaria_sign THEN
-        IF @already_exist = 0 THEN
-          IF in_visit_id = 0 THEN
-            INSERT INTO patient_visits(patient_id, visit_date, malaria_sign, malaria_sign_enc_id)
-            VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-          ELSE
-            IF in_field_voided = 0 THEN
-              UPDATE patient_visits
-              SET malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
-              WHERE patient_visits.id = in_visit_id;
-            END IF;
-          END IF;
+        IF in_visit_id = 0 THEN
+          INSERT INTO patient_visits(patient_id, visit_date, malaria_sign, malaria_sign_enc_id)
+          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
         ELSE
-          IF in_visit_id = 0 THEN
+          IF in_field_voided = 0 THEN
             UPDATE patient_visits
-            SET visit_date = in_visit_date,  malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
-            WHERE patient_id = in_patient_id;
-          ELSE
-            IF in_field_voided = 0 THEN
-              UPDATE patient_visits
-              SET visit_date = in_visit_date, malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
-              WHERE patient_visits.id = in_visit_id;
-            END IF;
+            SET malaria_sign = 'Yes', malaria_sign_enc_id = encounter_id
+            WHERE patient_visits.id = in_visit_id;
           END IF;
         END IF;
 
     WHEN @antenatal_care_sign THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, antenatal_care_sign, antenatal_care_sign_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, antenatal_care_sign, antenatal_care_sign_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET antenatal_care_sign = 'Yes', antenatal_care_sign_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
-
     WHEN @anemia_sign THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, anemia_sign, anemia_sign_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, anemia_sign, anemia_sign_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET anemia_sign = 'Yes', anemia_sign_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @birth_planning_female THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, birth_planning_female, birth_planning_female_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET birth_planning_female = 'Yes', birth_planning_female_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, birth_planning_female, birth_planning_female_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  birth_planning_female = 'Yes', birth_planning_female_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, birth_planning_female = 'Yes', birth_planning_female_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET birth_planning_female = 'Yes', birth_planning_female_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @birth_planning_male THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, birth_planning_male, birth_planning_male_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET birth_planning_male = 'Yes', birth_planning_male_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, birth_planning_male, birth_planning_male_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  birth_planning_male = 'Yes', birth_planning_male_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, birth_planning_male = 'Yes', birth_planning_male_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET birth_planning_male = 'Yes', birth_planning_male_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @prevention THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, prevention, prevention_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET prevention = 'Yes', prevention_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, prevention, prevention_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  prevention = 'Yes', prevention_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, prevention = 'Yes', prevention_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET prevention = 'Yes', prevention_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @milestones THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, milestones, milestones_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET milestones = 'Yes', milestones_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, milestones, milestones_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  milestones = 'Yes', milestones_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, milestones = 'Yes', milestones_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET milestones = 'Yes', milestones_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @babys_growth THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, babys_growth, babys_growth_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET babys_growth = 'Yes', babys_growth_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, babys_growth, babys_growth_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  babys_growth = 'Yes', babys_growth_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, babys_growth = 'Yes', babys_growth_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET babys_growth = 'Yes', babys_growth_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @beliefs THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, beliefs, beliefs_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET beliefs = 'Yes', beliefs_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, beliefs, beliefs_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  beliefs = 'Yes', beliefs_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, beliefs = 'Yes', beliefs_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET beliefs = 'Yes', beliefs_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @routines THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, routines, routines_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET routines = 'Yes', routines_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT NTO patient_visits(patient_id, visit_date, routines, routines_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  routines = 'Yes', routines_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, routines = 'Yes', routines_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET routines = 'Yes', routines_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @warning_signs THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, warning_signs, warning_signs_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET warning_signs = 'Yes', warning_signs_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, warning_signs, warning_signs_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  warning_signs = 'Yes', warning_signs_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, warning_signs = 'Yes', warning_signs_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET warning_signs = 'Yes', warning_signs_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @emotions THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, emotions, emotions_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET emotions = 'Yes', emotions_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, emotions, emotions_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  emotions = 'Yes', emotions_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, emotions = 'Yes', emotions_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET emotions = 'Yes', emotions_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @concerns THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, concerns, concerns_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET concerns = 'Yes', concerns_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, concerns, concerns_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  concerns = 'Yes', concerns_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, concerns = 'Yes', concerns_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET concerns = 'Yes', concerns_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @discomfort THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, discomfort, discomfort_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET discomfort = 'Yes', discomfort_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, discomfort, discomfort_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  discomfort = 'Yes', discomfort_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, discomfort = 'Yes', discomfort_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET discomfort = 'Yes', discomfort_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @body_changes THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, body_changes, body_changes_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET body_changes = 'Yes', body_changes_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, body_changes, body_changes_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  body_changes = 'Yes', body_changes_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, body_changes = 'Yes', body_changes_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET body_changes = 'Yes', body_changes_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @nutrition THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, nutrition, nutrition_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET nutrition = 'Yes', nutrition_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, nutrition, nutrition_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  nutrition = 'Yes', nutrition_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, nutrition = 'Yes', nutrition_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET nutrition = 'Yes', nutrition_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @healthcare_visits THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, healthcare_visits, healthcare_visits_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET healthcare_visits = 'Yes', healthcare_visits_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, healthcare_visits, healthcare_visits_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  healthcare_visits = 'Yes', healthcare_visits_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, healthcare_visits = 'Yes', healthcare_visits_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET healthcare_visits = 'Yes', healthcare_visits_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
 
     WHEN @family_planning THEN
-      IF @already_exist = 0 THEN
-        IF in_visit_id = 0 THEN
-          INSERT INTO patient_visits(patient_id, visit_date, family_planning, family_planning_enc_id)
-          VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET family_planning = 'Yes', family_planning_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
-        END IF;
+      IF in_visit_id = 0 THEN
+        INSERT INTO patient_visits(patient_id, visit_date, family_planning, family_planning_enc_id)
+        VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
-        IF in_visit_id = 0 THEN
+        IF in_field_voided = 0 THEN
           UPDATE patient_visits
-          SET visit_date = in_visit_date,  family_planning = 'Yes', family_planning_enc_id = encounter_id
-          WHERE patient_id = in_patient_id;
-        ELSE
-          IF in_field_voided = 0 THEN
-            UPDATE patient_visits
-            SET visit_date = in_visit_date, family_planning = 'Yes', family_planning_enc_id = encounter_id
-            WHERE patient_visits.id = in_visit_id;
-          END IF;
+          SET family_planning = 'Yes', family_planning_enc_id = encounter_id
+          WHERE patient_visits.id = in_visit_id;
         END IF;
       END IF;
   ELSE
