@@ -232,7 +232,7 @@ BEGIN
 
     WHEN @routines THEN
       IF in_visit_id = 0 THEN
-        INSERT NTO patient_visits(patient_id, visit_date, routines, routines_enc_id)
+        INSERT INTO patient_visits(patient_id, visit_date, routines, routines_enc_id)
         VALUES(in_patient_id, visit_date, 'Yes', encounter_id);
       ELSE
         IF in_field_voided = 0 THEN
