@@ -492,7 +492,7 @@ BEGIN
 
                       WHEN @malawi_ART_side_effects THEN
 
-                          UPDATE flat_table2 SET malawi_ART_side_effects = NULL, malawi_ART_side_effects_enc_id_enc_id = NULL WHERE flat_table2.malawi_ART_side_effects_enc_id = OLD.encounter_id;
+                          UPDATE flat_table2 SET malawi_ART_side_effects = NULL, malawi_ART_side_effects_enc_id = NULL WHERE flat_table2.malawi_ART_side_effects_enc_id = OLD.encounter_id;
 
                       WHEN @appointment_date THEN
 
