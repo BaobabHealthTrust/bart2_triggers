@@ -33,33 +33,25 @@ BEGIN
 
 		  	END IF;
 
-        IF DATE(@pregnant_yes_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@pregnant_yes_v_date) THEN
+        IF DATE(@patient_pregnant_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@patient_pregnant_v_date) THEN
 
-            UPDATE flat_cohort_table SET pregnant_yes = NEW.pregnant_yes,
-                pregnant_yes_v_date = NEW.visit_date WHERE id = @id;
-
-        END IF;
-
-
-        IF DATE(@pregnant_no_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@pregnant_no_v_date) THEN
-
-            UPDATE flat_cohort_table SET pregnant_no = NEW.pregnant_no,
-                pregnant_no_v_date = NEW.visit_date WHERE id = @id;
+            UPDATE flat_cohort_table SET patient_pregnant = NEW.patient_pregnant,
+                patient_pregnant_v_date = NEW.visit_date WHERE id = @id;
 
         END IF;
 
-        IF DATE(@pregnant_unknown_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@pregnant_unknown_v_date) THEN
+--        IF DATE(@patient_pregnant_no_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@patient_pregnant_no_v_date) THEN
 
-            UPDATE flat_cohort_table SET pregnant_unknown = NEW.pregnant_unknown,
-                pregnant_unknown_v_date = NEW.visit_date WHERE id = @id;
+--            UPDATE flat_cohort_table SET pregnant_no = NEW.pregnant_no,
+--                pregnant_no_v_date = NEW.visit_date WHERE id = @id;
 
-        END IF;
+--        END IF;
 
---        IF DATE(@malawi_ART_side_effects_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@malawi_ART_side_effects_v_date) THEN
---
---            UPDATE flat_cohort_table SET malawi_ART_side_effects = NEW.malawi_ART_side_effects,
---                malawi_ART_side_effects_v_date = NEW.visit_date WHERE id = @id;
---
+--        IF DATE(@patient_pregnant_unknown_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@patient_pregnant_unknown_v_date) THEN
+
+--            UPDATE flat_cohort_table SET pregnant_unknown = NEW.pregnant_unknown,
+--                pregnant_unknown_v_date = NEW.visit_date WHERE id = @id;
+
 --        END IF;
 
         IF DATE(@drug_induced_abdominal_pain_v_date) IS NULL OR DATE(NEW.visit_date) >= DATE(@drug_induced_abdominal_pain_v_date) THEN
