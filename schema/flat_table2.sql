@@ -150,6 +150,10 @@ CREATE TABLE `flat_table2` (
   `regimen_category_treatment` varchar(255) DEFAULT NULL,
   `type_of_ARV_regimen_given` varchar(255) DEFAULT NULL,
 
+  `regimen_category_dispensed` varchar(255) DEFAULT NULL,
+  `arv_regimens_received_construct` varchar(255) DEFAULT NULL,
+  `drugs_dispensed` varchar(255) DEFAULT NULL,
+
   `drug_order_id1` varchar(255) DEFAULT NULL,
   `drug_encounter_id1` varchar(255) DEFAULT NULL,
   `drug_start_date1` varchar(255) DEFAULT NULL,
@@ -374,6 +378,9 @@ CREATE TABLE `flat_table2` (
   `regimen_category_enc_id` int(11) DEFAULT NULL,
   `regimen_category_treatment_enc_id` int(11) DEFAULT NULL,
   `type_of_ARV_regimen_given_enc_id` int(11) DEFAULT NULL,
+  `regimen_category_dispensed_enc_id` int(11) DEFAULT NULL,
+  `arv_regimens_received_construct_enc_id` int(11) DEFAULT NULL,
+  `drugs_dispensed_enc_id` int(11) DEFAULT NULL,
   `transfer_out_location_enc_id` int(11) DEFAULT NULL,
   `current_state_enc_id` int(11) DEFAULT NULL,
   `initial_start_date_enc_id` int(11) DEFAULT NULL,
