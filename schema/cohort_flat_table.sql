@@ -17,7 +17,6 @@ CREATE TABLE `flat_cohort_table`(
   `date_art_last_taken` date DEFAULT NULL,
   `taken_art_in_last_two_months` varchar(255) DEFAULT NULL,
   `malawi_art_side_effects` VARCHAR(255) DEFAULT NULL,
-  `malawi_art_side_effects_v_date` DATE DEFAULT NULL,
   `patient_pregnant` varchar(255) DEFAULT NULL,
   `patient_breastfeeding` varchar(255) DEFAULT NULL,
   `drug_induced_abdominal_pain`  varchar(255) DEFAULT NULL,
@@ -92,7 +91,6 @@ CREATE TABLE `flat_cohort_table`(
   `ever_registered_at_art_v_date` DATE DEFAULT NULL,
   `date_art_last_taken_v_date` DATE DEFAULT NULL,
   `taken_art_in_last_two_months_v_date` DATE DEFAULT NULL,
-  `death_date_v_date` DATE DEFAULT NULL,
   `drug_induced_abdominal_pain_v_date` DATE DEFAULT NULL,
   `drug_induced_anorexia_v_date` DATE DEFAULT NULL,
   `drug_induced_diarrhea_v_date` DATE DEFAULT NULL,
@@ -140,7 +138,7 @@ CREATE TABLE `flat_cohort_table`(
   `drug_auto_expire_date4_v_date` DATE DEFAULT NULL,
   `drug_auto_expire_date5_v_date` DATE DEFAULT NULL,
   `patient_pregnant_v_date` DATE DEFAULT NULL,
-  `patient_breastfeeding_yes_v_date` DATE DEFAULT NULL,
+  `patient_breastfeeding_v_date` DATE DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ID_UNIQUE` (`patient_id`)
 
