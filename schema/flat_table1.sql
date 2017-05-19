@@ -74,7 +74,7 @@ CREATE TABLE `flat_table1` (
   `has_transfer_letter` varchar(255) DEFAULT NULL,
   `location_of_art_initialization` varchar(255) DEFAULT NULL,
   `art_start_date_estimation` varchar(255) DEFAULT NULL,
-  `date_started_art` date DEFAULT NULL,
+  `date_started_art` varchar(255) DEFAULT NULL,
   `patient_pregnant` varchar(255) DEFAULT NULL,
   `patient_breastfeeding` varchar(255) DEFAULT NULL,
   `cd4_count_location` varchar(255) DEFAULT NULL,

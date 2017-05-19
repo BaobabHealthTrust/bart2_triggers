@@ -129,7 +129,7 @@ CREATE TABLE `flat_cohort_table`(
   `regimen_category_treatment_v_date` DATE DEFAULT NULL,
   `regimen_category_dispensed_v_date` DATE DEFAULT NULL,
   `type_of_ARV_regimen_given_v_date` DATE DEFAULT NULL,
-  `arv_regimens_received_construct_v_date` DATE DEFAULT NULL,  
+  `arv_regimens_received_construct_v_date` DATE DEFAULT NULL,
   `drug_name1_v_date` DATE DEFAULT NULL,
   `drug_name2_v_date` DATE DEFAULT NULL,
   `drug_name3_v_date` DATE DEFAULT NULL,
