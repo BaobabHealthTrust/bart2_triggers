@@ -68,7 +68,7 @@ CREATE TABLE `flat_table1` (
   `ever_received_art` varchar(255) DEFAULT NULL,
   `send_sms` varchar(255) DEFAULT NULL,
   `agrees_to_followup` varchar(255) DEFAULT NULL,
-  `date_art_last_taken` date DEFAULT NULL,
+  `date_art_last_taken` datetime DEFAULT NULL,
   `taken_art_in_last_two_months` varchar(255) DEFAULT NULL,
   `taken_art_in_last_two_weeks` varchar(255) DEFAULT NULL,
   `last_art_drugs_taken` varchar(255) DEFAULT NULL,
