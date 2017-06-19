@@ -91,7 +91,7 @@ CREATE TABLE `flat_cohort_table`(
   `hiv_program_state_v_date` DATE DEFAULT NULL,
   `hiv_program_start_date_v_date` DATE DEFAULT NULL,
   `current_tb_status_v_date` DATE DEFAULT NULL,
-  `reason_for_starting_v_date` DATE DEFAULT NULL,
+  `reason_for_eligibility_v_date` DATE DEFAULT NULL,
   `who_stage_v_date` DATE DEFAULT NULL,
   `who_stages_criteria_present_v_date` DATE DEFAULT NULL,
   `ever_registered_at_art_clinic_v_date` DATE DEFAULT NULL,
