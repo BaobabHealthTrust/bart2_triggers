@@ -240,8 +240,7 @@ CREATE TABLE `flat_table2` (
   `guardian_present` varchar(255) DEFAULT NULL,
   `appointment_date` Datetime DEFAULT NULL,
 
-  `transfer_within_responsibility_no` varchar(255) DEFAULT NULL,
-  `transfer_within_responsibility_yes` varchar(255) DEFAULT NULL,
+  `transfer_within_responsibility` varchar(255) DEFAULT NULL,
   `reason_for_exiting_from_care` varchar(255) DEFAULT NULL,
   `date_exiting_from_care` varchar(255) DEFAULT NULL,
 
@@ -474,7 +473,6 @@ CREATE TABLE `flat_table2` (
   `current_hiv_program_end_date_enc_id` int(11) DEFAULT NULL,
   `patient_present_enc_id` int(11) DEFAULT NULL,
   `appointment_date_enc_id` int(11) DEFAULT NULL,
-  `transfer_within_responsibility_no_enc_id` int(11) DEFAULT NULL,
   `transfer_within_responsibility_yes_enc_id` int(11) DEFAULT NULL,
   `guardian_present_enc_id` int(11) DEFAULT NULL,
   `reason_for_exiting_from_care_enc_id` int(11) DEFAULT NULL,
