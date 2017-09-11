@@ -15,6 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
 --
 -- Table structure for table `flat_table1`
 --
@@ -81,6 +82,7 @@ CREATE TABLE `flat_table1` (
   `confirmatory_hiv_test_location` varchar(255) DEFAULT NULL,
   `confirmatory_hiv_test_date` varchar(255) DEFAULT NULL,
   `patient_pregnant` varchar(255) DEFAULT NULL,
+  `pregnant_at_initiation` varchar(255) DEFAULT NULL,
   `patient_breastfeeding` varchar(255) DEFAULT NULL,
   `cd4_count_location` varchar(255) DEFAULT NULL,
   `cd4_count` int(11) DEFAULT NULL,
@@ -207,6 +209,7 @@ CREATE TABLE `flat_table1` (
   `confirmatory_hiv_test_location_enc_id` INT(11) DEFAULT NULL,
   `confirmatory_hiv_test_date_enc_id` INT(11) DEFAULT NULL,
   `patient_pregnant_enc_id` INT(11) DEFAULT NULL,
+  `pregnant_at_initiation_enc_id` INT(11) DEFAULT NULL,
   `patient_breastfeeding_enc_id` INT(11) DEFAULT NULL,
   `cd4_count_location_enc_id` INT(11) DEFAULT NULL,
   `cd4_count_enc_id` INT(11) DEFAULT NULL,
@@ -333,6 +336,7 @@ CREATE TABLE `flat_table1` (
   `confirmatory_hiv_test_location_v_date` DATE DEFAULT NULL,
   `confirmatory_hiv_test_date_v_date` DATE DEFAULT NULL,
   `patient_pregnant_v_date` DATE DEFAULT NULL,
+  `pregnant_at_initiation_v_date` DATE DEFAULT NULL,
   `patient_breastfeeding_v_date` DATE DEFAULT NULL,
   `cd4_count_location_v_date` DATE DEFAULT NULL,
   `cd4_count_v_date` DATE DEFAULT NULL,

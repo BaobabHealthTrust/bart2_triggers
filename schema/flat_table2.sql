@@ -272,6 +272,7 @@ CREATE TABLE `flat_table2` (
   `patient_pregnant_v_date` date DEFAULT NULL,
   `patient_breastfeeding_v_date` date DEFAULT NULL,
   `currently_using_family_planning_method_enc_id` int(11) DEFAULT NULL,
+  `family_planning_method`  int(11) DEFAULT NULL,
   `family_planning_method_oral_contraceptive_pills_enc_id` int(11) DEFAULT NULL,
   `family_planning_method_depo_provera_enc_id` int(11) DEFAULT NULL,
   `family_planning_method_intrauterine_contraception_enc_id` int(11) DEFAULT NULL,
