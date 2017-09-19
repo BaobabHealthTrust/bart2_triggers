@@ -43,6 +43,7 @@ CREATE TABLE `flat_cohort_table`(
   `drug_induced_nightmares` varchar(255) DEFAULT NULL,
   `drug_induced_diziness` varchar(255) DEFAULT NULL,
   `drug_induced_psychosis` varchar(255) DEFAULT NULL,
+  `side_effects_present` varchar(255) DEFAULT NULL,
   `side_effects_abdominal_pain` varchar(255) DEFAULT NULL,
   `side_effects_anemia` varchar(255) DEFAULT NULL,
   `side_effects_anorexia` varchar(255) DEFAULT NULL,
