@@ -234,10 +234,12 @@ CREATE TABLE `flat_table2` (
   `what_was_the_patient_adherence_for_this_drug5` varchar(45) DEFAULT NULL,
   `amount_of_remaining_drug5_order_id` int(11) DEFAULT NULL,
   `missed_hiv_drug_construct5` varchar(255) DEFAULT NULL,
+  `patient_art_adherence` varchar(45) DEFAULT NULL,
 
   `current_hiv_program_state` varchar(255) DEFAULT NULL,
   `current_hiv_program_start_date` varchar(255) DEFAULT NULL,
   `current_hiv_program_end_date` varchar(255) DEFAULT NULL,
+  `patient_died_month` VARCHAR(45) DEFAULT NULL,
 
   `patient_present` varchar(255) DEFAULT NULL,
   `guardian_present` varchar(255) DEFAULT NULL,

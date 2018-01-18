@@ -13,6 +13,7 @@ CREATE TABLE `flat_cohort_table`(
   `hiv_program_state` VARCHAR(45) DEFAULT NULL ,
   `hiv_program_start_date` DATE DEFAULT NULL ,
   `patient_re_initiated` VARCHAR(45) DEFAULT NULL,
+  `patient_died_month` VARCHAR(45) DEFAULT NULL,
   `reason_for_starting` VARCHAR(255) DEFAULT NULL ,
   `who_stage` VARCHAR(255) DEFAULT NULL ,
   `who_stages_criteria_present` VARCHAR(255) DEFAULT NULL ,
